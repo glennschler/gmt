@@ -134,15 +134,16 @@
 <li class="toctree-l1"><a class="reference internal" href="std-opts-classic.html">Common Options (Classic Mode)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="modules-classic.html">Modules (Classic Mode)</a></li>
 </ul>
-<p class="caption"><span class="caption-text">Developer Resources</span></p>
+<p class="caption"><span class="caption-text">Development</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/GenericMappingTools/gmt/blob/master/CONTRIBUTING.md">Contributing Guide</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/GenericMappingTools/gmt/blob/master/CODE_OF_CONDUCT.md">Code of Conduct</a></li>
-<li class="toctree-l1"><a class="reference internal" href="rst-cheatsheet.html">reStructuredText Cheatsheet</a></li>
-<li class="toctree-l1"><a class="reference internal" href="debug.html">Debugging GMT</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api.html">GMT C API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="postscriptlight.html">PostScriptLight C API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="devdocs.html">Developer Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devdocs/team.html">Team Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devdocs/rst-cheatsheet.html">reStructuredText Cheatsheet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devdocs/debug.html">Debugging GMT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devdocs/api.html">GMT C API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devdocs/postscriptlight.html">PostScriptLight C API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devdocs/devdocs.html">GMT Enhancement Proposals</a></li>
 </ul>
 
             
@@ -242,7 +243,7 @@
 [ <a class="reference internal" href="#c"><span><strong>-C</strong></span></a></strong>[<strong>+l</strong><em>min</em>][<strong>+u</strong><em>max</em>][<strong>+i</strong>]]
 [ <a class="reference internal" href="#d"><span><strong>-D</strong></span></a></strong>[<em>template</em>[<strong>+o</strong><em>orig</em>]] ]
 [ <a class="reference internal" href="#e"><span><strong>-E</strong></span></a></strong>[<strong>f</strong>|<strong>l</strong>|<strong>m</strong>|<strong>M</strong><em>stride</em>] ]
-[ <a class="reference internal" href="#f"><span><strong>-F</strong></span></a></strong>[<strong>c</strong>|<strong>n</strong>|<strong>r</strong>|<strong>v</strong>][<strong>a</strong>|<strong>f</strong>|<strong>s</strong>|<strong>r</strong>|<em>refpoint</em>] ]
+[ <a class="reference internal" href="#f"><span><strong>-F</strong></span></a></strong>[<strong>c</strong>|<strong>n</strong>|<strong>p</strong>|<strong>v</strong>][<strong>a</strong>|<strong>f</strong>|<strong>s</strong>|<strong>r</strong>|<em>refpoint</em>] ]
 [ <a class="reference internal" href="#i"><span><strong>-I</strong></span></a></strong>[<strong>tsr</strong>] ]
 [ <a class="reference internal" href="#l"><span><strong>-L</strong></span></a></strong> ]
 [ <a class="reference internal" href="#n"><span><strong>-N</strong></span></a></strong><em>col</em>[<strong>+a</strong>|<strong>d</strong>] ]
@@ -336,10 +337,10 @@ use <strong>M</strong> to also include the last record.</p>
 </dd>
 </dl>
 <dl class="simple" id="f">
-<dt><strong>-F</strong>[<strong>c</strong>|<strong>n</strong>|<strong>r</strong>|<strong>v</strong>][<strong>a</strong>|<strong>f</strong>|<strong>s</strong>|<strong>r</strong>|<em>refpoint</em>]</dt><dd><p>Alter the way points are connected (by specifying a <em>scheme</em>) and data are grouped (by specifying a <em>method</em>).
+<dt><strong>-F</strong>[<strong>c</strong>|<strong>n</strong>|<strong>p</strong>|<strong>v</strong>][<strong>a</strong>|<strong>f</strong>|<strong>s</strong>|<strong>r</strong>|<em>refpoint</em>]</dt><dd><p>Alter the way points are connected (by specifying a <em>scheme</em>) and data are grouped (by specifying a <em>method</em>).
 Append one of four line connection schemes:
 <strong>c</strong>: Form continuous line segments for each group [Default].
-<strong>r</strong>: Form line segments from a reference point reset for each group.
+<strong>p</strong>: Form line segments from a reference point reset for each group.
 <strong>n</strong>: Form networks of line segments between all points in each group.
 <strong>v</strong>: Form vector line segments suitable for <a class="reference internal" href="plot.html"><span class="doc">plot</span></a> <strong>-Sv+s</strong>.
 Optionally, append the one of four segmentation methods to define the group:
@@ -350,7 +351,7 @@ reset the group reference point to the first point of each group.
 <strong>s</strong>: Segment headers are honored so each segment is a group; the group
 reference point is reset to the first point of each incoming segment [Default].
 <strong>r</strong>: Same as <strong>s</strong>, but the group reference point is reset after
-each record to the previous point (this method is only available with the <strong>-Fr</strong> scheme).
+each record to the previous point (this method is only available with the <strong>-Fp</strong> scheme).
 Instead of the codes <strong>a</strong>|<strong>f</strong>|<strong>s</strong>|<strong>r</strong> you may append
 the coordinates of a <em>refpoint</em> which will serve as a fixed external
 reference point for all groups.</p>
@@ -435,15 +436,15 @@ the first input record only.</p>
 </dd>
 </dl>
 <dl class="simple">
-<dt><strong>-a</strong>[[<em>col</em>=]<em>name</em>][,<em>…</em>] <a class="reference internal" href="gmt.html#aspatial-full"><span class="std std-ref">(more …)</span></a></dt><dd><p>Set aspatial column associations <em>col</em>=<em>name</em>.</p>
+<dt><strong>-a</strong>[[<em>col</em>=]<em>name</em>[,<em>…</em>]] <a class="reference internal" href="gmt.html#aspatial-full"><span class="std std-ref">(more …)</span></a></dt><dd><p>Set aspatial column associations <em>col</em>=<em>name</em>.</p>
 </dd>
 </dl>
 <dl class="simple">
-<dt><strong>-bi</strong>[<em>ncols</em>][<strong>t</strong>] <a class="reference internal" href="gmt.html#bi-full"><span class="std std-ref">(more …)</span></a></dt><dd><p>Select native binary format for primary input.  </p>
+<dt><strong>-bi</strong><em>record</em>[<strong>+b</strong>|<strong>l</strong>] <a class="reference internal" href="gmt.html#bi-full"><span class="std std-ref">(more …)</span></a></dt><dd><p>Select native binary format for primary table input.  </p>
 </dd>
 </dl>
 <dl class="simple">
-<dt><strong>-bo</strong>[<em>ncols</em>][<em>type</em>] <a class="reference internal" href="gmt.html#bo-full"><span class="std std-ref">(more …)</span></a></dt><dd><p>Select native binary output. [Default is same as input].</p>
+<dt><strong>-bo</strong><em>record</em>[<strong>+b</strong>|<strong>l</strong>] <a class="reference internal" href="gmt.html#bo-full"><span class="std std-ref">(more …)</span></a></dt><dd><p>Select native binary format for table output. [Default is same as input].</p>
 </dd>
 </dl>
 <dl class="simple">
@@ -459,7 +460,7 @@ the first input record only.</p>
 </dd>
 </dl>
 <dl class="simple">
-<dt><strong>-g</strong>[<strong>a</strong>]<strong>x</strong>|<strong>y</strong>|<strong>d</strong>|<strong>X</strong>|<strong>Y</strong>|<strong>D</strong>|[<em>col</em>]<strong>z</strong><em>gap</em>[<strong>+n</strong>|<strong>p</strong>]  <a class="reference internal" href="gmt.html#g-full"><span class="std std-ref">(more …)</span></a></dt><dd><p>Determine data gaps and line breaks.  </p>
+<dt><strong>-g</strong><strong>x</strong>|<strong>y</strong>|<strong>z</strong>|<strong>d</strong>|<strong>X</strong>|<strong>Y</strong>|<strong>D</strong><em>gap</em>[<strong>u</strong>][<strong>+a</strong>][<strong>+c</strong><em>col</em>][<strong>+n</strong>|<strong>p</strong>]  <a class="reference internal" href="gmt.html#g-full"><span class="std std-ref">(more …)</span></a></dt><dd><p>Determine data gaps and line breaks.  </p>
 </dd>
 </dl>
 <dl class="simple">
@@ -467,7 +468,7 @@ the first input record only.</p>
 </dd>
 </dl>
 <dl class="simple">
-<dt><strong>-i</strong><em>cols</em>[<strong>+l</strong>][<strong>+d</strong><em>divide</em>][<strong>+s</strong><em>scale</em>][<strong>+o</strong><em>offset</em>][,<em>…</em>][,<strong>t</strong>[<em>word</em>]] <a class="reference internal" href="gmt.html#icols-full"><span class="std std-ref">(more …)</span></a></dt><dd><p>Select input columns and transformations (0 is first column, <strong>t</strong> is trailing text, append <em>word</em> to read one word only).</p>
+<dt><strong>-i</strong><em>cols</em>[<strong>+l</strong>][<strong>+d</strong><em>divisor</em>][<strong>+s</strong><em>scale</em>|<strong>d</strong>|<strong>k</strong>][<strong>+o</strong><em>offset</em>][,<em>…</em>][,<strong>t</strong>[<em>word</em>]] <a class="reference internal" href="gmt.html#icols-full"><span class="std std-ref">(more …)</span></a></dt><dd><p>Select input columns and transformations (0 is first column, <strong>t</strong> is trailing text, append <em>word</em> to read one word only).</p>
 </dd>
 </dl>
 <dl class="simple">
@@ -475,11 +476,11 @@ the first input record only.</p>
 </dd>
 </dl>
 <dl class="simple">
-<dt><strong>-q</strong>[<strong>i</strong>|<strong>o</strong>][~]<em>rows</em>[<strong>+c</strong><em>col</em>][<strong>+a</strong>|<strong>f</strong>|<strong>s</strong>] <a class="reference internal" href="gmt.html#q-full"><span class="std std-ref">(more …)</span></a></dt><dd><p>Select input or output rows or data range(s) [all].</p>
+<dt><strong>-q</strong>[<strong>i</strong>|<strong>o</strong>][~]<em>rows</em>|<em>limits</em>[<strong>+c</strong><em>col</em>][<strong>+a</strong>|<strong>f</strong>|<strong>s</strong>] <a class="reference internal" href="gmt.html#q-full"><span class="std std-ref">(more …)</span></a></dt><dd><p>Select input or output rows or data limit(s) [all].</p>
 </dd>
 </dl>
 <dl class="simple">
-<dt><strong>-s</strong>[<em>cols</em>][<strong>+a</strong>][<strong>+r</strong>] <a class="reference internal" href="gmt.html#s-full"><span class="std std-ref">(more …)</span></a></dt><dd><p>Set handling of NaN records.</p>
+<dt><strong>-s</strong>[<em>cols</em>][<strong>+a</strong>][<strong>+r</strong>] <a class="reference internal" href="gmt.html#s-full"><span class="std std-ref">(more …)</span></a></dt><dd><p>Set handling of NaN records for output.</p>
 </dd>
 </dl>
 <dl class="simple">
@@ -594,7 +595,7 @@ where we reset the origin of the sequential numbering from 0 to 5000, try:</p>
 </pre></div>
 </div>
 <p>To only read rows 100-200 and 500-600 from file junk.txt, try:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gmt convert junk.txt -q100-200,500-600 &lt; subset.txt
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gmt convert junk.txt -q100-200,500-600 &gt; subset.txt
 </pre></div>
 </div>
 <p>To get all rows except those bad ones between rows 1000-2000, try:</p>
@@ -626,7 +627,7 @@ where we reset the origin of the sequential numbering from 0 to 5000, try:</p>
     <p>
         &#169; Copyright 2021, The GMT Team..
       <span class="lastupdated">
-        Last updated on Jun 06, 2021.
+        Last updated on Sep 30, 2021.
       </span>
 
     </p>

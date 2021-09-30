@@ -134,15 +134,16 @@
 <li class="toctree-l1"><a class="reference internal" href="std-opts-classic.html">Common Options (Classic Mode)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="modules-classic.html">Modules (Classic Mode)</a></li>
 </ul>
-<p class="caption"><span class="caption-text">Developer Resources</span></p>
+<p class="caption"><span class="caption-text">Development</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/GenericMappingTools/gmt/blob/master/CONTRIBUTING.md">Contributing Guide</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/GenericMappingTools/gmt/blob/master/CODE_OF_CONDUCT.md">Code of Conduct</a></li>
-<li class="toctree-l1"><a class="reference internal" href="rst-cheatsheet.html">reStructuredText Cheatsheet</a></li>
-<li class="toctree-l1"><a class="reference internal" href="debug.html">Debugging GMT</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api.html">GMT C API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="postscriptlight.html">PostScriptLight C API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="devdocs.html">Developer Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devdocs/team.html">Team Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devdocs/rst-cheatsheet.html">reStructuredText Cheatsheet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devdocs/debug.html">Debugging GMT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devdocs/api.html">GMT C API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devdocs/postscriptlight.html">PostScriptLight C API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devdocs/devdocs.html">GMT Enhancement Proposals</a></li>
 </ul>
 
             
@@ -440,7 +441,7 @@ repeats its range.</p>
 </dd>
 </dl>
 <dl class="simple">
-<dt><strong>-bi</strong>[<em>ncols</em>][<strong>t</strong>] <a class="reference internal" href="gmt.html#bi-full"><span class="std std-ref">(more …)</span></a></dt><dd><p>Select native binary format for primary input. [Default is the required number of columns given the chosen settings].</p>
+<dt><strong>-bi</strong><em>record</em>[<strong>+b</strong>|<strong>l</strong>] <a class="reference internal" href="gmt.html#bi-full"><span class="std std-ref">(more …)</span></a></dt><dd><p>Select native binary format for primary table input. [Default is the required number of columns given the chosen settings].</p>
 </dd>
 </dl>
 <dl class="simple">
@@ -452,7 +453,7 @@ repeats its range.</p>
 </dd>
 </dl>
 <dl class="simple">
-<dt><strong>-i</strong><em>cols</em>[<strong>+l</strong>][<strong>+d</strong><em>divide</em>][<strong>+s</strong><em>scale</em>][<strong>+o</strong><em>offset</em>][,<em>…</em>][,<strong>t</strong>[<em>word</em>]] <a class="reference internal" href="gmt.html#icols-full"><span class="std std-ref">(more …)</span></a></dt><dd><p>Select input columns and transformations (0 is first column, <strong>t</strong> is trailing text, append <em>word</em> to read one word only).</p>
+<dt><strong>-i</strong><em>cols</em>[<strong>+l</strong>][<strong>+d</strong><em>divisor</em>][<strong>+s</strong><em>scale</em>|<strong>d</strong>|<strong>k</strong>][<strong>+o</strong><em>offset</em>][,<em>…</em>][,<strong>t</strong>[<em>word</em>]] <a class="reference internal" href="gmt.html#icols-full"><span class="std std-ref">(more …)</span></a></dt><dd><p>Select input columns and transformations (0 is first column, <strong>t</strong> is trailing text, append <em>word</em> to read one word only).</p>
 </dd>
 </dl>
 <dl class="simple">
@@ -543,7 +544,7 @@ instead.  To have exactly 5 equidistant values from 3.44 and 7.82, run:</p>
 <span class="m">7</span>.82
 </pre></div>
 </div>
-<p>Alternatively, give a <em>file</em> with output coordinates in the first column,
+<p>Alternatively, let <em>inc</em> be a <em>file</em> with output coordinates in the first column,
 or provide a comma-separated <em>list</em> of specific coordinates, such as the first 6
 Fibonacci numbers:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gmt math -o0 -T0,1,1,2,3,5 <span class="nv">T</span> <span class="o">=</span>
@@ -555,8 +556,10 @@ Fibonacci numbers:</p>
 <span class="m">5</span>
 </pre></div>
 </div>
+<p><strong>Note</strong>: Should you need to ensure that the coordinates are unique and sorted (in case the
+<em>file</em> or <em>list</em> are not sorted or have duplicates) then supply the <strong>+u</strong> modifier.</p>
 <p>If you only want a <em>single</em> value
-then you must append a comma to distinguish the list from the setting of <em>inc</em>.</p>
+then you must append a comma to distinguish the list from the setting of an increment.</p>
 <p>If the module allows you to set up an absolute time series, append a valid time unit from the list
 <strong>y</strong>ear, m<strong>o</strong>nth, <strong>d</strong>ay, <strong>h</strong>our, <strong>m</strong>inute, and <strong>s</strong>econd
 to the given increment; add <strong>+t</strong> to ensure time column (or use <strong>-f</strong>). <strong>Note</strong>: The internal time
@@ -745,7 +748,7 @@ directory.</p>
     <p>
         &#169; Copyright 2021, The GMT Team..
       <span class="lastupdated">
-        Last updated on Jun 06, 2021.
+        Last updated on Sep 30, 2021.
       </span>
 
     </p>

@@ -161,15 +161,16 @@
 <li class="toctree-l1"><a class="reference internal" href="../std-opts-classic.html">Common Options (Classic Mode)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../modules-classic.html">Modules (Classic Mode)</a></li>
 </ul>
-<p class="caption"><span class="caption-text">Developer Resources</span></p>
+<p class="caption"><span class="caption-text">Development</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/GenericMappingTools/gmt/blob/master/CONTRIBUTING.md">Contributing Guide</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/GenericMappingTools/gmt/blob/master/CODE_OF_CONDUCT.md">Code of Conduct</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../rst-cheatsheet.html">reStructuredText Cheatsheet</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../debug.html">Debugging GMT</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api.html">GMT C API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../postscriptlight.html">PostScriptLight C API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../devdocs.html">Developer Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../devdocs/team.html">Team Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../devdocs/rst-cheatsheet.html">reStructuredText Cheatsheet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../devdocs/debug.html">Debugging GMT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../devdocs/api.html">GMT C API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../devdocs/postscriptlight.html">PostScriptLight C API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../devdocs/devdocs.html">GMT Enhancement Proposals</a></li>
 </ul>
 
             
@@ -433,9 +434,10 @@ gmt basemap -R0/6.1/0/<span class="nv">$y0</span> -Jx1i -B0
 <span class="nv">y2</span><span class="o">=</span><span class="m">0</span>.25
 <span class="k">while</span> <span class="o">[</span> <span class="nv">$i</span> -le <span class="nv">$n2</span> <span class="o">]</span>
 <span class="k">do</span>
-	<span class="nv">j</span><span class="o">=</span><span class="k">$(</span>expr <span class="nv">$i</span> + <span class="m">1</span><span class="k">)</span>
-	<span class="nv">left</span><span class="o">=</span><span class="k">$(</span>sed -n <span class="si">${</span><span class="nv">j</span><span class="si">}</span>p tt.lis<span class="k">)</span>
-	<span class="nv">right</span><span class="o">=</span><span class="k">$(</span>sed -n <span class="si">${</span><span class="nv">i</span><span class="si">}</span>p tt.lis<span class="k">)</span>
+	<span class="nv">j1</span><span class="o">=</span><span class="k">$(</span>expr <span class="nv">$n2</span> - <span class="nv">$i</span><span class="k">)</span>
+	<span class="nv">j2</span><span class="o">=</span><span class="k">$(</span>expr <span class="nv">$n2</span> - <span class="nv">$i</span> + <span class="m">1</span><span class="k">)</span>
+	<span class="nv">left</span><span class="o">=</span><span class="k">$(</span>sed -n <span class="si">${</span><span class="nv">j1</span><span class="si">}</span>p tt.lis<span class="k">)</span>
+	<span class="nv">right</span><span class="o">=</span><span class="k">$(</span>sed -n <span class="si">${</span><span class="nv">j2</span><span class="si">}</span>p tt.lis<span class="k">)</span>
 	gmt makecpt -H -C<span class="nv">$left</span> -T-1/1 &gt; tt.left.cpt
 	gmt makecpt -H -C<span class="nv">$left</span> -T-1/1/0.25 &gt; tt.left2.cpt
 	gmt makecpt -H -C<span class="nv">$right</span> -T-1/1 &gt; tt.right.cpt
@@ -513,9 +515,10 @@ gmt basemap -R0/6.1/0/<span class="nv">$y0</span> -Jx1i -B0
 <span class="nv">y2</span><span class="o">=</span><span class="m">0</span>.25
 <span class="k">while</span> <span class="o">[</span> <span class="nv">$i</span> -le <span class="nv">$n2</span> <span class="o">]</span>
 <span class="k">do</span>
-	<span class="nv">j</span><span class="o">=</span><span class="k">$(</span>expr <span class="nv">$i</span> + <span class="m">1</span><span class="k">)</span>
-	<span class="nv">left</span><span class="o">=</span><span class="k">$(</span>sed -n <span class="si">${</span><span class="nv">j</span><span class="si">}</span>p tt.lis<span class="k">)</span>
-	<span class="nv">right</span><span class="o">=</span><span class="k">$(</span>sed -n <span class="si">${</span><span class="nv">i</span><span class="si">}</span>p tt.lis<span class="k">)</span>
+	<span class="nv">j1</span><span class="o">=</span><span class="k">$(</span>expr <span class="nv">$n2</span> - <span class="nv">$i</span><span class="k">)</span>
+	<span class="nv">j2</span><span class="o">=</span><span class="k">$(</span>expr <span class="nv">$n2</span> - <span class="nv">$i</span> + <span class="m">1</span><span class="k">)</span>
+	<span class="nv">left</span><span class="o">=</span><span class="k">$(</span>sed -n <span class="si">${</span><span class="nv">j1</span><span class="si">}</span>p tt.lis<span class="k">)</span>
+	<span class="nv">right</span><span class="o">=</span><span class="k">$(</span>sed -n <span class="si">${</span><span class="nv">j2</span><span class="si">}</span>p tt.lis<span class="k">)</span>
 	gmt makecpt -H -C<span class="nv">$left</span> &gt; tt.left.cpt
 	gmt makecpt -H -C<span class="nv">$left</span> -T-1/1/0.25 &gt; tt.left2.cpt
 	gmt makecpt -H -C<span class="nv">$right</span> &gt; tt.right.cpt
@@ -581,25 +584,22 @@ gmt basemap -R0/6.1/0/<span class="nv">$y0</span> -Jx1i -B0
 <span class="nv">y2</span><span class="o">=</span><span class="m">0</span>.25
 <span class="k">while</span> <span class="o">[</span> <span class="nv">$i</span> -le <span class="nv">$n2</span> <span class="o">]</span>
 <span class="k">do</span>
-	<span class="nv">j</span><span class="o">=</span><span class="k">$(</span>expr <span class="nv">$i</span> + <span class="m">1</span><span class="k">)</span>
-	<span class="nv">left</span><span class="o">=</span><span class="k">$(</span>sed -n <span class="si">${</span><span class="nv">j</span><span class="si">}</span>p tt.lis<span class="k">)</span>
-	<span class="nv">right</span><span class="o">=</span><span class="k">$(</span>sed -n <span class="si">${</span><span class="nv">i</span><span class="si">}</span>p tt.lis<span class="k">)</span>
-	<span class="k">if</span> <span class="o">[</span> -n <span class="s2">&quot;</span><span class="nv">$left</span><span class="s2">&quot;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
-	  gmt makecpt -H -C<span class="nv">$left</span> -T-1/1 &gt; tt.left.cpt
-	  gmt makecpt -H -C<span class="nv">$left</span> -T-1/1/0.25 &gt; tt.left2.cpt
+	<span class="nv">j2</span><span class="o">=</span><span class="k">$(</span>expr <span class="nv">$n2</span> + <span class="m">1</span> - <span class="nv">$i</span><span class="k">)</span>
+	<span class="nv">right</span><span class="o">=</span><span class="k">$(</span>sed -n <span class="si">${</span><span class="nv">j2</span><span class="si">}</span>p tt.lis<span class="k">)</span>
+	<span class="k">if</span> <span class="o">[[</span> <span class="si">${</span><span class="nv">i</span><span class="si">}</span> &lt; <span class="si">${</span><span class="nv">n2</span><span class="si">}</span> <span class="o">]]</span><span class="p">;</span> <span class="k">then</span>
+		<span class="nv">j1</span><span class="o">=</span><span class="k">$(</span>expr <span class="nv">$n2</span> - <span class="nv">$i</span><span class="k">)</span>
+		<span class="nv">left</span><span class="o">=</span><span class="k">$(</span>sed -n <span class="si">${</span><span class="nv">j1</span><span class="si">}</span>p tt.lis<span class="k">)</span>
+		gmt makecpt -H -C<span class="nv">$left</span> -T-1/1 &gt; tt.left.cpt
+		gmt makecpt -H -C<span class="nv">$left</span> -T-1/1/0.25 &gt; tt.left2.cpt
+		gmt colorbar -Dx1.55i/<span class="si">${</span><span class="nv">y</span><span class="si">}</span>i+w2.70i/0.125i+h+jTC -Ctt.left.cpt -B0
+		gmt colorbar -Dx1.55i/<span class="si">${</span><span class="nv">y2</span><span class="si">}</span>i+w2.70i/0.125i+h+jTC -Ctt.left2.cpt -Bf0.25
+		<span class="nb">echo</span> <span class="m">1</span>.55 <span class="nv">$y</span> <span class="si">${</span><span class="nv">left</span><span class="si">}</span> <span class="p">|</span> gmt text -D0/0.05i -F+f9p,Helvetica-Bold+jBC
+		<span class="nv">x</span><span class="o">=</span><span class="m">4</span>.50
+	<span class="k">else</span>
+		<span class="nv">x</span><span class="o">=</span><span class="m">3</span>.05
 	<span class="k">fi</span>
 	gmt makecpt -H -C<span class="nv">$right</span> -T-1/1 &gt; tt.right.cpt
 	gmt makecpt -H -C<span class="nv">$right</span> -T-1/1/0.25 &gt; tt.right2.cpt
-	<span class="k">if</span> <span class="o">[</span> -n <span class="s2">&quot;</span><span class="nv">$left</span><span class="s2">&quot;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
-	  gmt colorbar -Dx1.55i/<span class="si">${</span><span class="nv">y</span><span class="si">}</span>i+w2.70i/0.125i+h+jTC -Ctt.left.cpt -B0
-	  gmt colorbar -Dx1.55i/<span class="si">${</span><span class="nv">y2</span><span class="si">}</span>i+w2.70i/0.125i+h+jTC -Ctt.left2.cpt -Bf0.25
-		<span class="nb">echo</span> <span class="m">1</span>.55 <span class="nv">$y</span> <span class="si">${</span><span class="nv">left</span><span class="si">}</span> <span class="p">|</span> gmt text -D0/0.05i -F+f9p,Helvetica-Bold+jBC
-	<span class="k">fi</span>
-	<span class="k">if</span> <span class="o">[</span> <span class="si">${</span><span class="nv">i</span><span class="si">}</span> <span class="o">==</span> <span class="si">${</span><span class="nv">n2</span><span class="si">}</span> <span class="o">]</span> <span class="o">&amp;&amp;</span> <span class="o">[</span> <span class="k">$((</span>i <span class="o">%</span> <span class="m">2</span><span class="k">))</span> !<span class="o">=</span> <span class="m">0</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
-		<span class="nv">x</span><span class="o">=</span><span class="m">3</span>.05
-	<span class="k">else</span>
-		<span class="nv">x</span><span class="o">=</span><span class="m">4</span>.50
-	<span class="k">fi</span>
 	gmt colorbar -Dx<span class="si">${</span><span class="nv">x</span><span class="si">}</span>i/<span class="si">${</span><span class="nv">y</span><span class="si">}</span>i+w2.70i/0.125i+h+jTC -Ctt.right.cpt -B0
 	gmt colorbar -Dx<span class="si">${</span><span class="nv">x</span><span class="si">}</span>i/<span class="si">${</span><span class="nv">y2</span><span class="si">}</span>i+w2.70i/0.125i+h+jTC -Ctt.right2.cpt -Bf0.25
 	<span class="nb">echo</span> <span class="si">${</span><span class="nv">x</span><span class="si">}</span> <span class="nv">$y</span> <span class="si">${</span><span class="nv">right</span><span class="si">}</span> <span class="p">|</span> gmt text -D0/0.05i -F+f9p,Helvetica-Bold+jBC
@@ -699,7 +699,7 @@ gmt end show
     <p>
         &#169; Copyright 2021, The GMT Team..
       <span class="lastupdated">
-        Last updated on Jun 06, 2021.
+        Last updated on Sep 30, 2021.
       </span>
 
     </p>

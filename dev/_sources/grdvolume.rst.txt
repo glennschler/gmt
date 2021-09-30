@@ -12,7 +12,7 @@ Synopsis
 
 .. include:: common_SYN_OPTs.rst_
 
-**gmt grdvolume** *grdfile* [ |-C|\ *cval* or |-C|\ *low/high/delta* or |-C|\ **r**\ *low/high* or |-C|\ **r**\ *cval*]
+**gmt grdvolume** *ingrid* [ |-C|\ *cval* or |-C|\ *low/high/delta* or |-C|\ **r**\ *low/high* or |-C|\ **r**\ *cval*]
 [ |-D| ]
 [ |-L|\ *base* ]
 [ |SYN_OPT-R| ]
@@ -21,6 +21,7 @@ Synopsis
 [ |SYN_OPT-V| ]
 [ |-Z|\ *fact*\ [/*shift*] ]
 [ |SYN_OPT-f| ]
+[ |SYN_OPT-h| ]
 [ |SYN_OPT-o| ]
 [ |SYN_OPT--| ]
 
@@ -40,8 +41,10 @@ in designing an Optimal Robust Separator [*Wessel*, 1998].
 Required Arguments
 ------------------
 
-*grdfile*
-    The name of the input 2-D binary grid file. (See :ref:`Grid File Formats <grd_inout_full>`).
+.. |Add_ingrid| replace:: 2-D gridded data file.
+.. include:: explain_grd_inout.rst_
+    :start-after: ingrid-syntax-begins
+    :end-before: ingrid-syntax-ends
 
 Optional Arguments
 ------------------
@@ -105,6 +108,9 @@ Optional Arguments
 
 .. |Add_-f| unicode:: 0x20 .. just an invisible code
 .. include:: explain_-f.rst_
+
+.. |Add_-h| unicode:: 0x20 .. just an invisible code
+.. include:: explain_-h.rst_
 
 .. include:: explain_-ocols.rst_
 

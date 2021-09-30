@@ -135,15 +135,16 @@
 <li class="toctree-l1"><a class="reference internal" href="std-opts-classic.html">Common Options (Classic Mode)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="modules-classic.html">Modules (Classic Mode)</a></li>
 </ul>
-<p class="caption"><span class="caption-text">Developer Resources</span></p>
+<p class="caption"><span class="caption-text">Development</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/GenericMappingTools/gmt/blob/master/CONTRIBUTING.md">Contributing Guide</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/GenericMappingTools/gmt/blob/master/CODE_OF_CONDUCT.md">Code of Conduct</a></li>
-<li class="toctree-l1"><a class="reference internal" href="rst-cheatsheet.html">reStructuredText Cheatsheet</a></li>
-<li class="toctree-l1"><a class="reference internal" href="debug.html">Debugging GMT</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api.html">GMT C API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="postscriptlight.html">PostScriptLight C API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="devdocs.html">Developer Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devdocs/team.html">Team Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devdocs/rst-cheatsheet.html">reStructuredText Cheatsheet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devdocs/debug.html">Debugging GMT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devdocs/api.html">GMT C API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devdocs/postscriptlight.html">PostScriptLight C API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devdocs/devdocs.html">GMT Enhancement Proposals</a></li>
 </ul>
 
             
@@ -238,10 +239,12 @@
 <p>Fit trend surface to grids and compute residuals</p>
 <div class="section" id="synopsis">
 <h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a></h2>
-<p><strong>gmt grdtrend</strong> <em>grdfile</em> <a class="reference internal" href="#n"><span><strong>-N</strong></span></a></strong><em>n_model</em>[<strong>+r</strong>]
+<p><strong>gmt grdtrend</strong> <em>ingrid</em> <a class="reference internal" href="#n"><span><strong>-N</strong></span></a></strong><em>n_model</em>[<strong>+r</strong>][<strong>+x</strong>|<strong>y</strong>]
 [ <a class="reference internal" href="#d"><span><strong>-D</strong></span></a></strong><em>diff.nc</em> ]
 [ <a class="reference internal" href="#r"><span><strong>-R</strong></span></a></strong><em>region</em> ]
-[ <a class="reference internal" href="#t"><span><strong>-T</strong></span></a></strong><em>trend.nc</em> ] [ <a class="reference internal" href="#w"><span><strong>-W</strong></span></a></strong><em>weight.nc</em> ]
+[ <a class="reference internal" href="#t"><span><strong>-T</strong></span></a></strong><em>trend.nc</em> ]
+[ <a class="reference internal" href="#v"><span><strong>-V</strong></span></a></strong>[<em>level</em>] ]
+[ <a class="reference internal" href="#w"><span><strong>-W</strong></span></a></strong><em>weight.nc</em> ]
 [ <strong>--PAR</strong>=<em>value</em> ]</p>
 <p><strong>Note:</strong> No space is allowed between the option flag and the associated arguments.</p>
 </div>
@@ -259,20 +262,41 @@ perform a robust fit. In this case, the program will iteratively
 reweight the data based on a robust scale estimate, in order to converge
 to a solution insensitive to outliers. This may be handy when separating
 a “regional” field from a “residual” which should have non-zero mean,
-such as a local mountain on a regional surface.</p>
+such as a local mountain on a regional surface.
+Optionally, you may choose to fit a trend that varies only along the <em>x</em> or <em>y</em> axis,
+in which case you select an <em>n_model</em> from 1 (constant) to 4 (cubic).</p>
 <p>If data file has values set to NaN, these will be ignored during
 fitting; if output files are written, these will also have NaN in the
 same locations.</p>
 </div>
 <div class="section" id="required-arguments">
 <h2>Required Arguments<a class="headerlink" href="#required-arguments" title="Permalink to this headline">¶</a></h2>
-<dl class="simple">
-<dt><em>grdfile</em></dt><dd><p>The name of a 2-D binary grid file. (See <a class="reference internal" href="gmt.html#grd-inout-full"><span class="std std-ref">Grid File Formats</span></a>).</p>
-</dd>
-</dl>
+<p><em>ingrid</em>[=<em>ID</em>|?<em>varname</em>][<strong>+b</strong><em>band</em>][<strong>+d</strong><em>divisor</em>][<strong>+n</strong><em>invalid</em>]
+[<strong>+o</strong><em>offset</em>][<strong>+s</strong><em>scale</em>]</p>
+<blockquote>
+<div><p>2-D gridded data file. Optionally, append =<em>ID</em> for reading a specific file
+format [Default is =<em>nf</em>] or ?<em>varname</em> for a specific netCDF variable
+[Default is the first 2-D grid found by GMT]
+(<a class="reference internal" href="gmt.html#grd-inout-full"><span class="std std-ref">See full description</span></a>). The following modifiers are
+supported:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><strong>+b</strong> - Select a <em>band</em> (for images only) [Default is 0].</p></li>
+<li><p><strong>+d</strong> - Divide data values by the given <em>divisor</em> [Default is 1].</p></li>
+<li><p><strong>+n</strong> - Replace data values matching <em>invalid</em> with NaN.</p></li>
+<li><p><strong>+o</strong> - Offset data values by the given <em>offset</em> [Default is 0].</p></li>
+<li><p><strong>+s</strong> - Scale data values by the given <em>scale</em> [Default is 1].</p></li>
+</ul>
+</div></blockquote>
+<p>Note: Any offset is added after any scaling.</p>
+</div></blockquote>
 <dl class="simple" id="n">
-<dt><strong>-N</strong><em>n_model</em>[<strong>+r</strong>]</dt><dd><p><em>n_model</em> sets the number of model parameters to fit.
-Append <strong>+r</strong> for robust fit.</p>
+<dt><strong>-N</strong><em>n_model</em>[<strong>+r</strong>][<strong>+x</strong>|<strong>y</strong>]</dt><dd><p><em>n_model</em> sets the ID of the highest model parameters to fit.
+Append <strong>+r</strong> for robust fit.  As an option, append either <strong>+x</strong> or <strong>+y</strong> to only
+fit a model that depends on <em>x</em> or <em>y</em> terms, respectively. This means we either fit
+<span class="math notranslate nohighlight">\(m_1 + m_2x + m_3x^2 + m_4x^3\)</span> or <span class="math notranslate nohighlight">\(m_1 + m_2y + m_3y^2 + m_4y^3\)</span>.
+Note that <em>n_model</em> may only be 1-4 for the one-dimensional fits but may be 1-10
+for the two-dimensional surface fits.</p>
 </dd>
 </dl>
 </div>
@@ -322,7 +346,7 @@ basis functions are built from Legendre polynomials. These have a
 numerical advantage in the form of the matrix which must be inverted and
 allow more accurate solutions. NOTE: The model parameters listed with
 <strong>-V</strong> are Legendre polynomial coefficients; they are not numerically
-equivalent to the m#s in the equation described above. The description
+equivalent to the <span class="math notranslate nohighlight">\(m_j\)</span> in the equation described above. The description
 above is to allow the user to match <strong>-N</strong> with the order of the
 polynomial surface. See <a class="reference internal" href="grdmath.html"><span class="doc">grdmath</span></a> if you need to evaluate the trend
 using the reported coefficients.</p>
@@ -373,7 +397,7 @@ and reporting the progress:</p>
     <p>
         &#169; Copyright 2021, The GMT Team..
       <span class="lastupdated">
-        Last updated on Jun 06, 2021.
+        Last updated on Sep 30, 2021.
       </span>
 
     </p>

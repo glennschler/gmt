@@ -134,15 +134,16 @@
 <li class="toctree-l1"><a class="reference internal" href="std-opts-classic.html">Common Options (Classic Mode)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="modules-classic.html">Modules (Classic Mode)</a></li>
 </ul>
-<p class="caption"><span class="caption-text">Developer Resources</span></p>
+<p class="caption"><span class="caption-text">Development</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/GenericMappingTools/gmt/blob/master/CONTRIBUTING.md">Contributing Guide</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/GenericMappingTools/gmt/blob/master/CODE_OF_CONDUCT.md">Code of Conduct</a></li>
-<li class="toctree-l1"><a class="reference internal" href="rst-cheatsheet.html">reStructuredText Cheatsheet</a></li>
-<li class="toctree-l1"><a class="reference internal" href="debug.html">Debugging GMT</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api.html">GMT C API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="postscriptlight.html">PostScriptLight C API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="devdocs.html">Developer Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devdocs/team.html">Team Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devdocs/rst-cheatsheet.html">reStructuredText Cheatsheet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devdocs/debug.html">Debugging GMT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devdocs/api.html">GMT C API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devdocs/postscriptlight.html">PostScriptLight C API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devdocs/devdocs.html">GMT Enhancement Proposals</a></li>
 </ul>
 
             
@@ -241,7 +242,7 @@
 [ <a class="reference internal" href="#a"><span><strong>-A</strong></span></a></strong><em>min_area</em>[/<em>min_level</em>/<em>max_level</em>][<strong>+a</strong>[<strong>g</strong>|<strong>i</strong>][<strong>s</strong>|<strong>S</strong>]][<strong>+l</strong>|<strong>r</strong>][<strong>+p</strong><em>percent</em>] ]
 [ <a class="reference internal" href="#c"><span><strong>-C</strong></span></a></strong><em>pointfile</em>|<em>lon</em>/<em>lat</em><strong>+d</strong><em>dist</em> ]
 [ <a class="reference internal" href="#d"><span><strong>-D</strong></span></a></strong><em>resolution</em>[<strong>+f</strong>] ]
-[ <a class="reference internal" href="#e"><span><strong>-E</strong></span></a></strong>[<strong>fn</strong>] ]
+[ <a class="reference internal" href="#e"><span><strong>-E</strong></span></a></strong>[<strong>f</strong>][<strong>n</strong>] ]
 [ <a class="reference internal" href="#f"><span><strong>-F</strong></span></a></strong><em>polygonfile</em> ]
 [ <a class="reference internal" href="#g"><span><strong>-G</strong></span></a></strong><em>gridmask</em> ]
 [ <a class="reference internal" href="#i"><span><strong>-I</strong></span></a></strong>[<strong>cfglrsz</strong>] ]
@@ -251,6 +252,7 @@
 [ <a class="reference internal" href="#r"><span><strong>-R</strong></span></a></strong><em>region</em> ]
 [ <a class="reference internal" href="#z"><span><strong>-Z</strong></span></a></strong><em>min</em>[/<em>max</em>][<strong>+a</strong>][<strong>+c</strong><em>col</em>][<strong>+i</strong>] ]
 [ <a class="reference internal" href="#v"><span><strong>-V</strong></span></a></strong>[<em>level</em>] ]
+[ <strong>-a</strong><a class="reference internal" href="gmt.html#aspatial-full"><span class="std std-ref">flags</span></a> ]
 [ <strong>-b</strong><a class="reference internal" href="gmt.html#bi-full"><span class="std std-ref">binary</span></a> ]
 [ <strong>-d</strong><a class="reference internal" href="gmt.html#d-full"><span class="std std-ref">nodata</span></a> ]
 [ <strong>-e</strong><a class="reference internal" href="gmt.html#e-full"><span class="std std-ref">regexp</span></a> ]
@@ -260,6 +262,7 @@
 [ <strong>-i</strong><a class="reference internal" href="gmt.html#icols-full"><span class="std std-ref">flags</span></a> ]
 [ <strong>-o</strong><a class="reference internal" href="gmt.html#ocols-full"><span class="std std-ref">flags</span></a> ]
 [ <strong>-q</strong><a class="reference internal" href="gmt.html#q-full"><span class="std std-ref">flags</span></a> ]
+[ <strong>-s</strong><a class="reference internal" href="gmt.html#s-full"><span class="std std-ref">flags</span></a> ]
 [ <strong>-w</strong><a class="reference internal" href="gmt.html#w-full"><span class="std std-ref">flags</span></a> ]
 [ <strong>-:</strong>[<strong>i</strong>|<strong>o</strong>] ]
 [ <strong>--PAR</strong>=<em>value</em> ]</p>
@@ -273,7 +276,7 @@ selected based on whether or not they are 1) inside a rectangular region (<stron
 <em>dist</em> km of any point in <em>pointfile</em>, 3) within <em>dist</em> km of any line in <em>linefile</em>, 4) inside one of the
 polygons in the <em>polygonfile</em>, 5) inside geographical features (based on coastlines), 6) has z-values
 within a given range, or 7) inside bins of a grid mask whose nodes are non-zero. The sense of the tests can
-be reversed for each of these 6 criteria by using the <strong>-I</strong> option. See option <strong>-:</strong> on how to read
+be reversed for each of these 7 criteria by using the <strong>-I</strong> option. See option <strong>-:</strong> on how to read
 (y,x) or (latitude,longitude) files (this option affects all module input data).  <strong>Note</strong>: If no projection
 information is used then you must supply <strong>-fg</strong> to tell <strong>select</strong> that your data are geographical.</p>
 </div>
@@ -332,7 +335,7 @@ inside [or outside] when a different resolution is selected.</p>
 </dd>
 </dl>
 <dl class="simple" id="e">
-<dt><strong>-E</strong>[<strong>fn</strong>]</dt><dd><p>Specify how points exactly on a polygon boundary should be
+<dt><strong>-E</strong>[<strong>f</strong>][<strong>n</strong>]</dt><dd><p>Specify how points exactly on a polygon boundary should be
 considered. By default, such points are considered to be inside the
 polygon. Append <strong>f</strong> and/or <strong>n</strong> to change this behavior for the
 <strong>-F</strong> and/or <strong>-N</strong> options, respectively, so that boundary points are
@@ -352,16 +355,18 @@ ASCII regardless of whether <strong>-bi</strong> is used.</p>
 Nodes that are outside are either NaN or zero.</p>
 </dd>
 </dl>
-<dl id="i">
+<dl class="simple" id="i">
 <dt><strong>-I</strong>[<strong>cflrsz</strong>]</dt><dd><p>Reverses the sense of the test for each of the criteria specified:</p>
-<p><strong>c</strong> select records NOT inside any point’s circle of influence.</p>
-<p><strong>f</strong> select records NOT inside any of the polygons.</p>
-<p><strong>g</strong> will pass records inside the cells with z equal zero of the grid mask in <strong>-G</strong>.</p>
-<p><strong>l</strong> select records NOT within the specified distance of any line.</p>
-<p><strong>r</strong> select records NOT inside the specified rectangular region.</p>
-<p><strong>s</strong> select records NOT considered inside as specified by <strong>-N</strong>
-(and <strong>-A</strong>, <strong>-D</strong>).</p>
-<p><strong>z</strong> select records NOT within the range specified by <strong>-Z</strong>.</p>
+<ul class="simple">
+<li><p><strong>c</strong> - select records NOT inside any point’s circle of influence.</p></li>
+<li><p><strong>f</strong> - select records NOT inside any of the polygons.</p></li>
+<li><p><strong>g</strong> - pass records inside the cells with z equal zero of the grid mask in <strong>-G</strong>.</p></li>
+<li><p><strong>l</strong> - select records NOT within the specified distance of any line.</p></li>
+<li><p><strong>r</strong> - select records NOT inside the specified rectangular region.</p></li>
+<li><p><strong>s</strong> - select records NOT considered inside as specified by <strong>-N</strong>
+(and <strong>-A</strong>, <strong>-D</strong>).</p></li>
+<li><p><strong>z</strong> - select records NOT within the range specified by <strong>-Z</strong>.</p></li>
+</ul>
 </dd>
 </dl>
 <dl class="simple" id="j">
@@ -411,20 +416,25 @@ Input file must have at least three columns. To indicate no limit on
 min or max, specify a hyphen (-). If your 3rd column is absolute
 time then remember to supply <strong>-f</strong>2T. To specify another column, append
 <strong>+c</strong><em>col</em>, and to specify several tests just repeat the <strong>Z</strong> option as
-many times has you have columns to test. <strong>Note</strong>: When more than one <strong>Z</strong> option
+many times as you have columns to test. <strong>Note</strong>: When more than one <strong>Z</strong> option
 is given then the <strong>-Iz</strong> option cannot be used.  In the case of multiple tests
-you may use these modifiers as well: <strong>a</strong> passes any record that passes at least
-one of your <em>z</em> tests [all tests must pass], and <strong>i</strong> reverses the tests to pass
-record with <em>z</em> value NOT in the given range.  Finally, if <strong>+c</strong> is not used
-then it is automatically incremented for each new <strong>-Z</strong> option, starting with 2.</p>
+you may use these modifiers as well: <strong>+a</strong> passes any record that passes at least
+one of your <em>z</em> tests [Default is all tests must pass], and <strong>+i</strong> reverses the
+tests to pass record with <em>z</em> value NOT in the given range.  Finally, if <strong>+c</strong> is
+not used then it is automatically incremented for each new <strong>-Z</strong> option, starting
+with 2.</p>
 </dd>
 </dl>
 <dl class="simple">
-<dt><strong>-bi</strong>[<em>ncols</em>][<strong>t</strong>] <a class="reference internal" href="gmt.html#bi-full"><span class="std std-ref">(more …)</span></a></dt><dd><p>Select native binary format for primary input. [Default is 2 input columns].</p>
+<dt><strong>-a</strong>[[<em>col</em>=]<em>name</em>[,<em>…</em>]] <a class="reference internal" href="gmt.html#aspatial-full"><span class="std std-ref">(more …)</span></a></dt><dd><p>Set aspatial column associations <em>col</em>=<em>name</em>.</p>
 </dd>
 </dl>
 <dl class="simple">
-<dt><strong>-bo</strong>[<em>ncols</em>][<em>type</em>] <a class="reference internal" href="gmt.html#bo-full"><span class="std std-ref">(more …)</span></a></dt><dd><p>Select native binary output. [Default is same as input].</p>
+<dt><strong>-bi</strong><em>record</em>[<strong>+b</strong>|<strong>l</strong>] <a class="reference internal" href="gmt.html#bi-full"><span class="std std-ref">(more …)</span></a></dt><dd><p>Select native binary format for primary table input. [Default is 2 input columns].</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt><strong>-bo</strong><em>record</em>[<strong>+b</strong>|<strong>l</strong>] <a class="reference internal" href="gmt.html#bo-full"><span class="std std-ref">(more …)</span></a></dt><dd><p>Select native binary format for table output. [Default is same as input].</p>
 </dd>
 </dl>
 <dl class="simple">
@@ -440,7 +450,7 @@ then it is automatically incremented for each new <strong>-Z</strong> option, st
 </dd>
 </dl>
 <dl class="simple">
-<dt><strong>-g</strong>[<strong>a</strong>]<strong>x</strong>|<strong>y</strong>|<strong>d</strong>|<strong>X</strong>|<strong>Y</strong>|<strong>D</strong>|[<em>col</em>]<strong>z</strong><em>gap</em>[<strong>+n</strong>|<strong>p</strong>]  <a class="reference internal" href="gmt.html#g-full"><span class="std std-ref">(more …)</span></a></dt><dd><p>Determine data gaps and line breaks.  </p>
+<dt><strong>-g</strong><strong>x</strong>|<strong>y</strong>|<strong>z</strong>|<strong>d</strong>|<strong>X</strong>|<strong>Y</strong>|<strong>D</strong><em>gap</em>[<strong>u</strong>][<strong>+a</strong>][<strong>+c</strong><em>col</em>][<strong>+n</strong>|<strong>p</strong>]  <a class="reference internal" href="gmt.html#g-full"><span class="std std-ref">(more …)</span></a></dt><dd><p>Determine data gaps and line breaks.  </p>
 </dd>
 </dl>
 <dl class="simple">
@@ -448,7 +458,7 @@ then it is automatically incremented for each new <strong>-Z</strong> option, st
 </dd>
 </dl>
 <dl class="simple">
-<dt><strong>-i</strong><em>cols</em>[<strong>+l</strong>][<strong>+d</strong><em>divide</em>][<strong>+s</strong><em>scale</em>][<strong>+o</strong><em>offset</em>][,<em>…</em>][,<strong>t</strong>[<em>word</em>]] <a class="reference internal" href="gmt.html#icols-full"><span class="std std-ref">(more …)</span></a></dt><dd><p>Select input columns and transformations (0 is first column, <strong>t</strong> is trailing text, append <em>word</em> to read one word only).</p>
+<dt><strong>-i</strong><em>cols</em>[<strong>+l</strong>][<strong>+d</strong><em>divisor</em>][<strong>+s</strong><em>scale</em>|<strong>d</strong>|<strong>k</strong>][<strong>+o</strong><em>offset</em>][,<em>…</em>][,<strong>t</strong>[<em>word</em>]] <a class="reference internal" href="gmt.html#icols-full"><span class="std std-ref">(more …)</span></a></dt><dd><p>Select input columns and transformations (0 is first column, <strong>t</strong> is trailing text, append <em>word</em> to read one word only).</p>
 </dd>
 </dl>
 <dl class="simple">
@@ -456,11 +466,11 @@ then it is automatically incremented for each new <strong>-Z</strong> option, st
 </dd>
 </dl>
 <dl class="simple">
-<dt><strong>-q</strong>[<strong>i</strong>|<strong>o</strong>][~]<em>rows</em>[<strong>+c</strong><em>col</em>][<strong>+a</strong>|<strong>f</strong>|<strong>s</strong>] <a class="reference internal" href="gmt.html#q-full"><span class="std std-ref">(more …)</span></a></dt><dd><p>Select input or output rows or data range(s) [all].</p>
+<dt><strong>-q</strong>[<strong>i</strong>|<strong>o</strong>][~]<em>rows</em>|<em>limits</em>[<strong>+c</strong><em>col</em>][<strong>+a</strong>|<strong>f</strong>|<strong>s</strong>] <a class="reference internal" href="gmt.html#q-full"><span class="std std-ref">(more …)</span></a></dt><dd><p>Select input or output rows or data limit(s) [all].</p>
 </dd>
 </dl>
 <dl class="simple">
-<dt><strong>-s</strong>[<em>cols</em>][<strong>+a</strong>][<strong>+r</strong>] <a class="reference internal" href="gmt.html#s-full"><span class="std std-ref">(more …)</span></a></dt><dd><p>Set handling of NaN records.</p>
+<dt><strong>-s</strong>[<em>cols</em>][<strong>+a</strong>][<strong>+r</strong>] <a class="reference internal" href="gmt.html#s-full"><span class="std std-ref">(more …)</span></a></dt><dd><p>Set handling of NaN records for output.</p>
 </dd>
 </dl>
 <dl class="simple">
@@ -664,7 +674,7 @@ we employ a full spherical ray-shooting method to determine a points status.</p>
     <p>
         &#169; Copyright 2021, The GMT Team..
       <span class="lastupdated">
-        Last updated on Jun 06, 2021.
+        Last updated on Sep 30, 2021.
       </span>
 
     </p>

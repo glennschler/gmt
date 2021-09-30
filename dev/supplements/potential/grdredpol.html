@@ -134,15 +134,16 @@
 <li class="toctree-l1"><a class="reference internal" href="../../std-opts-classic.html">Common Options (Classic Mode)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../modules-classic.html">Modules (Classic Mode)</a></li>
 </ul>
-<p class="caption"><span class="caption-text">Developer Resources</span></p>
+<p class="caption"><span class="caption-text">Development</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/GenericMappingTools/gmt/blob/master/CONTRIBUTING.md">Contributing Guide</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/GenericMappingTools/gmt/blob/master/CODE_OF_CONDUCT.md">Code of Conduct</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../rst-cheatsheet.html">reStructuredText Cheatsheet</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../debug.html">Debugging GMT</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../api.html">GMT C API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../postscriptlight.html">PostScriptLight C API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../devdocs.html">Developer Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../devdocs/team.html">Team Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../devdocs/rst-cheatsheet.html">reStructuredText Cheatsheet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../devdocs/debug.html">Debugging GMT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../devdocs/api.html">GMT C API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../devdocs/postscriptlight.html">PostScriptLight C API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../devdocs/devdocs.html">GMT Enhancement Proposals</a></li>
 </ul>
 
             
@@ -237,13 +238,15 @@
 <p>Compute the Continuous Reduction To the Pole, AKA differential RTP</p>
 <div class="section" id="synopsis">
 <h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a></h2>
-<p><strong>gmt grdredpol</strong> <em>anom_grd</em> <a class="reference internal" href="#g"><span><strong>-G</strong></span></a></strong><em>rtp_grd</em> [<a class="reference internal" href="#c"><span><strong>-C</strong></span></a></strong><em>dec/dip</em>]
-[ <a class="reference internal" href="#e"><span><strong>-E</strong></span></a></strong><strong>i</strong><em>inc_grd</em>]
-[ <a class="reference internal" href="#e"><span><strong>-E</strong></span></a></strong><strong>d</strong><em>dec_grd</em>]
-[ <a class="reference internal" href="#f"><span><strong>-F</strong></span></a></strong><em>m/n</em>]
-[ <a class="reference internal" href="#m"><span><strong>-M</strong></span></a></strong><em>m|r</em>]
+<p><strong>gmt grdredpol</strong> <em>ingrid</em>
+<a class="reference internal" href="#g"><span><strong>-G</strong></span></a></strong><em>rtp_grd</em>
+[ <a class="reference internal" href="#c"><span><strong>-C</strong></span></a></strong><em>dec/dip</em> ]
+[ <a class="reference internal" href="#e"><span><strong>-E</strong></span></a></strong><strong>i</strong><em>inc_grd</em> ]
+[ <a class="reference internal" href="#e"><span><strong>-E</strong></span></a></strong><strong>d</strong><em>dec_grd</em> ]
+[ <a class="reference internal" href="#f"><span><strong>-F</strong></span></a></strong><em>m/n</em> ]
+[ <a class="reference internal" href="#m"><span><strong>-M</strong></span></a></strong><strong>m</strong>|<strong>r</strong> ]
 [ <a class="reference internal" href="#n"><span><strong>-N</strong></span></a></strong> ]
-[ <a class="reference internal" href="#w"><span><strong>-W</strong></span></a></strong><em>win_width</em>]
+[ <a class="reference internal" href="#w"><span><strong>-W</strong></span></a></strong><em>win_width</em> ]
 [ <a class="reference internal" href="#v"><span><strong>-V</strong></span></a></strong>[<em>level</em>] ]
 [ <a class="reference internal" href="#t"><span><strong>-T</strong></span></a></strong><em>year</em> ]
 [ <a class="reference internal" href="#z"><span><strong>-Z</strong></span></a></strong><em>filtergrd</em> ]
@@ -272,10 +275,25 @@ order Taylor series expansion.</p>
 </div>
 <div class="section" id="required-arguments">
 <h2>Required Arguments<a class="headerlink" href="#required-arguments" title="Permalink to this headline">¶</a></h2>
-<dl class="simple">
-<dt><em>anom_grd</em></dt><dd><p>The anomaly grid to be converted.</p>
-</dd>
-</dl>
+<p><em>ingrid</em>[=<em>ID</em>|?<em>varname</em>][<strong>+b</strong><em>band</em>][<strong>+d</strong><em>divisor</em>][<strong>+n</strong><em>invalid</em>]
+[<strong>+o</strong><em>offset</em>][<strong>+s</strong><em>scale</em>]</p>
+<blockquote>
+<div><p>The anomaly grid to be converted. Optionally, append =<em>ID</em> for reading a specific file
+format [Default is =<em>nf</em>] or ?<em>varname</em> for a specific netCDF variable
+[Default is the first 2-D grid found by GMT]
+(<a class="reference internal" href="../../gmt.html#grd-inout-full"><span class="std std-ref">See full description</span></a>). The following modifiers are
+supported:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><strong>+b</strong> - Select a <em>band</em> (for images only) [Default is 0].</p></li>
+<li><p><strong>+d</strong> - Divide data values by the given <em>divisor</em> [Default is 1].</p></li>
+<li><p><strong>+n</strong> - Replace data values matching <em>invalid</em> with NaN.</p></li>
+<li><p><strong>+o</strong> - Offset data values by the given <em>offset</em> [Default is 0].</p></li>
+<li><p><strong>+s</strong> - Scale data values by the given <em>scale</em> [Default is 1].</p></li>
+</ul>
+</div></blockquote>
+<p>Note: Any offset is added after any scaling.</p>
+</div></blockquote>
 <dl class="simple" id="g">
 <dt><strong>-G</strong><em>rtp_grd</em></dt><dd><p>is the filename for output grdfile with the RTP solution</p>
 </dd>
@@ -291,18 +309,18 @@ procedure.</p>
 </dl>
 <dl class="simple" id="e">
 <dt><strong>-Ei</strong><em>inc_grd</em> <strong>-Ed</strong><em>dec_grd</em></dt><dd><p>Get magnetization <em>INCLINATION</em> and <em>DECLINATION</em> from these grids
-[default: use IGRF for each of the above parameters not provided via grid].
-Note that these two grids do not need to have the same resolution as
+[Default uses IGRF for each of the above parameters not provided via grid].
+<strong>Note</strong>: These two grids do not need to have the same resolution as
 the anomaly grid. They can be coarser.</p>
 </dd>
 </dl>
 <dl class="simple" id="f">
-<dt><strong>-F</strong><em>m/n</em></dt><dd><p>The filter window size in terms of row/columns. The default value is 25x25.</p>
+<dt><strong>-F</strong><em>m/n</em></dt><dd><p>The filter window size in terms of row/columns [Default value is 25/25].</p>
 </dd>
 </dl>
 <dl class="simple" id="m">
-<dt><strong>-M</strong><em>m|r</em></dt><dd><p>Set boundary conditions. m|r stands for mirror or replicate edges
-(Default is zero padding).</p>
+<dt><strong>-M</strong><strong>m</strong>|<strong>r</strong></dt><dd><p>Set the boundary conditions. Directives <strong>m</strong>|<strong>r</strong> stands for mirror or replicate edges
+[Default is zero padding].</p>
 </dd>
 </dl>
 <dl class="simple" id="n">
@@ -310,12 +328,12 @@ the anomaly grid. They can be coarser.</p>
 </dd>
 </dl>
 <dl class="simple" id="r">
-<dt><strong>-R</strong><em>west</em>/<em>east</em>/<em>south</em>/<em>north</em></dt><dd><p>defines the Region of the output points. [Default: Same as input.]</p>
+<dt><strong>-R</strong><em>west</em>/<em>east</em>/<em>south</em>/<em>north</em></dt><dd><p>defines the Region of the output points [Default: Same as input].</p>
 </dd>
 </dl>
 <dl class="simple" id="t">
 <dt><strong>-T</strong><em>year</em></dt><dd><p>Decimal year used by the IGRF routine to compute the declination and
-inclination at each point [default: 2000]</p>
+inclination at each point [Default is 2000].</p>
 </dd>
 </dl>
 <dl class="simple" id="v">
@@ -367,7 +385,7 @@ vectors collinear and computed from IGRF :</p>
 </div>
 <div class="section" id="reference">
 <h2>Reference<a class="headerlink" href="#reference" title="Permalink to this headline">¶</a></h2>
-<p>Luis, J.L. and Miranda, J.M. (2008), Reevaluation of magnetic chrons in
+<p>Luis, J.L. and Miranda, J.M., 2008, Reevaluation of magnetic chrons in
 the North Atlantic between 35N and 47N: Implications for the formation
 of the Azores Triple Junction and associated plateau. <em>JGR</em>, VOL.
 <strong>113</strong>, B10105, doi:10.1029/2007JB005573</p>
@@ -390,7 +408,7 @@ of the Azores Triple Junction and associated plateau. <em>JGR</em>, VOL.
     <p>
         &#169; Copyright 2021, The GMT Team..
       <span class="lastupdated">
-        Last updated on Jun 06, 2021.
+        Last updated on Sep 30, 2021.
       </span>
 
     </p>

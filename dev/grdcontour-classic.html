@@ -134,15 +134,16 @@
 <li class="toctree-l1"><a class="reference internal" href="std-opts-classic.html">Common Options (Classic Mode)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="modules-classic.html">Modules (Classic Mode)</a></li>
 </ul>
-<p class="caption"><span class="caption-text">Developer Resources</span></p>
+<p class="caption"><span class="caption-text">Development</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/GenericMappingTools/gmt/blob/master/CONTRIBUTING.md">Contributing Guide</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/GenericMappingTools/gmt/blob/master/CODE_OF_CONDUCT.md">Code of Conduct</a></li>
-<li class="toctree-l1"><a class="reference internal" href="rst-cheatsheet.html">reStructuredText Cheatsheet</a></li>
-<li class="toctree-l1"><a class="reference internal" href="debug.html">Debugging GMT</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api.html">GMT C API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="postscriptlight.html">PostScriptLight C API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="devdocs.html">Developer Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devdocs/team.html">Team Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devdocs/rst-cheatsheet.html">reStructuredText Cheatsheet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devdocs/debug.html">Debugging GMT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devdocs/api.html">GMT C API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devdocs/postscriptlight.html">PostScriptLight C API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devdocs/devdocs.html">GMT Enhancement Proposals</a></li>
 </ul>
 
             
@@ -237,7 +238,7 @@
 <p>Make contour map using a grid</p>
 <div class="section" id="synopsis">
 <h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a></h2>
-<p><strong>gmt grdcontour</strong> <em>grid</em>
+<p><strong>gmt grdcontour</strong> <em>ingrid</em>
 <a class="reference internal" href="#j"><span><strong>-J</strong></span></a></strong><em>parameters</em>
 [ <a class="reference internal" href="#a"><span><strong>-A</strong></span></a></strong>[<strong>n</strong><em>contours</em>][<em>labelinfo</em>] ]
 [ <a class="reference internal" href="#b"><span><strong>-B</strong></span></a></strong>[<strong>p</strong>|<strong>s</strong>]<em>parameters</em> ]
@@ -267,7 +268,6 @@
 [ <strong>-p</strong><a class="reference internal" href="gmt.html#perspective-full"><span class="std std-ref">flags</span></a> ]
 [ <strong>-t</strong><a class="reference internal" href="gmt.html#t-full"><span class="std std-ref">transp</span></a> ]
 [ <strong>--PAR</strong>=<em>value</em> ]</p>
-<p><strong>Note:</strong> No space is allowed between the option flag and the associated arguments.</p>
 </div>
 <div class="section" id="description">
 <h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h2>
@@ -278,10 +278,25 @@ may be saved to one or more output files (or stdout) and no plot is produced.</p
 </div>
 <div class="section" id="required-arguments">
 <h2>Required Arguments<a class="headerlink" href="#required-arguments" title="Permalink to this headline">¶</a></h2>
-<dl class="simple">
-<dt><em>grid</em></dt><dd><p>2-D gridded data set to be contoured (see <a class="reference internal" href="gmt.html#grd-inout-full"><span class="std std-ref">Grid File Formats</span></a>).</p>
-</dd>
-</dl>
+<p><em>ingrid</em>[=<em>ID</em>|?<em>varname</em>][<strong>+b</strong><em>band</em>][<strong>+d</strong><em>divisor</em>][<strong>+n</strong><em>invalid</em>]
+[<strong>+o</strong><em>offset</em>][<strong>+s</strong><em>scale</em>]</p>
+<blockquote>
+<div><p>2-D gridded data set to be contoured. Optionally, append =<em>ID</em> for reading a specific file
+format [Default is =<em>nf</em>] or ?<em>varname</em> for a specific netCDF variable
+[Default is the first 2-D grid found by GMT]
+(<a class="reference internal" href="gmt.html#grd-inout-full"><span class="std std-ref">See full description</span></a>). The following modifiers are
+supported:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><strong>+b</strong> - Select a <em>band</em> (for images only) [Default is 0].</p></li>
+<li><p><strong>+d</strong> - Divide data values by the given <em>divisor</em> [Default is 1].</p></li>
+<li><p><strong>+n</strong> - Replace data values matching <em>invalid</em> with NaN.</p></li>
+<li><p><strong>+o</strong> - Offset data values by the given <em>offset</em> [Default is 0].</p></li>
+<li><p><strong>+s</strong> - Scale data values by the given <em>scale</em> [Default is 1].</p></li>
+</ul>
+</div></blockquote>
+<p>Note: Any offset is added after any scaling.</p>
+</div></blockquote>
 <dl class="simple" id="j">
 <dt><strong>-J</strong><em>parameters</em></dt><dd><p>Specify the projection. <a class="reference internal" href="gmt.html#j-full"><span class="std std-ref">(See full description)</span></a> <a class="reference internal" href="cookbook/options.html#coordinate-transformations-and-map-projections-the-j-option"><span class="std std-ref">(See cookbook summary)</span></a>
 <a class="reference internal" href="cookbook/options.html#proj-codes"><span class="std std-ref">(See projections table)</span></a>.</p>
@@ -291,7 +306,7 @@ may be saved to one or more output files (or stdout) and no plot is produced.</p
 <div class="section" id="optional-arguments">
 <h2>Optional Arguments<a class="headerlink" href="#optional-arguments" title="Permalink to this headline">¶</a></h2>
 <dl class="simple" id="a">
-<dt><strong>-A</strong>[<strong>n</strong>]|[<em>contours</em>][<em>labelinfo</em>]</dt><dd><p><em>contours</em> is annotation interval in data units; it is ignored if
+<dt><strong>-A</strong>[<strong>n</strong>|<em>contours</em>][<em>labelinfo</em>]</dt><dd><p><em>contours</em> is annotation interval in data units; it is ignored if
 contour levels are given in a file via <strong>-C</strong>. [Default is no annotations]. Prepend
 <strong>n</strong> to disable all annotations implied by <strong>-C</strong>. To just select a few specific
 contours give them as a comma-separated string; if only a single contour please add
@@ -426,7 +441,7 @@ left (<strong>-Fl</strong> [Default]) or right (<strong>-Fr</strong>) as we move
 </dl>
 <p id="g"><strong>-G</strong>[<strong>d</strong>|<strong>f</strong>|<strong>n</strong>|<strong>l</strong>|<strong>L</strong>|<strong>x</strong>|<strong>X</strong>]<em>params</em></p>
 <blockquote>
-<div><p>The required argument controls the placement of labels along the quoted
+<div><p>This argument controls the placement of labels along the quoted
 lines. Choose among five controlling algorithms:</p>
 <dl class="simple">
 <dt><strong>d</strong><em>dist</em>[<strong>c</strong>|<strong>i</strong>|<strong>p</strong>] or <strong>D</strong><em>dist</em>[<strong>d</strong>|<strong>e</strong>|<strong>f</strong>|<strong>k</strong>|<strong>m</strong>|<strong>M</strong>|<strong>n</strong>|<strong>s</strong>]</dt><dd><p>For lower case <strong>d</strong>, give distances between labels on the plot
@@ -489,7 +504,7 @@ via <strong>-C</strong> instead.</p>
 </dd>
 </dl>
 <dl class="simple" id="q">
-<dt><strong>-Q</strong>[<em>cut</em>][<strong>+z</strong>]</dt><dd><p>Do not draw contours with less than <em>cut</em> number of points [Draw all contours].
+<dt><strong>-Q</strong>[<em>n</em>][<strong>+z</strong>]</dt><dd><p>Do not draw contours with less than <em>n</em> number of points [Draw all contours].
 Alternatively, give instead a minimum contour length in distance units
 (see <a class="reference internal" href="#units">Units</a> for available units and how distances are computed),
 including <strong>c</strong> (Cartesian distances using user coordinates) or <strong>C</strong> for plot
@@ -529,7 +544,7 @@ is used to position the label.</p>
 </dd>
 </dl>
 <dl class="simple" id="u">
-<dt><strong>-U</strong>[<em>label</em>|<strong>+c</strong>][<strong>+j</strong><em>just</em>][<strong>+o</strong><em>dx</em>/<em>dy</em>]</dt><dd><p>Draw GMT time stamp logo on plot. <a class="reference internal" href="gmt.html#u-full"><span class="std std-ref">(See full description)</span></a> <a class="reference internal" href="cookbook/options.html#timestamps-on-plots-the-u-option"><span class="std std-ref">(See cookbook information)</span></a>.</p>
+<dt><strong>-U</strong>[<em>label</em>|<strong>+c</strong>][<strong>+j</strong><em>just</em>][<strong>+o</strong><em>dx</em>[/<em>dy</em>]]</dt><dd><p>Draw GMT time stamp logo on plot. <a class="reference internal" href="gmt.html#u-full"><span class="std std-ref">(See full description)</span></a> <a class="reference internal" href="cookbook/options.html#timestamps-on-plots-the-u-option"><span class="std std-ref">(See cookbook information)</span></a>.</p>
 </dd>
 </dl>
 <dl class="simple" id="v">
@@ -556,7 +571,7 @@ file is applied to the contour annotations.  Select <strong>+c</strong> for both
 </dd>
 </dl>
 <dl class="simple" id="z">
-<dt><strong>-Z</strong>[<strong>+s</strong><em>factor</em>][<strong>+o</strong><em>shift</em>][<strong>+p</strong>]</dt><dd><p>Use to subtract <em>shift</em> from the data and multiply the results by
+<dt><strong>-Z</strong>[<strong>+o</strong><em>shift</em>][<strong>+p</strong>][<strong>+s</strong><em>factor</em>]</dt><dd><p>Use to subtract <em>shift</em> from the data and multiply the results by
 <em>factor</em> before contouring starts [1/0]. (Numbers in <strong>-A</strong>, <strong>-C</strong>,
 <strong>-L</strong> refer to values after this scaling has occurred.) Append
 <strong>+p</strong> to indicate that this grid file contains z-values that are
@@ -566,7 +581,7 @@ and that special precautions must be taken when determining
 </dd>
 </dl>
 <dl class="simple">
-<dt><strong>-bo</strong>[<em>ncols</em>][<em>type</em>] <a class="reference internal" href="gmt.html#bo-full"><span class="std std-ref">(more …)</span></a></dt><dd><p>Select native binary output.  </p>
+<dt><strong>-bo</strong><em>record</em>[<strong>+b</strong>|<strong>l</strong>] <a class="reference internal" href="gmt.html#bo-full"><span class="std std-ref">(more …)</span></a></dt><dd><p>Select native binary format for table output.  </p>
 </dd>
 </dl>
 <dl class="simple">
@@ -725,7 +740,7 @@ contours_O.txt for open contours, try</p>
     <p>
         &#169; Copyright 2021, The GMT Team..
       <span class="lastupdated">
-        Last updated on Jun 06, 2021.
+        Last updated on Sep 30, 2021.
       </span>
 
     </p>

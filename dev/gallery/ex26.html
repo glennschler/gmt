@@ -134,15 +134,16 @@
 <li class="toctree-l1"><a class="reference internal" href="../std-opts-classic.html">Common Options (Classic Mode)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../modules-classic.html">Modules (Classic Mode)</a></li>
 </ul>
-<p class="caption"><span class="caption-text">Developer Resources</span></p>
+<p class="caption"><span class="caption-text">Development</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/GenericMappingTools/gmt/blob/master/CONTRIBUTING.md">Contributing Guide</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/GenericMappingTools/gmt/blob/master/CODE_OF_CONDUCT.md">Code of Conduct</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../rst-cheatsheet.html">reStructuredText Cheatsheet</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../debug.html">Debugging GMT</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api.html">GMT C API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../postscriptlight.html">PostScriptLight C API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../devdocs.html">Developer Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../devdocs/team.html">Team Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../devdocs/rst-cheatsheet.html">reStructuredText Cheatsheet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../devdocs/debug.html">Debugging GMT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../devdocs/api.html">GMT C API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../devdocs/postscriptlight.html">PostScriptLight C API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../devdocs/devdocs.html">GMT Enhancement Proposals</a></li>
 </ul>
 
             
@@ -260,13 +261,8 @@ gmt begin ex26
 	<span class="nv">latitude</span><span class="o">=</span><span class="m">41</span>.5
 	<span class="nv">longitude</span><span class="o">=</span>-74
 	<span class="nv">altitude</span><span class="o">=</span><span class="m">160</span>
-	<span class="nv">tilt</span><span class="o">=</span><span class="m">0</span>
-	<span class="nv">azimuth</span><span class="o">=</span><span class="m">0</span>
-	<span class="nv">twist</span><span class="o">=</span><span class="m">0</span>
-	<span class="nv">Width</span><span class="o">=</span><span class="m">0</span>
-	<span class="nv">Height</span><span class="o">=</span><span class="m">0</span>
 
-	<span class="nv">PROJ</span><span class="o">=</span>-JG<span class="si">${</span><span class="nv">longitude</span><span class="si">}</span>/<span class="si">${</span><span class="nv">latitude</span><span class="si">}</span>/<span class="si">${</span><span class="nv">altitude</span><span class="si">}</span>/<span class="si">${</span><span class="nv">azimuth</span><span class="si">}</span>/<span class="si">${</span><span class="nv">tilt</span><span class="si">}</span>/<span class="si">${</span><span class="nv">twist</span><span class="si">}</span>/<span class="si">${</span><span class="nv">Width</span><span class="si">}</span>/<span class="si">${</span><span class="nv">Height</span><span class="si">}</span>/10c
+	<span class="nv">PROJ</span><span class="o">=</span>-JG<span class="si">${</span><span class="nv">longitude</span><span class="si">}</span>/<span class="si">${</span><span class="nv">latitude</span><span class="si">}</span>/10c+z<span class="si">${</span><span class="nv">altitude</span><span class="si">}</span>
 	gmt coast -Rg <span class="nv">$PROJ</span> -B5g5 -Glightbrown -Slightblue -W -Dl -N1/1p,red -N2/0.5p -Y12c
 
 	<span class="c1"># now point from an altitude of 160 km with a specific tilt and azimuth and with a wider restricted</span>
@@ -277,7 +273,7 @@ gmt begin ex26
 	<span class="nv">Width</span><span class="o">=</span><span class="m">30</span>
 	<span class="nv">Height</span><span class="o">=</span><span class="m">30</span>
 
-	<span class="nv">PROJ</span><span class="o">=</span>-JG<span class="si">${</span><span class="nv">longitude</span><span class="si">}</span>/<span class="si">${</span><span class="nv">latitude</span><span class="si">}</span>/<span class="si">${</span><span class="nv">altitude</span><span class="si">}</span>/<span class="si">${</span><span class="nv">azimuth</span><span class="si">}</span>/<span class="si">${</span><span class="nv">tilt</span><span class="si">}</span>/<span class="si">${</span><span class="nv">twist</span><span class="si">}</span>/<span class="si">${</span><span class="nv">Width</span><span class="si">}</span>/<span class="si">${</span><span class="nv">Height</span><span class="si">}</span>/12c
+	<span class="nv">PROJ</span><span class="o">=</span>-JG<span class="si">${</span><span class="nv">longitude</span><span class="si">}</span>/<span class="si">${</span><span class="nv">latitude</span><span class="si">}</span>/12c+z<span class="si">${</span><span class="nv">altitude</span><span class="si">}</span>+a<span class="si">${</span><span class="nv">azimuth</span><span class="si">}</span>+t<span class="si">${</span><span class="nv">tilt</span><span class="si">}</span>+w<span class="si">${</span><span class="nv">twist</span><span class="si">}</span>+v<span class="si">${</span><span class="nv">Width</span><span class="si">}</span>/<span class="si">${</span><span class="nv">Height</span><span class="si">}</span>
 	gmt coast <span class="nv">$PROJ</span> -B5g5 -Glightbrown -Slightblue -W -Ia/blue -Di -Na -X1i -Y-10c
 gmt end show
 </pre></div>
@@ -304,7 +300,7 @@ gmt end show
     <p>
         &#169; Copyright 2021, The GMT Team..
       <span class="lastupdated">
-        Last updated on Jun 06, 2021.
+        Last updated on Sep 30, 2021.
       </span>
 
     </p>

@@ -134,15 +134,16 @@
 <li class="toctree-l1"><a class="reference internal" href="std-opts-classic.html">Common Options (Classic Mode)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="modules-classic.html">Modules (Classic Mode)</a></li>
 </ul>
-<p class="caption"><span class="caption-text">Developer Resources</span></p>
+<p class="caption"><span class="caption-text">Development</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/GenericMappingTools/gmt/blob/master/CONTRIBUTING.md">Contributing Guide</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/GenericMappingTools/gmt/blob/master/CODE_OF_CONDUCT.md">Code of Conduct</a></li>
-<li class="toctree-l1"><a class="reference internal" href="rst-cheatsheet.html">reStructuredText Cheatsheet</a></li>
-<li class="toctree-l1"><a class="reference internal" href="debug.html">Debugging GMT</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api.html">GMT C API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="postscriptlight.html">PostScriptLight C API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="devdocs.html">Developer Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devdocs/team.html">Team Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devdocs/rst-cheatsheet.html">reStructuredText Cheatsheet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devdocs/debug.html">Debugging GMT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devdocs/api.html">GMT C API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devdocs/postscriptlight.html">PostScriptLight C API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devdocs/devdocs.html">GMT Enhancement Proposals</a></li>
 </ul>
 
             
@@ -237,7 +238,7 @@
 <p>Make linear or histogram-equalized color palette table from grid</p>
 <div class="section" id="synopsis">
 <h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a></h2>
-<p><strong>gmt grd2cpt</strong> <em>grid</em>
+<p><strong>gmt grd2cpt</strong> <em>ingrid</em>
 [ <a class="reference internal" href="#a"><span><strong>-A</strong></span></a></strong><em>transparency</em>[<strong>+a</strong>] ]
 [ <a class="reference internal" href="#c"><span><strong>-C</strong></span></a></strong><em>cpt</em> ]
 [ <a class="reference internal" href="#d"><span><strong>-D</strong></span></a></strong>[<strong>i</strong>|<strong>o</strong>] ]
@@ -252,7 +253,7 @@
 [ <a class="reference internal" href="#q"><span><strong>-Q</strong></span></a></strong>[<strong>i</strong>|<strong>o</strong>] ]
 [ <a class="reference internal" href="#r"><span><strong>-R</strong></span></a></strong><em>region</em> ]
 [ <a class="reference internal" href="#s"><span><strong>-S</strong></span></a></strong><strong>h</strong>|<strong>l</strong>|<strong>m</strong>|<strong>u</strong> ]
-[ <a class="reference internal" href="#t"><span><strong>-T</strong></span></a></strong><em>start/stop/inc</em> ]
+[ <a class="reference internal" href="#t"><span><strong>-T</strong></span></a></strong><em>start/stop/inc</em>|<strong>n</strong>]
 [ <a class="reference internal" href="#v"><span><strong>-V</strong></span></a></strong>[<em>level</em>] ]
 [ <a class="reference internal" href="#w"><span><strong>-W</strong></span></a></strong>[<strong>w</strong>] ]
 [ <a class="reference internal" href="#z"><span><strong>-Z</strong></span></a></strong> ]
@@ -297,12 +298,26 @@ line will be used.</p>
 </div>
 <div class="section" id="required-arguments">
 <h2>Required Arguments<a class="headerlink" href="#required-arguments" title="Permalink to this headline">¶</a></h2>
-<dl class="simple">
-<dt><em>grid</em></dt><dd><p>Names of one or more grid files used to derive the color palette
-table. All grids need to have the same size and dimensions. (See
-<a class="reference internal" href="gmt.html#grd-inout-full"><span class="std std-ref">Grid File Formats</span></a>).</p>
-</dd>
-</dl>
+<p><em>ingrid</em>[=<em>ID</em>|?<em>varname</em>][<strong>+b</strong><em>band</em>][<strong>+d</strong><em>divisor</em>][<strong>+n</strong><em>invalid</em>]
+[<strong>+o</strong><em>offset</em>][<strong>+s</strong><em>scale</em>]</p>
+<blockquote>
+<div><p>Names of one or more grid files used to derive the
+color palette table. All grids need to have the same size and dimensions. Optionally, append =<em>ID</em> for reading a specific file
+format [Default is =<em>nf</em>] or ?<em>varname</em> for a specific netCDF variable
+[Default is the first 2-D grid found by GMT]
+(<a class="reference internal" href="gmt.html#grd-inout-full"><span class="std std-ref">See full description</span></a>). The following modifiers are
+supported:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><strong>+b</strong> - Select a <em>band</em> (for images only) [Default is 0].</p></li>
+<li><p><strong>+d</strong> - Divide data values by the given <em>divisor</em> [Default is 1].</p></li>
+<li><p><strong>+n</strong> - Replace data values matching <em>invalid</em> with NaN.</p></li>
+<li><p><strong>+o</strong> - Offset data values by the given <em>offset</em> [Default is 0].</p></li>
+<li><p><strong>+s</strong> - Scale data values by the given <em>scale</em> [Default is 1].</p></li>
+</ul>
+</div></blockquote>
+<p>Note: Any offset is added after any scaling.</p>
+</div></blockquote>
 </div>
 <div class="section" id="optional-arguments">
 <h2>Optional Arguments<a class="headerlink" href="#optional-arguments" title="Permalink to this headline">¶</a></h2>
@@ -388,7 +403,8 @@ so the latter must be compatible with the changed <em>z</em>-range. See also <a 
 </dl>
 <dl class="simple" id="l">
 <dt><strong>-L</strong><em>minlimit/maxlimit</em></dt><dd><p>Limit range of CPT to <em>minlimit/maxlimit</em>, and don’t count data
-outside this range when estimating CDF(Z). [Default uses min and max of data.]</p>
+outside this range when estimating CDF(Z). To set only one limit,
+specify the other limit as “-” [Default uses min and max of data.]</p>
 </dd>
 </dl>
 <dl class="simple" id="m">
@@ -447,7 +463,7 @@ to produce a wrapped (cyclic) color table that endlessly repeats its range.</p>
 </dd>
 </dl>
 <dl class="simple">
-<dt><strong>-bo</strong>[<em>ncols</em>][<em>type</em>] <a class="reference internal" href="gmt.html#bo-full"><span class="std std-ref">(more …)</span></a></dt><dd><p>Select native binary output. [Default is 2]. This option
+<dt><strong>-bo</strong><em>record</em>[<strong>+b</strong>|<strong>l</strong>] <a class="reference internal" href="gmt.html#bo-full"><span class="std std-ref">(more …)</span></a></dt><dd><p>Select native binary format for table output. [Default is 2]. This option
 only applies if <strong>-E</strong> selects CDF output.</p>
 </dd>
 </dl>
@@ -598,7 +614,7 @@ CPTs.</p>
     <p>
         &#169; Copyright 2021, The GMT Team..
       <span class="lastupdated">
-        Last updated on Jun 06, 2021.
+        Last updated on Sep 30, 2021.
       </span>
 
     </p>

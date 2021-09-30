@@ -134,15 +134,16 @@
 <li class="toctree-l1"><a class="reference internal" href="../../std-opts-classic.html">Common Options (Classic Mode)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../modules-classic.html">Modules (Classic Mode)</a></li>
 </ul>
-<p class="caption"><span class="caption-text">Developer Resources</span></p>
+<p class="caption"><span class="caption-text">Development</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/GenericMappingTools/gmt/blob/master/CONTRIBUTING.md">Contributing Guide</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/GenericMappingTools/gmt/blob/master/CODE_OF_CONDUCT.md">Code of Conduct</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../rst-cheatsheet.html">reStructuredText Cheatsheet</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../debug.html">Debugging GMT</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../api.html">GMT C API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../postscriptlight.html">PostScriptLight C API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../devdocs.html">Developer Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../devdocs/team.html">Team Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../devdocs/rst-cheatsheet.html">reStructuredText Cheatsheet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../devdocs/debug.html">Debugging GMT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../devdocs/api.html">GMT C API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../devdocs/postscriptlight.html">PostScriptLight C API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../devdocs/devdocs.html">GMT Enhancement Proposals</a></li>
 </ul>
 
             
@@ -237,17 +238,19 @@
 <p>Spectral calculations of gravity, isostasy, admittance, and coherence for grids</p>
 <div class="section" id="synopsis">
 <h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a></h2>
-<p><strong>gmt gravfft</strong> <em>ingrid</em> [ <em>ingrid2</em> ] <a class="reference internal" href="#g"><span><strong>-G</strong></span></a></strong><em>outfile</em>
-[ <a class="reference internal" href="#c"><span><strong>-C</strong></span></a></strong><em>n/wavelength/mean_depth/tbw</em> ]
+<p><strong>gmt gravfft</strong> <em>ingrid</em> [ <em>ingrid2</em> ]
+<a class="reference internal" href="#g"><span><strong>-G</strong></span></a></strong><em>outgrid</em>
+[ <a class="reference internal" href="#c"><span><strong>-C</strong></span></a></strong><em>n/wavelength/mean_depth</em>/<strong>t</strong>|<strong>b</strong>|<strong>w</strong> ]
 [ <a class="reference internal" href="#d"><span><strong>-D</strong></span></a></strong><em>density</em>|<em>rhogrid</em> ]
 [ <a class="reference internal" href="#e"><span><strong>-E</strong></span></a></strong><em>n_terms</em> ]
 [ <a class="reference internal" href="#f"><span><strong>-F</strong></span></a></strong>[<strong>f</strong>[<strong>+s</strong>]|<strong>b</strong>|<strong>g</strong>|<strong>v</strong>|<strong>n</strong>|<strong>e</strong>] ]
 [ <a class="reference internal" href="#i"><span><strong>-I</strong></span></a></strong><strong>w</strong>|<strong>b</strong>|<strong>c</strong>|<strong>t</strong>|<strong>k</strong> ]
 [ <a class="reference internal" href="#n"><span><strong>-N</strong></span></a></strong><em>params</em> ]
 [ <a class="reference internal" href="#q"><span><strong>-Q</strong></span></a></strong> ]
+[ <a class="reference internal" href="#s"><span><strong>-S</strong></span></a></strong> ]
 [ <a class="reference internal" href="#t"><span><strong>-T</strong></span></a></strong><em>te/rl/rm/rw</em>[<em>/ri</em>][<strong>+m</strong>] ]
 [ <a class="reference internal" href="#v"><span><strong>-V</strong></span></a></strong>[<em>level</em>] ]
-[ <a class="reference internal" href="#w"><span><strong>-W</strong></span></a></strong><em>wd</em>]
+[ <a class="reference internal" href="#w"><span><strong>-W</strong></span></a></strong><em>wd</em>[<strong>k</strong>] ]
 [ <a class="reference internal" href="#z"><span><strong>-Z</strong></span></a></strong><em>zm</em>[<em>zl</em>] ]
 [ <strong>-f</strong><a class="reference internal" href="../../gmt.html#f-full"><span class="std std-ref">flags</span></a> ]
 [ <strong>--PAR</strong>=<em>value</em> ]</p>
@@ -282,25 +285,62 @@ are doing; see the examples for further guidance.</p>
 </div>
 <div class="section" id="required-arguments">
 <h2>Required Arguments<a class="headerlink" href="#required-arguments" title="Permalink to this headline">¶</a></h2>
-<dl class="simple">
-<dt><em>ingrid</em></dt><dd><p>2-D binary grid file to be operated on. (See <a class="reference internal" href="../../gmt.html#grd-inout-full"><span class="std std-ref">Grid File Formats</span></a>).
-For cross-spectral operations, also give the second grid file <em>ingrid2</em>.</p>
-</dd>
-</dl>
-<dl class="simple" id="g">
-<dt><strong>-G</strong><em>outfile</em></dt><dd><p>Specify the name of the output grid file or the 1-D spectrum table
-(see <strong>-E</strong>). (See <a class="reference internal" href="../../gmt.html#grd-inout-full"><span class="std std-ref">Grid File Formats</span></a>).</p>
-</dd>
-</dl>
+<p><em>ingrid</em>[=<em>ID</em>|?<em>varname</em>][<strong>+b</strong><em>band</em>][<strong>+d</strong><em>divisor</em>][<strong>+n</strong><em>invalid</em>]
+[<strong>+o</strong><em>offset</em>][<strong>+s</strong><em>scale</em>]</p>
+<blockquote>
+<div><p>2-D binary grid file to be operated on. For
+cross-spectral operations, also give the second grid file <em>ingrid2</em>. Optionally, append =<em>ID</em> for reading a specific file
+format [Default is =<em>nf</em>] or ?<em>varname</em> for a specific netCDF variable
+[Default is the first 2-D grid found by GMT]
+(<a class="reference internal" href="../../gmt.html#grd-inout-full"><span class="std std-ref">See full description</span></a>). The following modifiers are
+supported:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><strong>+b</strong> - Select a <em>band</em> (for images only) [Default is 0].</p></li>
+<li><p><strong>+d</strong> - Divide data values by the given <em>divisor</em> [Default is 1].</p></li>
+<li><p><strong>+n</strong> - Replace data values matching <em>invalid</em> with NaN.</p></li>
+<li><p><strong>+o</strong> - Offset data values by the given <em>offset</em> [Default is 0].</p></li>
+<li><p><strong>+s</strong> - Scale data values by the given <em>scale</em> [Default is 1].</p></li>
+</ul>
+</div></blockquote>
+<p>Note: Any offset is added after any scaling.</p>
+</div></blockquote>
+<span class="target" id="g"></span><p><strong>-G</strong><em>outgrid</em>[=<em>ID</em>][<strong>+d</strong><em>divisor</em>][<strong>+n</strong><em>invalid</em>]
+[<strong>+o</strong><em>offset</em>|<strong>a</strong>][<strong>+s</strong><em>scale</em>|<strong>a</strong>]
+[:<em>driver</em>[<em>dataType</em>][<strong>+c</strong><em>options</em>]]</p>
+<blockquote>
+<div><p>Specify the name of the output grid file or the 1-D spectrum table
+(see <a class="reference internal" href="#e"><span><strong>-E</strong></span></a></strong>) Optionally, append =<em>ID</em> for writing a specific file format
+(<a class="reference internal" href="../../gmt.html#grd-inout-full"><span class="std std-ref">See full description</span></a>). The following modifiers are
+supported:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><strong>+d</strong> - Divide data values by given <em>divisor</em> [Default is 1].</p></li>
+<li><p><strong>+n</strong> - Replace data values matching <em>invalid</em> with a NaN.</p></li>
+<li><p><strong>+o</strong> - Offset data values by the given <em>offset</em>, or append <strong>a</strong> for
+automatic range offset to preserve precision for integer grids
+[Default is 0].</p></li>
+<li><p><strong>+s</strong> - Scale data values by the given <em>scale</em>, or append <strong>a</strong> for
+automatic scaling to preserve precision for integer grids [Default
+is 1].</p></li>
+</ul>
+</div></blockquote>
+<p>Note: Any offset is added before any scaling. <strong>+sa</strong> also sets <strong>+oa</strong>
+(unless overridden). To write specific formats via GDAL, use = <em>gd</em>
+and supply <em>driver</em> (and optionally <em>dataType</em>) and/or one or more
+concatenated GDAL <strong>-co</strong> options using <strong>+c</strong>. See
+the <a class="reference internal" href="../../cookbook/features.html#write-grids-images"><span class="std std-ref">“Writing grids and images” cookbook section</span></a>
+for more details.</p>
+</div></blockquote>
 </div>
 <div class="section" id="optional-arguments">
 <h2>Optional Arguments<a class="headerlink" href="#optional-arguments" title="Permalink to this headline">¶</a></h2>
 <dl class="simple" id="c">
-<dt><strong>-C</strong><em>n/wavelength/mean_depth/tbw</em></dt><dd><p>Compute only the theoretical admittance curves of the selected model
+<dt><strong>-C</strong><em>n/wavelength/mean_depth</em>/<strong>t</strong>|<strong>b</strong>|<strong>w</strong></dt><dd><p>Compute only the theoretical admittance curves of the selected model
 and exit. <em>n</em> and <em>wavelength</em> are used to compute (n * wavelength)
 the total profile length in meters. <em>mean_depth</em> is the mean water
-depth. Append dataflags (one or two) of <em>tbw</em> in any order. <em>t</em> =
-use “from top” model, <em>b</em> = use “from below” model. Optionally
+depth. Append dataflags (one or two) of <strong>t</strong>|<strong>b</strong>|<strong>w</strong> in any order.
+Here, <em>t</em> = use “from top” model, <em>b</em> = use “from below” model. Optionally
 specify <em>w</em> to write wavelength instead of frequency.</p>
 </dd>
 </dl>
@@ -420,7 +460,7 @@ If <em>te</em> = 0 then the Airy response is returned. <strong>-T+m</strong> imp
 </dd>
 </dl>
 <dl class="simple" id="w">
-<dt><strong>-W</strong><em>wd</em></dt><dd><p>Set water depth (or observation height) relative to topography [0].  Append <strong>k</strong> to indicate km.</p>
+<dt><strong>-W</strong><em>wd</em>[<strong>k</strong>]</dt><dd><p>Set water depth (or observation height) relative to topography [0].  Append <strong>k</strong> to indicate km.</p>
 </dd>
 </dl>
 <dl class="simple" id="z">
@@ -614,7 +654,7 @@ J. Geophys. Res., 106(B9), 19,431–19,441,
     <p>
         &#169; Copyright 2021, The GMT Team..
       <span class="lastupdated">
-        Last updated on Jun 06, 2021.
+        Last updated on Sep 30, 2021.
       </span>
 
     </p>

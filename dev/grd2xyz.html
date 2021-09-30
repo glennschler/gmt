@@ -134,15 +134,16 @@
 <li class="toctree-l1"><a class="reference internal" href="std-opts-classic.html">Common Options (Classic Mode)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="modules-classic.html">Modules (Classic Mode)</a></li>
 </ul>
-<p class="caption"><span class="caption-text">Developer Resources</span></p>
+<p class="caption"><span class="caption-text">Development</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/GenericMappingTools/gmt/blob/master/CONTRIBUTING.md">Contributing Guide</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/GenericMappingTools/gmt/blob/master/CODE_OF_CONDUCT.md">Code of Conduct</a></li>
-<li class="toctree-l1"><a class="reference internal" href="rst-cheatsheet.html">reStructuredText Cheatsheet</a></li>
-<li class="toctree-l1"><a class="reference internal" href="debug.html">Debugging GMT</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api.html">GMT C API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="postscriptlight.html">PostScriptLight C API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="devdocs.html">Developer Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devdocs/team.html">Team Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devdocs/rst-cheatsheet.html">reStructuredText Cheatsheet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devdocs/debug.html">Debugging GMT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devdocs/api.html">GMT C API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devdocs/postscriptlight.html">PostScriptLight C API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devdocs/devdocs.html">GMT Enhancement Proposals</a></li>
 </ul>
 
             
@@ -237,8 +238,9 @@
 <p>Convert grid to data table</p>
 <div class="section" id="synopsis">
 <h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a></h2>
-<p><strong>gmt grd2xyz</strong> <em>grid</em>
+<p><strong>gmt grd2xyz</strong> <em>ingrid</em>
 [ <a class="reference internal" href="#c"><span><strong>-C</strong></span></a></strong>[<strong>f</strong>|<strong>i</strong>] ]
+[ <a class="reference internal" href="#l"><span><strong>-L</strong></span></a></strong>[<strong>c</strong>|<strong>r</strong>|<strong>x</strong>|<strong>y</strong>]<em>value</em> ]
 [ <a class="reference internal" href="#r"><span><strong>-R</strong></span></a></strong><em>region</em> ]
 [ <a class="reference internal" href="#v"><span><strong>-V</strong></span></a></strong>[<em>level</em>] ]
 [ <a class="reference internal" href="#w"><span><strong>-W</strong></span></a></strong>[<strong>a</strong>[<strong>+u</strong><em>unit</em>]|<em>weight</em>] ] [ <a class="reference internal" href="#z"><span><strong>-Z</strong></span></a></strong>[<em>flags</em>] ]
@@ -264,10 +266,25 @@ output z-values without the (x,y) coordinates; see <strong>-Z</strong> below.</p
 </div>
 <div class="section" id="required-arguments">
 <h2>Required Arguments<a class="headerlink" href="#required-arguments" title="Permalink to this headline">¶</a></h2>
-<dl class="simple">
-<dt><em>grid</em></dt><dd><p>Names of 2-D binary grid files to be converted (see <a class="reference internal" href="gmt.html#grd-inout-full"><span class="std std-ref">Grid File Formats</span></a>).</p>
-</dd>
-</dl>
+<p><em>ingrid</em>[=<em>ID</em>|?<em>varname</em>][<strong>+b</strong><em>band</em>][<strong>+d</strong><em>divisor</em>][<strong>+n</strong><em>invalid</em>]
+[<strong>+o</strong><em>offset</em>][<strong>+s</strong><em>scale</em>]</p>
+<blockquote>
+<div><p>Names of 2-D binary grid files to be converted. Optionally, append =<em>ID</em> for reading a specific file
+format [Default is =<em>nf</em>] or ?<em>varname</em> for a specific netCDF variable
+[Default is the first 2-D grid found by GMT]
+(<a class="reference internal" href="gmt.html#grd-inout-full"><span class="std std-ref">See full description</span></a>). The following modifiers are
+supported:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><strong>+b</strong> - Select a <em>band</em> (for images only) [Default is 0].</p></li>
+<li><p><strong>+d</strong> - Divide data values by the given <em>divisor</em> [Default is 1].</p></li>
+<li><p><strong>+n</strong> - Replace data values matching <em>invalid</em> with NaN.</p></li>
+<li><p><strong>+o</strong> - Offset data values by the given <em>offset</em> [Default is 0].</p></li>
+<li><p><strong>+s</strong> - Scale data values by the given <em>scale</em> [Default is 1].</p></li>
+</ul>
+</div></blockquote>
+<p>Note: Any offset is added after any scaling.</p>
+</div></blockquote>
 </div>
 <div class="section" id="optional-arguments">
 <h2>Optional Arguments<a class="headerlink" href="#optional-arguments" title="Permalink to this headline">¶</a></h2>
@@ -277,6 +294,14 @@ column and row numbers. These start at 0 (C-style counting); append
 <strong>f</strong> to start at 1 (Fortran-style counting). Alternatively, append
 <strong>i</strong> to write just the two columns <em>index</em> and <em>z</em>, where <em>index</em>
 is the 1-D indexing that GMT uses when referring to grid nodes.</p>
+</dd>
+</dl>
+<dl class="simple" id="l">
+<dt><strong>-L</strong><strong>c</strong>|<strong>r</strong>|<strong>x</strong>|<strong>y</strong>]<em>value</em></dt><dd><p>Limit the output of records to a single row or column.  Identify the desired
+vector either by <em>row</em> or <em>column</em> number (via directives <strong>c</strong> or <strong>r</strong>), or by the
+constant <em>x</em> or <em>y</em> value (via directives <strong>x</strong> or <strong>y</strong>).  If your selection is outside
+the valid range then no output will result and a warning is issued.  <strong>Note</strong>: For
+directives <strong>x</strong> and <strong>y</strong> we find the nearest column or row, respectively.</p>
 </dd>
 </dl>
 <dl class="simple" id="r">
@@ -332,7 +357,7 @@ appending <strong>y</strong>. If the byte-order needs to be swapped, append
 </dd>
 </dl>
 <dl class="simple">
-<dt><strong>-bo</strong>[<em>ncols</em>][<em>type</em>] <a class="reference internal" href="gmt.html#bo-full"><span class="std std-ref">(more …)</span></a></dt><dd><p>Select native binary output. [Default is 3]. This option
+<dt><strong>-bo</strong><em>record</em>[<strong>+b</strong>|<strong>l</strong>] <a class="reference internal" href="gmt.html#bo-full"><span class="std std-ref">(more …)</span></a></dt><dd><p>Select native binary format for table output. [Default is 3]. This option
 only applies to xyz output; see <strong>-Z</strong> for z table output.</p>
 </dd>
 </dl>
@@ -348,15 +373,19 @@ is selected. [Default is no header].</p>
 </dd>
 </dl>
 <dl class="simple">
+<dt><strong>-h</strong>[<strong>i</strong>|<strong>o</strong>][<em>n</em>][<strong>+c</strong>][<strong>+d</strong>][<strong>+m</strong><em>segheader</em>][<strong>+r</strong><em>remark</em>][<strong>+t</strong><em>title</em>] <a class="reference internal" href="gmt.html#h-full"><span class="std std-ref">(more …)</span></a></dt><dd><p>Skip or produce header record(s).  </p>
+</dd>
+</dl>
+<dl class="simple">
 <dt><strong>-o</strong><em>cols</em>[,…][,<strong>t</strong>[<em>word</em>]] <a class="reference internal" href="gmt.html#ocols-full"><span class="std std-ref">(more …)</span></a></dt><dd><p>Select output columns (0 is first column; <strong>t</strong> is trailing text, append <em>word</em> to write one word only).</p>
 </dd>
 </dl>
 <dl class="simple">
-<dt><strong>-qo</strong>[~]<em>rows</em>[<strong>+c</strong><em>col</em>][<strong>+a</strong>|<strong>f</strong>|<strong>s</strong>] <a class="reference internal" href="gmt.html#qo-full"><span class="std std-ref">(more …)</span></a></dt><dd><p>Select output rows or data range(s) [default is all rows].</p>
+<dt><strong>-qo</strong>[~]<em>rows</em>|<em>limits</em>[<strong>+c</strong><em>col</em>][<strong>+a</strong>|<strong>f</strong>|<strong>s</strong>] <a class="reference internal" href="gmt.html#qo-full"><span class="std std-ref">(more …)</span></a></dt><dd><p>Select output rows or data limit(s) [default is all rows].</p>
 </dd>
 </dl>
 <dl class="simple">
-<dt><strong>-s</strong>[<em>cols</em>][<strong>+a</strong>][<strong>+r</strong>] <a class="reference internal" href="gmt.html#s-full"><span class="std std-ref">(more …)</span></a></dt><dd><p>Set handling of NaN records.</p>
+<dt><strong>-s</strong>[<em>cols</em>][<strong>+a</strong>][<strong>+r</strong>] <a class="reference internal" href="gmt.html#s-full"><span class="std std-ref">(more …)</span></a></dt><dd><p>Set handling of NaN records for output.</p>
 </dd>
 </dl>
 <dl class="simple">
@@ -415,6 +444,15 @@ command line. The default output is relative time in that time system,
 or absolute time when using the option <strong>-f0T</strong>, <strong>-f1T</strong>, or <strong>-f2T</strong>
 for x, y, or z coordinate, respectively.</p>
 </div>
+<div class="section" id="row-order">
+<h2>Row Order<a class="headerlink" href="#row-order" title="Permalink to this headline">¶</a></h2>
+<p>The <strong>-Lr</strong> option allows you to output a specific row in the grid. Note that while
+a grid’s y-coordinates are positive up, internal row numbers are scanline numbers
+and hence positive down.  Therefore, the first row (0) coincides with the largest <em>y</em>-value.
+This means that <strong>-Lr</strong><em>0</em> and <strong>-Ly</strong><em>ymax</em> (for the correct maximum y-value)
+will yield the same result.  In contrast, both <em>x</em> and column numbers are positive to the right,
+with <strong>-Lc</strong><em>0</em> and <strong>-Lx</strong><em>xmin</em> (for the correct minimum x-value) yielding the same output.</p>
+</div>
 <div class="section" id="examples">
 <h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
 <p>To edit individual values in the 2’ by 2’ remote AFR.nc file, dump the .nc to ASCII:</p>
@@ -456,7 +494,7 @@ and where <em>area</em> reflects the size of each grid box, run:</p>
     <p>
         &#169; Copyright 2021, The GMT Team..
       <span class="lastupdated">
-        Last updated on Jun 06, 2021.
+        Last updated on Sep 30, 2021.
       </span>
 
     </p>

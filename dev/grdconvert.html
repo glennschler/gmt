@@ -134,15 +134,16 @@
 <li class="toctree-l1"><a class="reference internal" href="std-opts-classic.html">Common Options (Classic Mode)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="modules-classic.html">Modules (Classic Mode)</a></li>
 </ul>
-<p class="caption"><span class="caption-text">Developer Resources</span></p>
+<p class="caption"><span class="caption-text">Development</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/GenericMappingTools/gmt/blob/master/CONTRIBUTING.md">Contributing Guide</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/GenericMappingTools/gmt/blob/master/CODE_OF_CONDUCT.md">Code of Conduct</a></li>
-<li class="toctree-l1"><a class="reference internal" href="rst-cheatsheet.html">reStructuredText Cheatsheet</a></li>
-<li class="toctree-l1"><a class="reference internal" href="debug.html">Debugging GMT</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api.html">GMT C API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="postscriptlight.html">PostScriptLight C API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="devdocs.html">Developer Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devdocs/team.html">Team Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devdocs/rst-cheatsheet.html">reStructuredText Cheatsheet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devdocs/debug.html">Debugging GMT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devdocs/api.html">GMT C API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devdocs/postscriptlight.html">PostScriptLight C API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devdocs/devdocs.html">GMT Enhancement Proposals</a></li>
 </ul>
 
             
@@ -254,54 +255,51 @@ be written and to specify scaling, translation, and NaN-value.</p>
 </div>
 <div class="section" id="required-arguments">
 <h2>Required Arguments<a class="headerlink" href="#required-arguments" title="Permalink to this headline">¶</a></h2>
-<dl class="simple">
-<dt><em>ingrid</em>[=id[<strong>+s</strong><em>scale</em>][<strong>+o</strong><em>offset</em>][<strong>+n</strong><em>invalid</em>]]</dt><dd><p>The grid file to be read. Append format =<em>id</em> code if not a
-standard COARDS-compliant netCDF grid file. If =<em>id</em> is set (see
-below), you may optionally append any of <strong>+s</strong><em>scale</em>, <strong>+o</strong><em>offset</em>,
-and <strong>+n</strong><em>invalid</em>. The first two options will scale the data
-and then offset them with the specified amounts after reading
-while the latter lets you supply a value that represents an invalid
-grid entry, i.e., ‘Not-a-Number’ (for floating-point grids this is
-unnecessary since the IEEE NaN is used; however integers need a
-value which means no data available). When <em>id=gd</em>, the file will
-be read using the GDAL library, which will take care to detect the
-format of the file being read. This mechanism is actually used
-automatically when the file format is not one of those that GMT
-recognize. However, sometimes the guessing may fail, so adding
-<em>id=gd</em> forces a read via GDAL.
-See Section <a class="reference internal" href="cookbook/features.html#grid-file-format"><span class="std std-ref">Grid file format specifications</span></a> of the GMT Technical Reference and Cookbook for more information.</p>
-</dd>
-</dl>
-<dl id="g">
-<dt><strong>-G</strong><em>outgrid</em>[=id[<strong>+s</strong><em>scale</em>][<strong>+o</strong><em>offset</em>][<strong>+n</strong><em>invalid</em>]][<em>:driver</em>[/<em>datatype</em>]]]</dt><dd><p>The grid file to be written. Append format =<em>id</em> code if not a
-standard COARDS-compliant netCDF grid file. If =<em>id</em> is set (see
-below), you may optionally append  any of <strong>+s</strong><em>scale</em>,
-<strong>+o</strong><em>offset</em>, and <strong>+n</strong><em>invalid</em>.  These modifiers are
-particularly practical when storing the data as integers, by
-first removing an offset and then scaling down the values.
-Since the scale and offset are applied in reverse order when
-reading, this does not affect the data values (except for
-round-offs).  The <strong>+n</strong> modifier let you append a value
-that represents ‘Not-a-Number’ (for floating-point grids this is
-unnecessary since the IEEE NaN is used; however integers need a
-value which means no data available). You may specify <strong>+s</strong><em>a</em>
-for auto-adjusting the scale and/or offset of packed integer grids
-(=<em>id</em><strong>+s</strong><em>a</em> is a shorthand for =<em>id</em><strong>+s</strong><em>a</em><strong>+o</strong><em>a</em>).
-When <em>id</em>=<em>gd</em>, the file will be saved using the
-GDAL library. Append the format <em>:driver</em> and optionally the output
-<em>datatype</em>. The driver names are those used by GDAL itself (e.g.,
-netCDF, GTiFF, etc.), and the data type is one of
-<em>u8</em>|<em>u16</em>|<em>i16</em>|<em>u32</em>|<em>i32</em>|<em>float32</em>,
-where ‘i’ and ‘u’ denote signed and unsigned integers respectively.
-The default type is <em>float32</em>. Note also that both driver names and
-data types are case insensitive.
-See Section <a class="reference internal" href="cookbook/features.html#grid-file-format"><span class="std std-ref">Grid file format specifications</span></a> of the GMT Technical Reference and Cookbook for more information.</p>
-<p>Consider setting <a class="reference internal" href="gmt.conf.html#term-IO_NC4_DEFLATION_LEVEL"><span class="xref std std-term">IO_NC4_DEFLATION_LEVEL</span></a>
-to reduce file size and to further increase read/write performance.
-Especially when working with subsets of global grids, masks, and grids with
-repeating grid values, the improvement is usually significant.</p>
-</dd>
-</dl>
+<p><em>ingrid</em>[=<em>ID</em>|?<em>varname</em>][<strong>+b</strong><em>band</em>][<strong>+d</strong><em>divisor</em>][<strong>+n</strong><em>invalid</em>]
+[<strong>+o</strong><em>offset</em>][<strong>+s</strong><em>scale</em>]</p>
+<blockquote>
+<div><p>2-D gridded data set to be read. Optionally, append =<em>ID</em> for reading a specific file
+format [Default is =<em>nf</em>] or ?<em>varname</em> for a specific netCDF variable
+[Default is the first 2-D grid found by GMT]
+(<a class="reference internal" href="gmt.html#grd-inout-full"><span class="std std-ref">See full description</span></a>). The following modifiers are
+supported:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><strong>+b</strong> - Select a <em>band</em> (for images only) [Default is 0].</p></li>
+<li><p><strong>+d</strong> - Divide data values by the given <em>divisor</em> [Default is 1].</p></li>
+<li><p><strong>+n</strong> - Replace data values matching <em>invalid</em> with NaN.</p></li>
+<li><p><strong>+o</strong> - Offset data values by the given <em>offset</em> [Default is 0].</p></li>
+<li><p><strong>+s</strong> - Scale data values by the given <em>scale</em> [Default is 1].</p></li>
+</ul>
+</div></blockquote>
+<p>Note: Any offset is added after any scaling.</p>
+</div></blockquote>
+<span class="target" id="g"></span><p><strong>-G</strong><em>outgrid</em>[=<em>ID</em>][<strong>+d</strong><em>divisor</em>][<strong>+n</strong><em>invalid</em>]
+[<strong>+o</strong><em>offset</em>|<strong>a</strong>][<strong>+s</strong><em>scale</em>|<strong>a</strong>]
+[:<em>driver</em>[<em>dataType</em>][<strong>+c</strong><em>options</em>]]</p>
+<blockquote>
+<div><p>Give the name of the output converted grid file. Optionally, append =<em>ID</em> for writing a specific file format
+(<a class="reference internal" href="gmt.html#grd-inout-full"><span class="std std-ref">See full description</span></a>). The following modifiers are
+supported:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><strong>+d</strong> - Divide data values by given <em>divisor</em> [Default is 1].</p></li>
+<li><p><strong>+n</strong> - Replace data values matching <em>invalid</em> with a NaN.</p></li>
+<li><p><strong>+o</strong> - Offset data values by the given <em>offset</em>, or append <strong>a</strong> for
+automatic range offset to preserve precision for integer grids
+[Default is 0].</p></li>
+<li><p><strong>+s</strong> - Scale data values by the given <em>scale</em>, or append <strong>a</strong> for
+automatic scaling to preserve precision for integer grids [Default
+is 1].</p></li>
+</ul>
+</div></blockquote>
+<p>Note: Any offset is added before any scaling. <strong>+sa</strong> also sets <strong>+oa</strong>
+(unless overridden). To write specific formats via GDAL, use = <em>gd</em>
+and supply <em>driver</em> (and optionally <em>dataType</em>) and/or one or more
+concatenated GDAL <strong>-co</strong> options using <strong>+c</strong>. See
+the <a class="reference internal" href="cookbook/features.html#write-grids-images"><span class="std std-ref">“Writing grids and images” cookbook section</span></a>
+for more details.</p>
+</div></blockquote>
 </div>
 <div class="section" id="optional-arguments">
 <h2>Optional Arguments<a class="headerlink" href="#optional-arguments" title="Permalink to this headline">¶</a></h2>
@@ -358,7 +356,7 @@ write other than floating point COARDS-compliant netCDF files, append
 the =<em>id</em> suffix to the filename <em>outgrid</em>.</p>
 <p>When reading files, <strong>grdconvert</strong> and other GMT programs will try
 to automatically recognize the type of the input grid file. If this
-fails you may append the =<em>id</em> suffix to the filename <em>ingrid</em>.</p>
+fails you may append the =<em>ID</em> suffix to the filename <em>ingrid</em>.</p>
 <table class="docutils align-default">
 <colgroup>
 <col style="width: 14%" />
@@ -455,7 +453,7 @@ without loss of data range or significance. For more details, see
 <p><strong>Multi-variable grid files</strong></p>
 <p>By default, GMT programs will read the first 2-dimensional grid
 contained in a COARDS-compliant netCDF file. Alternatively, use
-<em>ingrid</em><strong>?</strong><em>varname</em> (ahead of any optional suffix <strong>=</strong><em>id</em>)
+<em>ingrid</em><strong>?</strong><em>varname</em> (ahead of any optional suffix <strong>=</strong><em>ID</em>)
 to specify the requested variable <em>varname</em>. Since <strong>?</strong> has special
 meaning as a wildcard, escape this meaning by placing the full filename
 and suffix between quotes.</p>
@@ -562,7 +560,7 @@ image.nc, assuming the range in image.nc is 0-1 and we need 0-255, run</p>
     <p>
         &#169; Copyright 2021, The GMT Team..
       <span class="lastupdated">
-        Last updated on Jun 06, 2021.
+        Last updated on Sep 30, 2021.
       </span>
 
     </p>

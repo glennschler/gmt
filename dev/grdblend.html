@@ -134,15 +134,16 @@
 <li class="toctree-l1"><a class="reference internal" href="std-opts-classic.html">Common Options (Classic Mode)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="modules-classic.html">Modules (Classic Mode)</a></li>
 </ul>
-<p class="caption"><span class="caption-text">Developer Resources</span></p>
+<p class="caption"><span class="caption-text">Development</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/GenericMappingTools/gmt/blob/master/CONTRIBUTING.md">Contributing Guide</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/GenericMappingTools/gmt/blob/master/CODE_OF_CONDUCT.md">Code of Conduct</a></li>
-<li class="toctree-l1"><a class="reference internal" href="rst-cheatsheet.html">reStructuredText Cheatsheet</a></li>
-<li class="toctree-l1"><a class="reference internal" href="debug.html">Debugging GMT</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api.html">GMT C API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="postscriptlight.html">PostScriptLight C API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="devdocs.html">Developer Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devdocs/team.html">Team Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devdocs/rst-cheatsheet.html">reStructuredText Cheatsheet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devdocs/debug.html">Debugging GMT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devdocs/api.html">GMT C API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devdocs/postscriptlight.html">PostScriptLight C API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devdocs/devdocs.html">GMT Enhancement Proposals</a></li>
 </ul>
 
             
@@ -237,14 +238,17 @@
 <p>Blend several partially overlapping grids into one larger grid</p>
 <div class="section" id="synopsis">
 <h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a></h2>
-<p><strong>gmt grdblend</strong> [ <em>blendfile</em> | <em>grid1</em> <em>grid2</em> … ] <a class="reference internal" href="#g"><span><strong>-G</strong></span></a></strong><em>outgrid</em>
+<p><strong>gmt grdblend</strong>
+[ <em>blendfile</em> | <em>grid1</em> <em>grid2</em> … ]
+<a class="reference internal" href="#g"><span><strong>-G</strong></span></a></strong><em>outgrid</em>
 <a class="reference internal" href="#i"><span><strong>-I</strong></span></a></strong><em>increment</em>
 <a class="reference internal" href="#r"><span><strong>-R</strong></span></a></strong><em>region</em>
 [ <a class="reference internal" href="#c"><span><strong>-C</strong></span></a></strong><strong>f</strong>|<strong>l</strong>|<strong>o</strong>|<strong>u</strong>[<strong>+n</strong>|<strong>p</strong>] ]
-[ <a class="reference internal" href="#n"><span><strong>-N</strong></span></a></strong><em>nodata</em> ]
-[ <a class="reference internal" href="#q"><span><strong>-Q</strong></span></a></strong> ] [ <a class="reference internal" href="#z"><span><strong>-Z</strong></span></a></strong><em>scale</em> ]
+[ <a class="reference internal" href="#q"><span><strong>-Q</strong></span></a></strong> ]
+[ <a class="reference internal" href="#z"><span><strong>-Z</strong></span></a></strong><em>scale</em> ]
 [ <a class="reference internal" href="#v"><span><strong>-V</strong></span></a></strong>[<em>level</em>] ]
 [ <a class="reference internal" href="#w"><span><strong>-W</strong></span></a></strong>[<strong>z</strong>] ]
+[ <strong>-di</strong><a class="reference internal" href="gmt.html#di-full"><span class="std std-ref">nodata</span></a> ]
 [ <strong>-f</strong><a class="reference internal" href="gmt.html#f-full"><span class="std std-ref">flags</span></a> ]
 [ <strong>-n</strong><a class="reference internal" href="gmt.html#n-full"><span class="std std-ref">flags</span></a> ]
 [ <strong>-r</strong><a class="reference internal" href="gmt.html#nodereg-full"><span class="std std-ref">reg</span></a> ]
@@ -300,7 +304,7 @@ be handled by reformatting the output once blending is complete.</p>
 </dl>
 <dl class="simple" id="i">
 <dt><strong>-I</strong><em>xinc</em>[<strong>+e</strong>|<strong>n</strong>][/<em>yinc</em>[<strong>+e</strong>|<strong>n</strong>]]</dt><dd><p><em>x_inc</em> [and optionally <em>y_inc</em>] is the grid spacing. <strong>Geographical
-(degrees) coordinates</strong>: Optionally, append a increment unit. Choose among
+(degrees) coordinates</strong>: Optionally, append an increment unit. Choose among
 <strong>m</strong> to indicate arc minutes or <strong>s</strong> to indicate arc seconds. If one
 of the units <strong>e</strong>, <strong>f</strong>, <strong>k</strong>, <strong>M</strong>, <strong>n</strong> or <strong>u</strong> is appended
 instead, the increment is assumed to be given in meter, foot, km, Mile,
@@ -343,10 +347,6 @@ for subsequent grids we only consider them in the decision if the
 values are &gt;= 0 or &lt;= 0, respectively.</p>
 </dd>
 </dl>
-<dl class="simple" id="n">
-<dt><strong>-N</strong><em>nodata</em></dt><dd><p>No data. Set nodes with no input grid to this value [Default is NaN].</p>
-</dd>
-</dl>
 <dl class="simple" id="q">
 <dt><strong>-Q</strong></dt><dd><p>Create plain header-less grid file (for use with external tools).
 Requires that the output grid file is a native format (i.e., not netCDF).</p>
@@ -363,6 +363,11 @@ Append <strong>z</strong> to write the weight*z sum instead.</p>
 </dl>
 <dl class="simple" id="z">
 <dt><strong>-Z</strong><em>scale</em></dt><dd><p>Scale output values by <em>scale</em> before writing to file. [1].</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt><strong>-di</strong><em>nodata</em> <a class="reference internal" href="gmt.html#di-full"><span class="std std-ref">(more …)</span></a></dt><dd><p>Replace input columns that equal <em>nodata</em> with NaN. Also sets nodes with no input constraints to this value
+[Default is NaN].</p>
 </dd>
 </dl>
 <dl class="simple">
@@ -417,27 +422,21 @@ can be cut and pasted into your terminal for testing.
 Other commands requiring input files are just dummy examples of the types
 of uses that are common but cannot be run verbatim as written.</p>
 <p>To create a grid file from the four grid files piece_?.nc, giving them each the different
-weights, make the blendfile like this</p>
-<blockquote>
-<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>piece_1.nc -R&lt;subregion_1&gt; <span class="m">1</span>
+weights, make the blendfile like this:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>piece_1.nc -R&lt;subregion_1&gt; <span class="m">1</span>
 piece_2.nc -R&lt;subregion_2&gt; <span class="m">1</span>.5
 piece_3.nc -R&lt;subregion_3&gt; <span class="m">0</span>.9
 piece_4.nc -R&lt;subregion_4&gt; <span class="m">1</span>
 </pre></div>
 </div>
-</div></blockquote>
-<p>Then run</p>
-<blockquote>
-<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gmt grdblend blend.job -Gblend.nc -R&lt;full_region&gt; -I&lt;dx/dy&gt; -V
+<p>Then run:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gmt grdblend blend.job -Gblend.nc -R&lt;full_region&gt; -I&lt;dx/dy&gt; -V
 </pre></div>
 </div>
-</div></blockquote>
-<p>To blend all the grids called MB_*.nc given them all equal weight, try</p>
-<blockquote>
-<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gmt grdblend MB_*.nc -Gblend.nc -R&lt;full_region&gt; -I&lt;dx/dy&gt; -V
+<p>To blend all the grids called MB_*.nc given them all equal weight, try:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gmt grdblend MB_*.nc -Gblend.nc -R&lt;full_region&gt; -I&lt;dx/dy&gt; -V
 </pre></div>
 </div>
-</div></blockquote>
 </div>
 <div class="section" id="warning-on-large-file-sets">
 <h2>Warning on large file sets<a class="headerlink" href="#warning-on-large-file-sets" title="Permalink to this headline">¶</a></h2>
@@ -475,7 +474,7 @@ documentation for how to change system limits.</p>
     <p>
         &#169; Copyright 2021, The GMT Team..
       <span class="lastupdated">
-        Last updated on Jun 06, 2021.
+        Last updated on Sep 30, 2021.
       </span>
 
     </p>

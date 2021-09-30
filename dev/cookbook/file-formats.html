@@ -176,15 +176,16 @@
 <li class="toctree-l1"><a class="reference internal" href="../std-opts-classic.html">Common Options (Classic Mode)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../modules-classic.html">Modules (Classic Mode)</a></li>
 </ul>
-<p class="caption"><span class="caption-text">Developer Resources</span></p>
+<p class="caption"><span class="caption-text">Development</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/GenericMappingTools/gmt/blob/master/CONTRIBUTING.md">Contributing Guide</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/GenericMappingTools/gmt/blob/master/CODE_OF_CONDUCT.md">Code of Conduct</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../rst-cheatsheet.html">reStructuredText Cheatsheet</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../debug.html">Debugging GMT</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api.html">GMT C API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../postscriptlight.html">PostScriptLight C API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../devdocs.html">Developer Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../devdocs/team.html">Team Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../devdocs/rst-cheatsheet.html">reStructuredText Cheatsheet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../devdocs/debug.html">Debugging GMT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../devdocs/api.html">GMT C API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../devdocs/postscriptlight.html">PostScriptLight C API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../devdocs/devdocs.html">GMT Enhancement Proposals</a></li>
 </ul>
 
             
@@ -526,7 +527,9 @@ convert from one format to the other;
 <a class="reference internal" href="../grdedit.html"><span class="doc">grdedit</span></a> can make changes to the grid
 header and convert a pixel- to a gridline-registered grid, or <em>vice
 versa</em>. The grid registration is determined by the common GMT <strong>-r</strong>
-option (see Section <a class="reference internal" href="options.html#option-nodereg"><span class="std std-ref">Grid registration: The -r option</span></a>).</p>
+option (see Section <a class="reference internal" href="options.html#option-nodereg"><span class="std std-ref">Grid registration: The -r option</span></a>). <strong>Note</strong>: The smallest
+pixel-registered grid can be 1x1 (storing a single value), while a
+gridline-registered grid cannot be smaller than 2x2.</p>
 </div>
 <div class="section" id="boundary-conditions-for-operations-on-grids">
 <h3><span class="section-number">8.2.4. </span>Boundary Conditions for operations on grids<a class="headerlink" href="#boundary-conditions-for-operations-on-grids" title="Permalink to this headline">¶</a></h3>
@@ -784,7 +787,7 @@ translated into the right raster format.</p>
     <p>
         &#169; Copyright 2021, The GMT Team..
       <span class="lastupdated">
-        Last updated on Jun 06, 2021.
+        Last updated on Sep 30, 2021.
       </span>
 
     </p>

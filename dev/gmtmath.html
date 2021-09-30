@@ -134,15 +134,16 @@
 <li class="toctree-l1"><a class="reference internal" href="std-opts-classic.html">Common Options (Classic Mode)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="modules-classic.html">Modules (Classic Mode)</a></li>
 </ul>
-<p class="caption"><span class="caption-text">Developer Resources</span></p>
+<p class="caption"><span class="caption-text">Development</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/GenericMappingTools/gmt/blob/master/CONTRIBUTING.md">Contributing Guide</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/GenericMappingTools/gmt/blob/master/CODE_OF_CONDUCT.md">Code of Conduct</a></li>
-<li class="toctree-l1"><a class="reference internal" href="rst-cheatsheet.html">reStructuredText Cheatsheet</a></li>
-<li class="toctree-l1"><a class="reference internal" href="debug.html">Debugging GMT</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api.html">GMT C API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="postscriptlight.html">PostScriptLight C API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="devdocs.html">Developer Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devdocs/team.html">Team Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devdocs/rst-cheatsheet.html">reStructuredText Cheatsheet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devdocs/debug.html">Debugging GMT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devdocs/api.html">GMT C API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devdocs/postscriptlight.html">PostScriptLight C API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devdocs/devdocs.html">GMT Enhancement Proposals</a></li>
 </ul>
 
             
@@ -239,9 +240,11 @@
 <h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a></h2>
 <p><strong>gmt math</strong> [ <a class="reference internal" href="#a"><span><strong>-A</strong></span></a></strong><em>t_f(t)</em>[<strong>+e</strong>][<strong>+r</strong>][<strong>+s</strong>|<strong>w</strong>] ]
 [ <a class="reference internal" href="#c"><span><strong>-C</strong></span></a></strong><em>cols</em> ]
-[ <a class="reference internal" href="#e"><span><strong>-E</strong></span></a></strong><em>eigen</em> ] [ <a class="reference internal" href="#i"><span><strong>-I</strong></span></a></strong> ]
+[ <a class="reference internal" href="#e"><span><strong>-E</strong></span></a></strong><em>eigen</em> ]
+[ <a class="reference internal" href="#i"><span><strong>-I</strong></span></a></strong> ]
 [ <a class="reference internal" href="#n"><span><strong>-N</strong></span></a></strong><em>n_col</em>[/<em>t_col</em>] ]
-[ <a class="reference internal" href="#q"><span><strong>-Q</strong></span></a></strong> ] [ <a class="reference internal" href="#s"><span><strong>-S</strong></span></a></strong>[<strong>f</strong>|<strong>l</strong>] ]
+[ <a class="reference internal" href="#q"><span><strong>-Q</strong></span></a></strong>[<strong>c</strong>|<strong>i</strong>|<strong>p</strong>|<strong>n</strong>] ]
+[ <a class="reference internal" href="#s"><span><strong>-S</strong></span></a></strong>[<strong>f</strong>|<strong>l</strong>] ]
 [ <a class="reference internal" href="#t"><span><strong>-T</strong></span></a></strong>[<em>min</em>/<em>max</em>/<em>inc</em>[<strong>+b</strong>|<strong>i</strong>|<strong>l</strong>|<strong>n</strong>]|<em>file</em>|<em>list</em>] ]
 [ <a class="reference internal" href="#v"><span><strong>-V</strong></span></a></strong>[<em>level</em>] ]
 [ <strong>-b</strong><a class="reference internal" href="gmt.html#bi-full"><span class="std std-ref">binary</span></a> ]
@@ -340,9 +343,13 @@ columns.</p>
 </dd>
 </dl>
 <dl class="simple" id="q">
-<dt><strong>-Q</strong></dt><dd><p>Quick mode for scalar calculation. Shorthand for <strong>-Ca</strong> <strong>-N</strong>1/0  <strong>-T</strong>0/0/1.
-In this mode, constants may have plot units (i.e., c, i, p) and if so the final
-answer will be reported in the unit set by <a class="reference internal" href="gmt.conf.html#term-PROJ_LENGTH_UNIT"><span class="xref std std-term">PROJ_LENGTH_UNIT</span></a>.</p>
+<dt><strong>-Q</strong>[<strong>c</strong>|<strong>i</strong>|<strong>p</strong>|<strong>n</strong>]</dt><dd><p>Quick mode for scalar calculation. Shorthand for <strong>-Ca</strong> <strong>-N</strong>1/0  <strong>-T</strong>0/0/1.
+In this mode, constants may have dimensional units (i.e., <strong>c</strong>, <strong>i</strong>, or <strong>p</strong>),
+and will be converted to internal <em>inches</em> before computing. If one or more constants
+with units are encountered then the final answer will be reported in the unit set by
+<a class="reference internal" href="gmt.conf.html#term-PROJ_LENGTH_UNIT"><span class="xref std std-term">PROJ_LENGTH_UNIT</span></a>, unless overridden by appending another unit. Alternatively,
+append <strong>n</strong> for a non-dimensional result, meaning no unit conversion during output.
+To avoid any unit conversion on input, just do not use units.</p>
 </dd>
 </dl>
 <dl class="simple" id="s">
@@ -366,11 +373,11 @@ For details on array creation, see <a class="reference internal" href="#generate
 </dd>
 </dl>
 <dl class="simple">
-<dt><strong>-bi</strong>[<em>ncols</em>][<strong>t</strong>] <a class="reference internal" href="gmt.html#bi-full"><span class="std std-ref">(more …)</span></a></dt><dd><p>Select native binary format for primary input.  </p>
+<dt><strong>-bi</strong><em>record</em>[<strong>+b</strong>|<strong>l</strong>] <a class="reference internal" href="gmt.html#bi-full"><span class="std std-ref">(more …)</span></a></dt><dd><p>Select native binary format for primary table input.  </p>
 </dd>
 </dl>
 <dl class="simple">
-<dt><strong>-bo</strong>[<em>ncols</em>][<em>type</em>] <a class="reference internal" href="gmt.html#bo-full"><span class="std std-ref">(more …)</span></a></dt><dd><p>Select native binary output. [Default is same as input, but see <strong>-o</strong>]</p>
+<dt><strong>-bo</strong><em>record</em>[<strong>+b</strong>|<strong>l</strong>] <a class="reference internal" href="gmt.html#bo-full"><span class="std std-ref">(more …)</span></a></dt><dd><p>Select native binary format for table output. [Default is same as input, but see <strong>-o</strong>]</p>
 </dd>
 </dl>
 <dl class="simple">
@@ -386,7 +393,7 @@ For details on array creation, see <a class="reference internal" href="#generate
 </dd>
 </dl>
 <dl class="simple">
-<dt><strong>-g</strong>[<strong>a</strong>]<strong>x</strong>|<strong>y</strong>|<strong>d</strong>|<strong>X</strong>|<strong>Y</strong>|<strong>D</strong>|[<em>col</em>]<strong>z</strong><em>gap</em>[<strong>+n</strong>|<strong>p</strong>]  <a class="reference internal" href="gmt.html#g-full"><span class="std std-ref">(more …)</span></a></dt><dd><p>Determine data gaps and line breaks.  </p>
+<dt><strong>-g</strong><strong>x</strong>|<strong>y</strong>|<strong>z</strong>|<strong>d</strong>|<strong>X</strong>|<strong>Y</strong>|<strong>D</strong><em>gap</em>[<strong>u</strong>][<strong>+a</strong>][<strong>+c</strong><em>col</em>][<strong>+n</strong>|<strong>p</strong>]  <a class="reference internal" href="gmt.html#g-full"><span class="std std-ref">(more …)</span></a></dt><dd><p>Determine data gaps and line breaks.  </p>
 </dd>
 </dl>
 <dl class="simple">
@@ -394,7 +401,7 @@ For details on array creation, see <a class="reference internal" href="#generate
 </dd>
 </dl>
 <dl class="simple">
-<dt><strong>-i</strong><em>cols</em>[<strong>+l</strong>][<strong>+d</strong><em>divide</em>][<strong>+s</strong><em>scale</em>][<strong>+o</strong><em>offset</em>][,<em>…</em>][,<strong>t</strong>[<em>word</em>]] <a class="reference internal" href="gmt.html#icols-full"><span class="std std-ref">(more …)</span></a></dt><dd><p>Select input columns and transformations (0 is first column, <strong>t</strong> is trailing text, append <em>word</em> to read one word only).</p>
+<dt><strong>-i</strong><em>cols</em>[<strong>+l</strong>][<strong>+d</strong><em>divisor</em>][<strong>+s</strong><em>scale</em>|<strong>d</strong>|<strong>k</strong>][<strong>+o</strong><em>offset</em>][,<em>…</em>][,<strong>t</strong>[<em>word</em>]] <a class="reference internal" href="gmt.html#icols-full"><span class="std std-ref">(more …)</span></a></dt><dd><p>Select input columns and transformations (0 is first column, <strong>t</strong> is trailing text, append <em>word</em> to read one word only).</p>
 </dd>
 </dl>
 <dl class="simple">
@@ -402,11 +409,11 @@ For details on array creation, see <a class="reference internal" href="#generate
 </dd>
 </dl>
 <dl class="simple">
-<dt><strong>-q</strong>[<strong>i</strong>|<strong>o</strong>][~]<em>rows</em>[<strong>+c</strong><em>col</em>][<strong>+a</strong>|<strong>f</strong>|<strong>s</strong>] <a class="reference internal" href="gmt.html#q-full"><span class="std std-ref">(more …)</span></a></dt><dd><p>Select input or output rows or data range(s) [all].</p>
+<dt><strong>-q</strong>[<strong>i</strong>|<strong>o</strong>][~]<em>rows</em>|<em>limits</em>[<strong>+c</strong><em>col</em>][<strong>+a</strong>|<strong>f</strong>|<strong>s</strong>] <a class="reference internal" href="gmt.html#q-full"><span class="std std-ref">(more …)</span></a></dt><dd><p>Select input or output rows or data limit(s) [all].</p>
 </dd>
 </dl>
 <dl class="simple">
-<dt><strong>-s</strong>[<em>cols</em>][<strong>+a</strong>][<strong>+r</strong>] <a class="reference internal" href="gmt.html#s-full"><span class="std std-ref">(more …)</span></a></dt><dd><p>Set handling of NaN records.</p>
+<dt><strong>-s</strong>[<em>cols</em>][<strong>+a</strong>][<strong>+r</strong>] <a class="reference internal" href="gmt.html#s-full"><span class="std std-ref">(more …)</span></a></dt><dd><p>Set handling of NaN records for output.</p>
 </dd>
 </dl>
 <dl class="simple">
@@ -488,7 +495,7 @@ instead.  To have exactly 5 equidistant values from 3.44 and 7.82, run:</p>
 <span class="m">7</span>.82
 </pre></div>
 </div>
-<p>Alternatively, give a <em>file</em> with output coordinates in the first column,
+<p>Alternatively, let <em>inc</em> be a <em>file</em> with output coordinates in the first column,
 or provide a comma-separated <em>list</em> of specific coordinates, such as the first 6
 Fibonacci numbers:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gmt math -o0 -T0,1,1,2,3,5 <span class="nv">T</span> <span class="o">=</span>
@@ -500,8 +507,10 @@ Fibonacci numbers:</p>
 <span class="m">5</span>
 </pre></div>
 </div>
+<p><strong>Note</strong>: Should you need to ensure that the coordinates are unique and sorted (in case the
+<em>file</em> or <em>list</em> are not sorted or have duplicates) then supply the <strong>+u</strong> modifier.</p>
 <p>If you only want a <em>single</em> value
-then you must append a comma to distinguish the list from the setting of <em>inc</em>.</p>
+then you must append a comma to distinguish the list from the setting of an increment.</p>
 <p>If the module allows you to set up an absolute time series, append a valid time unit from the list
 <strong>y</strong>ear, m<strong>o</strong>nth, <strong>d</strong>ay, <strong>h</strong>our, <strong>m</strong>inute, and <strong>s</strong>econd
 to the given increment; add <strong>+t</strong> to ensure time column (or use <strong>-f</strong>). <strong>Note</strong>: The internal time
@@ -1472,6 +1481,17 @@ then clearly relative time formatting is required, while if you are computing ne
 by, say, adding an interval to absolute times then you will need to use <strong>-fo</strong> to set
 the output format for such columns to absolute time.</p>
 </div>
+<div class="section" id="scalar-math-with-units">
+<h2>Scalar math with units<a class="headerlink" href="#scalar-math-with-units" title="Permalink to this headline">¶</a></h2>
+<p>If you use <strong>-Q</strong> to do simple calculations, please note that the support for dimensional units is
+limited to converting a number ending in c, i, or p to internal inches.  Thus, while you can run
+gmt -Qc 1c 1c MUL =, you may be surprised that the output area is not 1 cm squared.  The reason is
+that <strong>gmt math</strong> cannot keep track of what unit any particular item on the stack might be so it will
+assume it is internally in inches and then scale the final output to cm.  In this particular case,
+the unit is in inches squared and scaling by 2.54 once will give 0.3937 inch times cm as the unit.
+Thus, conversions only work for linear unit calculations, such as gmt math -Qp 1c 0.5i ADD =, which
+will return the result as 64.34 points.</p>
+</div>
 <div class="section" id="examples">
 <h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
 <p><strong>Note</strong>: Below are some examples of valid syntax for this module.
@@ -1482,6 +1502,12 @@ of uses that are common but cannot be run verbatim as written.</p>
 <p>To add two plot dimensions of different units, we can run</p>
 <blockquote>
 <div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">length</span><span class="o">=</span><span class="sb">`</span>gmt math -Q 15c 2i <span class="nv">SUB</span> <span class="o">=</span><span class="sb">`</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>To compute the ratio of two plot dimensions of different units, we select <em>non-dimensional</em> output and run</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">ratio</span><span class="o">=</span><span class="sb">`</span>gmt math -Qn 15c 2i <span class="nv">DIV</span> <span class="o">=</span><span class="sb">`</span>
 </pre></div>
 </div>
 </div></blockquote>
@@ -1625,7 +1651,7 @@ Publishing Corp.</p>
     <p>
         &#169; Copyright 2021, The GMT Team..
       <span class="lastupdated">
-        Last updated on Jun 06, 2021.
+        Last updated on Sep 30, 2021.
       </span>
 
     </p>

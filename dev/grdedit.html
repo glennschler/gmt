@@ -134,15 +134,16 @@
 <li class="toctree-l1"><a class="reference internal" href="std-opts-classic.html">Common Options (Classic Mode)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="modules-classic.html">Modules (Classic Mode)</a></li>
 </ul>
-<p class="caption"><span class="caption-text">Developer Resources</span></p>
+<p class="caption"><span class="caption-text">Development</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/GenericMappingTools/gmt/blob/master/CONTRIBUTING.md">Contributing Guide</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/GenericMappingTools/gmt/blob/master/CODE_OF_CONDUCT.md">Code of Conduct</a></li>
-<li class="toctree-l1"><a class="reference internal" href="rst-cheatsheet.html">reStructuredText Cheatsheet</a></li>
-<li class="toctree-l1"><a class="reference internal" href="debug.html">Debugging GMT</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api.html">GMT C API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="postscriptlight.html">PostScriptLight C API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="devdocs.html">Developer Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devdocs/team.html">Team Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devdocs/rst-cheatsheet.html">reStructuredText Cheatsheet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devdocs/debug.html">Debugging GMT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devdocs/api.html">GMT C API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devdocs/postscriptlight.html">PostScriptLight C API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devdocs/devdocs.html">GMT Enhancement Proposals</a></li>
 </ul>
 
             
@@ -237,7 +238,7 @@
 <p>Modify header or content of a grid</p>
 <div class="section" id="synopsis">
 <h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a></h2>
-<p><strong>gmt grdedit</strong> <em>grid</em> [ <a class="reference internal" href="#a"><span><strong>-A</strong></span></a></strong> ] [ <a class="reference internal" href="#c"><span><strong>-C</strong></span></a></strong> ]
+<p><strong>gmt grdedit</strong> <em>ingrid</em> [ <a class="reference internal" href="#a"><span><strong>-A</strong></span></a></strong> ] [ <a class="reference internal" href="#c"><span><strong>-C</strong></span></a></strong> ]
 [ <a class="reference internal" href="#d"><span><strong>-D</strong></span></a></strong>[<strong>+x</strong><em>xname</em>][<strong>+y</strong><em>yname</em>][<strong>+z</strong><em>zname</em>][<strong>+s</strong><em>scale</em>][<strong>+o</strong><em>offset</em>][<strong>+n</strong><em>invalid</em>][<strong>+t</strong><em>title</em>][<strong>+r</strong><em>remark</em>] ]
 [ <a class="reference internal" href="#e"><span><strong>-E</strong></span></a></strong>[<strong>a</strong>|<strong>e</strong>|<strong>h</strong>|<strong>l</strong>|<strong>r</strong>|<strong>t</strong>|<strong>v</strong>] ]
 [ <a class="reference internal" href="#g"><span><strong>-G</strong></span></a></strong><em>outgrid</em> ]
@@ -271,10 +272,25 @@ to save the modified grid to a new file.</p>
 </div>
 <div class="section" id="required-arguments">
 <h2>Required Arguments<a class="headerlink" href="#required-arguments" title="Permalink to this headline">¶</a></h2>
-<dl class="simple">
-<dt><em>grid</em></dt><dd><p>Name of the 2-D grid file to modify. (See <a class="reference internal" href="gmt.html#grd-inout-full"><span class="std std-ref">Grid File Formats</span></a>).</p>
-</dd>
-</dl>
+<p><em>ingrid</em>[=<em>ID</em>|?<em>varname</em>][<strong>+b</strong><em>band</em>][<strong>+d</strong><em>divisor</em>][<strong>+n</strong><em>invalid</em>]
+[<strong>+o</strong><em>offset</em>][<strong>+s</strong><em>scale</em>]</p>
+<blockquote>
+<div><p>Name of the 2-D grid file to modify. Optionally, append =<em>ID</em> for reading a specific file
+format [Default is =<em>nf</em>] or ?<em>varname</em> for a specific netCDF variable
+[Default is the first 2-D grid found by GMT]
+(<a class="reference internal" href="gmt.html#grd-inout-full"><span class="std std-ref">See full description</span></a>). The following modifiers are
+supported:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><strong>+b</strong> - Select a <em>band</em> (for images only) [Default is 0].</p></li>
+<li><p><strong>+d</strong> - Divide data values by the given <em>divisor</em> [Default is 1].</p></li>
+<li><p><strong>+n</strong> - Replace data values matching <em>invalid</em> with NaN.</p></li>
+<li><p><strong>+o</strong> - Offset data values by the given <em>offset</em> [Default is 0].</p></li>
+<li><p><strong>+s</strong> - Scale data values by the given <em>scale</em> [Default is 1].</p></li>
+</ul>
+</div></blockquote>
+<p>Note: Any offset is added after any scaling.</p>
+</div></blockquote>
 </div>
 <div class="section" id="optional-arguments">
 <h2>Optional Arguments<a class="headerlink" href="#optional-arguments" title="Permalink to this headline">¶</a></h2>
@@ -311,7 +327,7 @@ netCDF variable via <strong>+v</strong><em>varname</em>.</p>
 <dl class="simple" id="e">
 <dt><strong>-E</strong>[<strong>a</strong>|<strong>e</strong>|<strong>h</strong>|<strong>l</strong>|<strong>r</strong>|<strong>t</strong>|<strong>v</strong>]</dt><dd><p>Transform the grid in one of six ways and (for <strong>l</strong>|<strong>r</strong>|<strong>t</strong>)
 interchange the <em>x</em> and <em>y</em> information:
-<strong>-Ea</strong> will rotate the grid around 180 degrees,
+<strong>-Ea</strong> will flip the grid both horizontally and vertically,
 <strong>-Ee</strong> will exchange the x (longitude) and y (latitude) dimensions,
 <strong>-Eh</strong> will flip the grid horizontally (left-to-right),
 <strong>-El</strong> will rotate the grid 90 degrees counter-clockwise (left),
@@ -321,11 +337,33 @@ interchange the <em>x</em> and <em>y</em> information:
 Incompatible with the other options (except <strong>-G</strong>).</p>
 </dd>
 </dl>
-<dl class="simple" id="g">
-<dt><strong>-G</strong><em>outgrid</em></dt><dd><p>Normally, <strong>grdedit</strong> will overwrite the existing grid with the modified grid.
-Use <strong>-G</strong> to write the modified grid to the file <em>outgrid</em> instead.</p>
-</dd>
-</dl>
+<span class="target" id="g"></span><p><strong>-G</strong><em>outgrid</em>[=<em>ID</em>][<strong>+d</strong><em>divisor</em>][<strong>+n</strong><em>invalid</em>]
+[<strong>+o</strong><em>offset</em>|<strong>a</strong>][<strong>+s</strong><em>scale</em>|<strong>a</strong>]
+[:<em>driver</em>[<em>dataType</em>][<strong>+c</strong><em>options</em>]]</p>
+<blockquote>
+<div><p>Normally, <strong>grdedit</strong> will overwrite the existing grid with the modified grid.
+Use <strong>-G</strong> to write the modified grid to the file <em>outgrid</em> instead. Optionally, append =<em>ID</em> for writing a specific file format
+(<a class="reference internal" href="gmt.html#grd-inout-full"><span class="std std-ref">See full description</span></a>). The following modifiers are
+supported:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><strong>+d</strong> - Divide data values by given <em>divisor</em> [Default is 1].</p></li>
+<li><p><strong>+n</strong> - Replace data values matching <em>invalid</em> with a NaN.</p></li>
+<li><p><strong>+o</strong> - Offset data values by the given <em>offset</em>, or append <strong>a</strong> for
+automatic range offset to preserve precision for integer grids
+[Default is 0].</p></li>
+<li><p><strong>+s</strong> - Scale data values by the given <em>scale</em>, or append <strong>a</strong> for
+automatic scaling to preserve precision for integer grids [Default
+is 1].</p></li>
+</ul>
+</div></blockquote>
+<p>Note: Any offset is added before any scaling. <strong>+sa</strong> also sets <strong>+oa</strong>
+(unless overridden). To write specific formats via GDAL, use = <em>gd</em>
+and supply <em>driver</em> (and optionally <em>dataType</em>) and/or one or more
+concatenated GDAL <strong>-co</strong> options using <strong>+c</strong>. See
+the <a class="reference internal" href="cookbook/features.html#write-grids-images"><span class="std std-ref">“Writing grids and images” cookbook section</span></a>
+for more details.</p>
+</div></blockquote>
 <dl class="simple" id="j">
 <dt><strong>-J</strong><em>parameters</em></dt><dd><p>Specify the projection. Use the <strong>-J</strong> syntax to save the georeferencing info as CF-1 compliant
 metadata in netCDF grids. This metadata will be recognized by GDAL.</p>
@@ -368,7 +406,7 @@ This is a <em>non-destructive</em> grid change; see <a class="reference internal
 </dd>
 </dl>
 <dl class="simple">
-<dt><strong>-bi</strong>[<em>ncols</em>][<strong>t</strong>] <a class="reference internal" href="gmt.html#bi-full"><span class="std std-ref">(more …)</span></a></dt><dd><p>Select native binary format for primary input. [Default is 3 input columns].</p>
+<dt><strong>-bi</strong><em>record</em>[<strong>+b</strong>|<strong>l</strong>] <a class="reference internal" href="gmt.html#bi-full"><span class="std std-ref">(more …)</span></a></dt><dd><p>Select native binary format for primary table input. [Default is 3 input columns].</p>
 </dd>
 </dl>
 <dl class="simple">
@@ -388,7 +426,7 @@ This is a <em>non-destructive</em> grid change; see <a class="reference internal
 </dd>
 </dl>
 <dl class="simple">
-<dt><strong>-i</strong><em>cols</em>[<strong>+l</strong>][<strong>+d</strong><em>divide</em>][<strong>+s</strong><em>scale</em>][<strong>+o</strong><em>offset</em>][,<em>…</em>][,<strong>t</strong>[<em>word</em>]] <a class="reference internal" href="gmt.html#icols-full"><span class="std std-ref">(more …)</span></a></dt><dd><p>Select input columns and transformations (0 is first column, <strong>t</strong> is trailing text, append <em>word</em> to read one word only).</p>
+<dt><strong>-i</strong><em>cols</em>[<strong>+l</strong>][<strong>+d</strong><em>divisor</em>][<strong>+s</strong><em>scale</em>|<strong>d</strong>|<strong>k</strong>][<strong>+o</strong><em>offset</em>][,<em>…</em>][,<strong>t</strong>[<em>word</em>]] <a class="reference internal" href="gmt.html#icols-full"><span class="std std-ref">(more …)</span></a></dt><dd><p>Select input columns and transformations (0 is first column, <strong>t</strong> is trailing text, append <em>word</em> to read one word only).</p>
 </dd>
 </dl>
 <dl class="simple">
@@ -498,7 +536,7 @@ any revised output.</p>
     <p>
         &#169; Copyright 2021, The GMT Team..
       <span class="lastupdated">
-        Last updated on Jun 06, 2021.
+        Last updated on Sep 30, 2021.
       </span>
 
     </p>

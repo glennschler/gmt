@@ -134,15 +134,16 @@
 <li class="toctree-l1"><a class="reference internal" href="std-opts-classic.html">Common Options (Classic Mode)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="modules-classic.html">Modules (Classic Mode)</a></li>
 </ul>
-<p class="caption"><span class="caption-text">Developer Resources</span></p>
+<p class="caption"><span class="caption-text">Development</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/GenericMappingTools/gmt/blob/master/CONTRIBUTING.md">Contributing Guide</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/GenericMappingTools/gmt/blob/master/CODE_OF_CONDUCT.md">Code of Conduct</a></li>
-<li class="toctree-l1"><a class="reference internal" href="rst-cheatsheet.html">reStructuredText Cheatsheet</a></li>
-<li class="toctree-l1"><a class="reference internal" href="debug.html">Debugging GMT</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api.html">GMT C API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="postscriptlight.html">PostScriptLight C API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="devdocs.html">Developer Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devdocs/team.html">Team Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devdocs/rst-cheatsheet.html">reStructuredText Cheatsheet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devdocs/debug.html">Debugging GMT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devdocs/api.html">GMT C API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devdocs/postscriptlight.html">PostScriptLight C API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devdocs/devdocs.html">GMT Enhancement Proposals</a></li>
 </ul>
 
             
@@ -238,8 +239,8 @@
 <div class="section" id="synopsis">
 <h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a></h2>
 <p><strong>gmt set</strong> [ <a class="reference internal" href="#c"><span><strong>-C</strong></span></a></strong> | <a class="reference internal" href="#d"><span><strong>-D</strong></span></a></strong>[<strong>s</strong>|<strong>u</strong>] |
-<a class="reference internal" href="#g"><span><strong>-G</strong></span></a></strong><em>defaultsfile</em> ] [ <strong>-</strong>[<strong>BJRXYp</strong>]<em>value</em> ]
-PARAMETER1 <em>value1</em> PARAMETER2 <em>value2</em> PARAMETER3  <em>value3</em>
+<a class="reference internal" href="#g"><span><strong>-G</strong></span></a></strong><em>defaultsfile</em> ] [ <strong>-</strong><strong>B</strong>|<strong>J</strong>|<strong>R</strong>|<strong>X</strong>|<strong>Y</strong>|<strong>p</strong><em>value</em> ]
+PARAMETER1 <em>value1</em> PARAMETER2 <em>value2</em> PARAMETER3 <em>value3</em>
 …</p>
 <p><strong>Note:</strong> No space is allowed between the option flag and the associated arguments.</p>
 </div>
@@ -284,7 +285,7 @@ the version selected at compile time]</p>
 first in current directory, then in your home directory, then in
 ~/.gmt and finally in the system defaults].</p>
 </dd>
-<dt><strong>-</strong>[<strong>BJRXYp</strong>]<em>value</em></dt><dd><p>Set the expansion of any of these shorthand options.</p>
+<dt><strong>-</strong><strong>B</strong>|<strong>J</strong>|<strong>R</strong>|<strong>X</strong>|<strong>Y</strong>|<strong>p</strong><em>value</em></dt><dd><p>Set the expansion of any of these shorthand options in the history.</p>
 </dd>
 </dl>
 <dl class="simple">
@@ -330,7 +331,7 @@ size 0.1 inch, and set annotation offset to 0.2 cm:</p>
     <p>
         &#169; Copyright 2021, The GMT Team..
       <span class="lastupdated">
-        Last updated on Jun 06, 2021.
+        Last updated on Sep 30, 2021.
       </span>
 
     </p>

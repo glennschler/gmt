@@ -135,15 +135,16 @@
 <li class="toctree-l1"><a class="reference internal" href="std-opts-classic.html">Common Options (Classic Mode)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="modules-classic.html">Modules (Classic Mode)</a></li>
 </ul>
-<p class="caption"><span class="caption-text">Developer Resources</span></p>
+<p class="caption"><span class="caption-text">Development</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/GenericMappingTools/gmt/blob/master/CONTRIBUTING.md">Contributing Guide</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/GenericMappingTools/gmt/blob/master/CODE_OF_CONDUCT.md">Code of Conduct</a></li>
-<li class="toctree-l1"><a class="reference internal" href="rst-cheatsheet.html">reStructuredText Cheatsheet</a></li>
-<li class="toctree-l1"><a class="reference internal" href="debug.html">Debugging GMT</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api.html">GMT C API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="postscriptlight.html">PostScriptLight C API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="devdocs.html">Developer Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devdocs/team.html">Team Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devdocs/rst-cheatsheet.html">reStructuredText Cheatsheet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devdocs/debug.html">Debugging GMT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devdocs/api.html">GMT C API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devdocs/postscriptlight.html">PostScriptLight C API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devdocs/devdocs.html">GMT Enhancement Proposals</a></li>
 </ul>
 
             
@@ -246,7 +247,7 @@
 [ <a class="reference internal" href="#t"><span><strong>-T</strong></span></a></strong><em>px</em>/<em>py</em> ]
 [ <a class="reference internal" href="#v"><span><strong>-V</strong></span></a></strong>[<em>level</em>] ]
 [ <a class="reference internal" href="#w"><span><strong>-W</strong></span></a></strong><em>wmin</em>/<em>wmax</em> ]
-[ <a class="reference internal" href="#z"><span><strong>-Z</strong></span></a></strong><em>major</em>/<em>minor</em>/<em>azimuth</em>[<strong>+e</strong>|<strong>n</strong>] ]
+[ <a class="reference internal" href="#z"><span><strong>-Z</strong></span></a></strong><em>major</em>[<em>unit</em>][/<em>minor</em>/<em>azimuth</em>][<strong>+e</strong>|<strong>n</strong>] ]
 [ <strong>-b</strong><a class="reference internal" href="gmt.html#bi-full"><span class="std std-ref">binary</span></a> ]
 [ <strong>-d</strong><a class="reference internal" href="gmt.html#d-full"><span class="std std-ref">nodata</span></a> ]
 [ <strong>-e</strong><a class="reference internal" href="gmt.html#e-full"><span class="std std-ref">regexp</span></a> ]
@@ -315,6 +316,16 @@ will be in km.</p>
 <p>Calculations of specific great-circle and geodesic distances or for
 back-azimuths or azimuths are better done using <a class="reference internal" href="mapproject.html"><span class="doc">mapproject</span></a> as
 <a class="reference internal" href="#"><span class="doc">project</span></a> is strictly spherical.</p>
+<div class="figure align-center" id="id1">
+<a class="reference internal image-reference" href="_images/project_setup.png"><img alt="_images/project_setup.png" src="_images/project_setup.png" style="width: 500px;" /></a>
+<p class="caption"><span class="caption-text">Explanation of the coordinate system utilized by project.  The input point
+(red circle) is given in the original <em>x-y</em> (or <em>lon-lat</em>) coordinate system and is projected to
+the <em>p-q</em> coordinate system, defined by the center (<strong>C</strong>) and either the end-point
+(<strong>E</strong>) or azimuth (<span class="math notranslate nohighlight">\(\alpha\)</span>), or for geographic data a rotation pole <strong>T</strong> (not shown).
+The blue point has projected coordinates (p,0) and is reported as (r,s) in the original
+coordinate system.  Options <strong>-L</strong> (limit range of <em>p</em>) and <strong>-W</strong> (limit range of <em>q</em>)
+can be used to exclude data outside the specified limits (light gray area).</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+</div>
 </div>
 <div class="section" id="required-arguments">
 <h2>Required Arguments<a class="headerlink" href="#required-arguments" title="Permalink to this headline">¶</a></h2>
@@ -402,26 +413,26 @@ within <span class="math notranslate nohighlight">\(w_{min} &lt; q &lt; w_{max}\
 </dd>
 </dl>
 <dl class="simple" id="z">
-<dt><strong>-Z</strong><em>major</em>/<em>minor</em>/<em>azimuth</em>[<strong>+e</strong>|<strong>n</strong>]</dt><dd><p>Create the coordinates of an ellipse with <em>major</em> and <em>minor</em> axes given in km (unless <a class="reference internal" href="#n"><span><strong>-N</strong></span></a></strong> is given for a
+<dt><strong>-Z</strong><em>major</em>[<em>unit</em>][/<em>minor</em>/<em>azimuth</em>][<strong>+e</strong>|<strong>n</strong>]</dt><dd><p>Create the coordinates of an ellipse with <em>major</em> and <em>minor</em> axes given in km (unless <a class="reference internal" href="#n"><span><strong>-N</strong></span></a></strong> is given for a
 Cartesian ellipse) and the <em>azimuth</em> of the major axis in degrees; used in conjunction with <a class="reference internal" href="#c"><span><strong>-C</strong></span></a></strong> (sets its center)
 and <a class="reference internal" href="#g"><span><strong>-G</strong></span></a></strong> (sets the distance increment). <strong>Note</strong>: For the Cartesian ellipse (which requires <a class="reference internal" href="#n"><span><strong>-N</strong></span></a></strong>), we expect
-<em>direction</em> counter-clockwise from the horizontal instead of an <em>azimuth</em>. The following modifiers are supported:</p>
+<em>direction</em> counter-clockwise from the horizontal instead of an <em>azimuth</em>. A geographic <em>major</em> may be specified
+in any desired unit [Default is km] by appending the unit (e.g., 3d for degrees); if so we assume the <em>minor</em> axis
+and the increment are also given in the same unit (see <a class="reference internal" href="#units">Units</a>).  For degenerate ellipses you can just supply a
+single <em>diameter</em> instead. The following modifiers are supported:</p>
 <ul class="simple">
 <li><p>Append <strong>+e</strong> to adjust the increment set via <a class="reference internal" href="#g"><span><strong>-G</strong></span></a></strong> so that the ellipse has equal distance increments [Default
 uses the given increment and closes the ellipse].</p></li>
-<li><p>Append <strong>+n</strong> to set a specific number of unique equidistant points via <a class="reference internal" href="#g"><span><strong>-G</strong></span></a></strong>. For degenerate ellipses you can
-just supply a single <em>diameter</em> instead.  A geographic diameter may be specified in any desired unit other than
-km [Default is km] by appending the unit (e.g., 3d for degrees); if so we assume the increment is also given in
-the same unit (see <a class="reference internal" href="#units">Units</a>).</p></li>
+<li><p>Append <strong>+n</strong> to set a specific number of unique equidistant points via <a class="reference internal" href="#g"><span><strong>-G</strong></span></a></strong>.</p></li>
 </ul>
 </dd>
 </dl>
 <dl class="simple">
-<dt><strong>-bi</strong>[<em>ncols</em>][<strong>t</strong>] <a class="reference internal" href="gmt.html#bi-full"><span class="std std-ref">(more …)</span></a></dt><dd><p>Select native binary format for primary input. [Default is 2 input columns].</p>
+<dt><strong>-bi</strong><em>record</em>[<strong>+b</strong>|<strong>l</strong>] <a class="reference internal" href="gmt.html#bi-full"><span class="std std-ref">(more …)</span></a></dt><dd><p>Select native binary format for primary table input. [Default is 2 input columns].</p>
 </dd>
 </dl>
 <dl class="simple">
-<dt><strong>-bo</strong>[<em>ncols</em>][<em>type</em>] <a class="reference internal" href="gmt.html#bo-full"><span class="std std-ref">(more …)</span></a></dt><dd><p>Select native binary output. [Default is given by <a class="reference internal" href="#f"><span><strong>-F</strong></span></a></strong> or <a class="reference internal" href="#g"><span><strong>-G</strong></span></a></strong>].</p>
+<dt><strong>-bo</strong><em>record</em>[<strong>+b</strong>|<strong>l</strong>] <a class="reference internal" href="gmt.html#bo-full"><span class="std std-ref">(more …)</span></a></dt><dd><p>Select native binary format for table output. [Default is given by <a class="reference internal" href="#f"><span><strong>-F</strong></span></a></strong> or <a class="reference internal" href="#g"><span><strong>-G</strong></span></a></strong>].</p>
 </dd>
 </dl>
 <dl class="simple">
@@ -437,7 +448,7 @@ the same unit (see <a class="reference internal" href="#units">Units</a>).</p></
 </dd>
 </dl>
 <dl class="simple">
-<dt><strong>-g</strong>[<strong>a</strong>]<strong>x</strong>|<strong>y</strong>|<strong>d</strong>|<strong>X</strong>|<strong>Y</strong>|<strong>D</strong>|[<em>col</em>]<strong>z</strong><em>gap</em>[<strong>+n</strong>|<strong>p</strong>]  <a class="reference internal" href="gmt.html#g-full"><span class="std std-ref">(more …)</span></a></dt><dd><p>Determine data gaps and line breaks.  </p>
+<dt><strong>-g</strong><strong>x</strong>|<strong>y</strong>|<strong>z</strong>|<strong>d</strong>|<strong>X</strong>|<strong>Y</strong>|<strong>D</strong><em>gap</em>[<strong>u</strong>][<strong>+a</strong>][<strong>+c</strong><em>col</em>][<strong>+n</strong>|<strong>p</strong>]  <a class="reference internal" href="gmt.html#g-full"><span class="std std-ref">(more …)</span></a></dt><dd><p>Determine data gaps and line breaks.  </p>
 </dd>
 </dl>
 <dl class="simple">
@@ -445,7 +456,7 @@ the same unit (see <a class="reference internal" href="#units">Units</a>).</p></
 </dd>
 </dl>
 <dl class="simple">
-<dt><strong>-i</strong><em>cols</em>[<strong>+l</strong>][<strong>+d</strong><em>divide</em>][<strong>+s</strong><em>scale</em>][<strong>+o</strong><em>offset</em>][,<em>…</em>][,<strong>t</strong>[<em>word</em>]] <a class="reference internal" href="gmt.html#icols-full"><span class="std std-ref">(more …)</span></a></dt><dd><p>Select input columns and transformations (0 is first column, <strong>t</strong> is trailing text, append <em>word</em> to read one word only).</p>
+<dt><strong>-i</strong><em>cols</em>[<strong>+l</strong>][<strong>+d</strong><em>divisor</em>][<strong>+s</strong><em>scale</em>|<strong>d</strong>|<strong>k</strong>][<strong>+o</strong><em>offset</em>][,<em>…</em>][,<strong>t</strong>[<em>word</em>]] <a class="reference internal" href="gmt.html#icols-full"><span class="std std-ref">(more …)</span></a></dt><dd><p>Select input columns and transformations (0 is first column, <strong>t</strong> is trailing text, append <em>word</em> to read one word only).</p>
 </dd>
 </dl>
 <dl class="simple">
@@ -453,11 +464,11 @@ the same unit (see <a class="reference internal" href="#units">Units</a>).</p></
 </dd>
 </dl>
 <dl class="simple">
-<dt><strong>-q</strong>[<strong>i</strong>|<strong>o</strong>][~]<em>rows</em>[<strong>+c</strong><em>col</em>][<strong>+a</strong>|<strong>f</strong>|<strong>s</strong>] <a class="reference internal" href="gmt.html#q-full"><span class="std std-ref">(more …)</span></a></dt><dd><p>Select input or output rows or data range(s) [all].</p>
+<dt><strong>-q</strong>[<strong>i</strong>|<strong>o</strong>][~]<em>rows</em>|<em>limits</em>[<strong>+c</strong><em>col</em>][<strong>+a</strong>|<strong>f</strong>|<strong>s</strong>] <a class="reference internal" href="gmt.html#q-full"><span class="std std-ref">(more …)</span></a></dt><dd><p>Select input or output rows or data limit(s) [all].</p>
 </dd>
 </dl>
 <dl class="simple">
-<dt><strong>-s</strong>[<em>cols</em>][<strong>+a</strong>][<strong>+r</strong>] <a class="reference internal" href="gmt.html#s-full"><span class="std std-ref">(more …)</span></a></dt><dd><p>Set handling of NaN records.</p>
+<dt><strong>-s</strong>[<em>cols</em>][<strong>+a</strong>][<strong>+r</strong>] <a class="reference internal" href="gmt.html#s-full"><span class="std std-ref">(more …)</span></a></dt><dd><p>Set handling of NaN records for output.</p>
 </dd>
 </dl>
 <dl class="simple">
@@ -626,7 +637,7 @@ This gives coordinates for an oblique small circle.</p>
     <p>
         &#169; Copyright 2021, The GMT Team..
       <span class="lastupdated">
-        Last updated on Jun 06, 2021.
+        Last updated on Sep 30, 2021.
       </span>
 
     </p>

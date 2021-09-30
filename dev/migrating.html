@@ -134,15 +134,16 @@
 <li class="toctree-l1"><a class="reference internal" href="std-opts-classic.html">Common Options (Classic Mode)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="modules-classic.html">Modules (Classic Mode)</a></li>
 </ul>
-<p class="caption"><span class="caption-text">Developer Resources</span></p>
+<p class="caption"><span class="caption-text">Development</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/GenericMappingTools/gmt/blob/master/CONTRIBUTING.md">Contributing Guide</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/GenericMappingTools/gmt/blob/master/CODE_OF_CONDUCT.md">Code of Conduct</a></li>
-<li class="toctree-l1"><a class="reference internal" href="rst-cheatsheet.html">reStructuredText Cheatsheet</a></li>
-<li class="toctree-l1"><a class="reference internal" href="debug.html">Debugging GMT</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api.html">GMT C API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="postscriptlight.html">PostScriptLight C API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="devdocs.html">Developer Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devdocs/team.html">Team Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devdocs/rst-cheatsheet.html">reStructuredText Cheatsheet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devdocs/debug.html">Debugging GMT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devdocs/api.html">GMT C API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devdocs/postscriptlight.html">PostScriptLight C API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devdocs/devdocs.html">GMT Enhancement Proposals</a></li>
 </ul>
 
             
@@ -286,8 +287,10 @@ the script (assuming if is a plotting script) by rewriting it in GMT modern mode
 GMT no longer recognizes.  If that is the case then you should consult the documentation for
 the old version (if you have access to it) and compare with the new documentation to
 determine the required changes.  Error messages issued by GMT may help in that regard.
-Also note that GMT may issue compatibility warnings when it detects deprecated
-syntax.  In those instances the obsolete syntax will be correctly parsed, but you
+Also note that GMT may issue compatibility warnings or errors when it detects deprecated
+syntax, provided <a class="reference internal" href="gmt.conf.html#term-GMT_COMPATIBILITY"><span class="xref std std-term">GMT_COMPATIBILITY</span></a> is set to the later major version number and
+<a class="reference internal" href="gmt.conf.html#term-GMT_VERBOSE"><span class="xref std std-term">GMT_VERBOSE</span></a> is set to <strong>c</strong>ompatibility. If the compatibility level is low
+enough (e.g., 4) then the obsolete syntax will be correctly parsed, but you
 may wish to take the opportunity and update the syntax when these issues are reported.</p>
 </div>
 
@@ -307,7 +310,7 @@ may wish to take the opportunity and update the syntax when these issues are rep
     <p>
         &#169; Copyright 2021, The GMT Team..
       <span class="lastupdated">
-        Last updated on Jun 06, 2021.
+        Last updated on Sep 30, 2021.
       </span>
 
     </p>

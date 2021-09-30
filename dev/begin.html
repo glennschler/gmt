@@ -134,15 +134,16 @@
 <li class="toctree-l1"><a class="reference internal" href="std-opts-classic.html">Common Options (Classic Mode)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="modules-classic.html">Modules (Classic Mode)</a></li>
 </ul>
-<p class="caption"><span class="caption-text">Developer Resources</span></p>
+<p class="caption"><span class="caption-text">Development</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/GenericMappingTools/gmt/blob/master/CONTRIBUTING.md">Contributing Guide</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/GenericMappingTools/gmt/blob/master/CODE_OF_CONDUCT.md">Code of Conduct</a></li>
-<li class="toctree-l1"><a class="reference internal" href="rst-cheatsheet.html">reStructuredText Cheatsheet</a></li>
-<li class="toctree-l1"><a class="reference internal" href="debug.html">Debugging GMT</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api.html">GMT C API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="postscriptlight.html">PostScriptLight C API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="devdocs.html">Developer Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devdocs/team.html">Team Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devdocs/rst-cheatsheet.html">reStructuredText Cheatsheet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devdocs/debug.html">Debugging GMT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devdocs/api.html">GMT C API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devdocs/postscriptlight.html">PostScriptLight C API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devdocs/devdocs.html">GMT Enhancement Proposals</a></li>
 </ul>
 
             
@@ -269,14 +270,16 @@ prefix in single or double quotes.</p>
 <dl class="simple" id="begin-formats">
 <dt><em>formats</em></dt><dd><p>Give one or more comma-separated graphics extensions from the list of allowable
 <a class="reference internal" href="#tbl-formats"><span class="std std-ref">graphics formats</span></a>
-(default format is configurable via setting <a class="reference internal" href="gmt.conf.html#term-GMT_GRAPHICS_FORMAT"><span class="xref std std-term">GMT_GRAPHICS_FORMAT</span></a> [pdf]).</p>
+(default format is configurable via setting <a class="reference internal" href="gmt.conf.html#term-GMT_GRAPHICS_FORMAT"><span class="xref std std-term">GMT_GRAPHICS_FORMAT</span></a> [pdf]).
+Optionally, append <strong>+m</strong> for monochrome image (BMP, JPEG, PNG, and TIFF only)
+and <strong>+q</strong><em>quality</em> in 0-100 range to change JPEG quality [90].</p>
 </dd>
 </dl>
 <dl class="simple" id="begin-options">
 <dt><em>options</em></dt><dd><p>Sets one or more comma-separated options (and possibly arguments) that
 can be passed to <a class="reference internal" href="psconvert.html"><span class="doc">psconvert</span></a> when preparing a session figure [<strong>A</strong>].
 The valid subset of options are
-<strong>A</strong>[<em>args</em>],<strong>C</strong><em>args</em>,<strong>D</strong><em>dir</em>,<strong>E</strong><em>dpi</em>,<strong>H</strong><em>factor</em>,<strong>M</strong><em>args</em>,<strong>Q</strong><em>args</em>,<strong>S</strong>.
+<strong>A</strong>[<em>args</em>],<strong>C</strong><em>args</em>,<strong>D</strong><em>dir</em>,<strong>E</strong><em>dpi</em>,<strong>H</strong><em>factor</em>,<strong>I</strong><em>args</em>,<strong>M</strong><em>args</em>,<strong>N</strong><em>args</em>,<strong>Q</strong><em>args</em>,<strong>S</strong>.
 Note that the leading hyphens should not be given.
 See the <a class="reference internal" href="psconvert.html"><span class="doc">psconvert</span></a> documentation for details on these options.</p>
 </dd>
@@ -360,7 +363,7 @@ are produced then we do not need to give any further arguments:</p>
 be called gmtsession.pdf (assuming <a class="reference internal" href="gmt.conf.html#term-GMT_GRAPHICS_FORMAT"><span class="xref std std-term">GMT_GRAPHICS_FORMAT</span></a> is pdf).</p>
 <p>To set up proceedings for a jpg figure with 0.5c white margin, and strictly using
 the GMT default settings, we would run:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gmt begin <span class="s1">&#39;My Figure4&#39;</span> jpg A+m0.5c -C
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gmt begin <span class="s1">&#39;My Figure4&#39;</span> jpg A,I+m0.5c -C
 </pre></div>
 </div>
 </div>
@@ -424,7 +427,7 @@ then you can add this command to the top of your script to make the issue go awa
     <p>
         &#169; Copyright 2021, The GMT Team..
       <span class="lastupdated">
-        Last updated on Jun 06, 2021.
+        Last updated on Sep 30, 2021.
       </span>
 
     </p>

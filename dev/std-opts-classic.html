@@ -134,15 +134,16 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Common Options (Classic Mode)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="modules-classic.html">Modules (Classic Mode)</a></li>
 </ul>
-<p class="caption"><span class="caption-text">Developer Resources</span></p>
+<p class="caption"><span class="caption-text">Development</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/GenericMappingTools/gmt/blob/master/CONTRIBUTING.md">Contributing Guide</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/GenericMappingTools/gmt/blob/master/CODE_OF_CONDUCT.md">Code of Conduct</a></li>
-<li class="toctree-l1"><a class="reference internal" href="rst-cheatsheet.html">reStructuredText Cheatsheet</a></li>
-<li class="toctree-l1"><a class="reference internal" href="debug.html">Debugging GMT</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api.html">GMT C API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="postscriptlight.html">PostScriptLight C API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="devdocs.html">Developer Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devdocs/team.html">Team Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devdocs/rst-cheatsheet.html">reStructuredText Cheatsheet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devdocs/debug.html">Debugging GMT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devdocs/api.html">GMT C API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devdocs/postscriptlight.html">PostScriptLight C API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devdocs/devdocs.html">GMT Enhancement Proposals</a></li>
 </ul>
 
             
@@ -276,10 +277,10 @@
 <tr class="row-even"><td><p><strong>-a</strong>[<em>col</em>=]<em>name</em>[,<em>…</em>]</p></td>
 <td><p><a class="reference internal" href="gmt.html#aspatial-full"><span class="std std-ref">Associates aspatial data with columns</span></a></p></td>
 </tr>
-<tr class="row-odd"><td><p><strong>-bi</strong>[<em>ncols</em>][<em>type</em>][<strong>w</strong>][<strong>+l</strong>|<strong>b</strong>]</p></td>
+<tr class="row-odd"><td><p><strong>-bi</strong><em>record</em>[<strong>+b</strong>|<strong>l</strong>]</p></td>
 <td><p><a class="reference internal" href="gmt.html#bi-full"><span class="std std-ref">Select binary input</span></a></p></td>
 </tr>
-<tr class="row-even"><td><p><strong>-bo</strong>[<em>ncols</em>][<em>type</em>][<strong>w</strong>][<strong>+l</strong>|<strong>b</strong>]</p></td>
+<tr class="row-even"><td><p><strong>-bo</strong><em>record</em>[<strong>+b</strong>|<strong>l</strong>]</p></td>
 <td><p><a class="reference internal" href="gmt.html#bo-full"><span class="std std-ref">Select binary output</span></a></p></td>
 </tr>
 <tr class="row-odd"><td><p><strong>-d</strong>[<strong>i</strong>|<strong>o</strong>]<em>nodata</em></p></td>
@@ -289,15 +290,15 @@
 <td><p><a class="reference internal" href="gmt.html#e-full"><span class="std std-ref">Filter data records that match the given pattern</span></a></p></td>
 </tr>
 <tr class="row-odd"><td><p><strong>-f</strong>[<strong>i</strong>|<strong>o</strong>]<em>colinfo</em></p></td>
-<td><p><a class="reference internal" href="gmt.html#f-full"><span class="std std-ref">Set formatting of ASCII input or output</span></a></p></td>
+<td><p><a class="reference internal" href="gmt.html#f-full"><span class="std std-ref">Set column content of input or output</span></a></p></td>
 </tr>
-<tr class="row-even"><td><p><strong>-g</strong>[<strong>a</strong>]<strong>x</strong>|<strong>y</strong>|<strong>d</strong>|<strong>X</strong>|<strong>Y</strong>|<strong>D</strong>|[<em>col</em>]<strong>z</strong><em>gap</em>[<strong>+n</strong>|<strong>p</strong>]</p></td>
+<tr class="row-even"><td><p><strong>-g</strong><strong>x</strong>|<strong>y</strong>|<strong>z</strong>|<strong>d</strong>|<strong>X</strong>|<strong>Y</strong>|<strong>D</strong><em>gap</em>[<strong>u</strong>][<strong>+a</strong>][<strong>+c</strong><em>col</em>][<strong>+n</strong>|<strong>p</strong>]</p></td>
 <td><p><a class="reference internal" href="gmt.html#g-full"><span class="std std-ref">Segment data by detecting gaps</span></a></p></td>
 </tr>
 <tr class="row-odd"><td><p><strong>-h</strong>[<strong>i</strong>|<strong>o</strong>][<em>n</em>][<strong>+c</strong>][<strong>+d</strong>][<strong>+m</strong><em>segheader</em>][<strong>+r</strong><em>remark</em>][<strong>+t</strong><em>title</em>]</p></td>
 <td><p><a class="reference internal" href="gmt.html#h-full"><span class="std std-ref">ASCII tables have header record[s]</span></a></p></td>
 </tr>
-<tr class="row-even"><td><p><strong>-i</strong><em>cols</em>[<strong>+l</strong>][<strong>+d</strong><em>divide</em>][<strong>+s</strong><em>scale</em>][<strong>+o</strong><em>offset</em>][,<em>…</em>][,<strong>t</strong>[<em>word</em>]]</p></td>
+<tr class="row-even"><td><p><strong>-i</strong><em>cols</em>[<strong>+l</strong>][<strong>+d</strong><em>divide</em>][<strong>+s</strong><em>scale</em>|<strong>d</strong>|<strong>k</strong>][<strong>+o</strong><em>offset</em>][,<em>…</em>][,<strong>t</strong>[<em>word</em>]]</p></td>
 <td><p><a class="reference internal" href="gmt.html#icols-full"><span class="std std-ref">Selection of input columns</span></a></p></td>
 </tr>
 <tr class="row-odd"><td><p><strong>-je</strong>|<strong>f</strong>|<strong>g</strong></p></td>
@@ -353,7 +354,7 @@
     <p>
         &#169; Copyright 2021, The GMT Team..
       <span class="lastupdated">
-        Last updated on Jun 06, 2021.
+        Last updated on Sep 30, 2021.
       </span>
 
     </p>

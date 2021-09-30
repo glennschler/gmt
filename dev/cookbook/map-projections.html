@@ -199,15 +199,16 @@
 <li class="toctree-l1"><a class="reference internal" href="../std-opts-classic.html">Common Options (Classic Mode)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../modules-classic.html">Modules (Classic Mode)</a></li>
 </ul>
-<p class="caption"><span class="caption-text">Developer Resources</span></p>
+<p class="caption"><span class="caption-text">Development</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/GenericMappingTools/gmt/blob/master/CONTRIBUTING.md">Contributing Guide</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/GenericMappingTools/gmt/blob/master/CODE_OF_CONDUCT.md">Code of Conduct</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../rst-cheatsheet.html">reStructuredText Cheatsheet</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../debug.html">Debugging GMT</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api.html">GMT C API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../postscriptlight.html">PostScriptLight C API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../devdocs.html">Developer Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../devdocs/team.html">Team Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../devdocs/rst-cheatsheet.html">reStructuredText Cheatsheet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../devdocs/debug.html">Debugging GMT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../devdocs/api.html">GMT C API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../devdocs/postscriptlight.html">PostScriptLight C API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../devdocs/devdocs.html">GMT Enhancement Proposals</a></li>
 </ul>
 
             
@@ -829,23 +830,27 @@ next to its equal-area cousin in the Section <a class="reference internal" href=
 <span id="jg-pers"></span><h3><span class="section-number">6.2.3. </span>Perspective projection (<strong>-Jg</strong> <strong>-JG</strong>)<a class="headerlink" href="#perspective-projection-jg-jg" title="Permalink to this headline">¶</a></h3>
 <p><strong>Syntax</strong></p>
 <blockquote>
-<div><p><strong>-Jg</strong>|<strong>G</strong><em>lon0/lat0/altitude/azimuth/tilt/twist/Width/Height/</em><em>scale</em>|<em>width</em></p>
+<div><p><strong>-Jg</strong>|<strong>G</strong><em>lon0/lat0</em><em>/</em><em>scale</em>|<em>width</em>[<strong>+a</strong><em>azimuth</em>][<strong>+t</strong><em>tilt</em>][<strong>+v</strong><em>vwidth/vheight</em>][<strong>+w</strong><em>twist</em>][<strong>+z</strong><em>altitude</em>[<strong>r</strong>|<strong>R</strong>]|<strong>g</strong>]</p>
 </div></blockquote>
-<p><strong>Parameters</strong></p>
+<p><strong>Required Parameters</strong></p>
 <ul class="simple">
 <li><p>The longitude (<em>lon0</em>) and latitude (<em>lat0</em>) of the projection center.</p></li>
-<li><p>The <em>altitude</em> of the viewer above sea level in kilometers. If this value is less than 10, it is assumed to instead be
-the distance of the viewer from the center of the earth in earth radii. If <strong>r</strong> is appended, it is assumed to instead
-be the distance from the center of the earth in kilometers.</p></li>
-<li><p>The <em>azimuth</em> in degrees. This is the direction in which you are looking, measured clockwise from north.</p></li>
-<li><p>The <em>tilt</em> in degrees. This is the viewing angle relative to zenith. For example, a tilt of 0° is looking straight
-down, and 60° is looking from 30° above the horizon.</p></li>
-<li><p>The <em>twist</em> in degrees. This is the boresight rotation (clockwise) of the image.</p></li>
-<li><p>The <em>Width</em> and <em>Height</em> of the viewpoint in degrees. This number depends on whether you are looking with the naked
-eye (in which case the view is about 60° wide), or with binoculars, for example.</p></li>
 <li><p>The <em>scale</em> as 1:xxxxx or as radius/latitude where radius is distance on map in <a class="reference internal" href="features.html#plt-units"><span class="std std-ref">plot-units</span></a> from
 projection center to a particular oblique latitude (with <strong>-Jg</strong>), or map width in <a class="reference internal" href="features.html#plt-units"><span class="std std-ref">plot-units</span></a>
 (with <strong>-JG</strong>).</p></li>
+</ul>
+<p><strong>Optional Parameters</strong></p>
+<ul class="simple">
+<li><p>The <em>azimuth</em> in degrees. This is the direction in which you are looking, measured clockwise from north [0].</p></li>
+<li><p>The <em>tilt</em> in degrees. This is the viewing angle relative to zenith. For example, a tilt of 0° is looking straight
+down, and 60° is looking from 30° above the horizon [0].</p></li>
+<li><p>The <em>vwidth</em> and <em>vheight</em> of the viewpoint in degrees. This number depends on whether you are looking with the naked
+eye (in which case the view is about 60° wide), or with binoculars, for example [unrestricted].</p></li>
+<li><p>The <em>twist</em> in degrees. This is the boresight rotation (clockwise) of the image [0].</p></li>
+<li><p>The <em>altitude</em> of the viewer above sea level in kilometers [infinity]. Alternatively, append <strong>R</strong> if giving
+the distance of the viewer from the center of the Earth in Earth radii, or <strong>r</strong> if giving the distance from the
+center of the Earth in kilometers.  Finally, give <em>altitude</em> as <strong>g</strong> to compute and use the altitude for a
+geosynchronous orbit.</p></li>
 </ul>
 <p><strong>Description</strong></p>
 <p>The perspective projection imitates in 2 dimensions the 3-dimensional view of the earth from space. The implementation
@@ -853,8 +858,8 @@ in GMT is very flexible, and thus requires many input variables.</p>
 <p><strong>Example</strong></p>
 <p>The imagined view of northwest Europe from a Space Shuttle at 230 km looking due east is thus accomplished by the
 following <a class="reference internal" href="../coast.html"><span class="doc">coast</span></a> command (<em>lon0</em>=4; <em>lat0</em>=52; <em>altitude</em>=230 km; <em>azimuth</em>= 90°; <em>tilt</em>= 60°;
-<em>twist</em>= 180°; <em>Width</em>= 60°; <em>Height</em>= 60°; and <em>width</em> = 12 cm):</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gmt coast -Rg -JG4/52/230/90/60/180/60/60/12c -Bx2g2 -By1g1 -Ia -Di -Glightbrown -Wthinnest -Slightblue --GMT_THEME<span class="o">=</span>cookbook --MAP_ANNOT_MIN_SPACING<span class="o">=</span><span class="m">0</span>.6c -pdf GMT_perspective
+<em>twist</em>= 180°; <em>vwidth</em>= <em>vheight</em>= 60°; and <em>width</em> = 12 cm):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gmt coast -Rg -JG4/52/12c+z230+a90+t60+w180+v60 -Bx2g2 -By1g1 -Ia -Di -Glightbrown -Wthinnest -Slightblue --GMT_THEME<span class="o">=</span>cookbook --MAP_ANNOT_MIN_SPACING<span class="o">=</span><span class="m">0</span>.6c -pdf GMT_perspective
 </pre></div>
 </div>
 <div class="figure align-center" id="id17">
@@ -1882,7 +1887,7 @@ file.</p>
     <p>
         &#169; Copyright 2021, The GMT Team..
       <span class="lastupdated">
-        Last updated on Jun 06, 2021.
+        Last updated on Sep 30, 2021.
       </span>
 
     </p>

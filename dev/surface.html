@@ -135,15 +135,16 @@
 <li class="toctree-l1"><a class="reference internal" href="std-opts-classic.html">Common Options (Classic Mode)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="modules-classic.html">Modules (Classic Mode)</a></li>
 </ul>
-<p class="caption"><span class="caption-text">Developer Resources</span></p>
+<p class="caption"><span class="caption-text">Development</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/GenericMappingTools/gmt/blob/master/CONTRIBUTING.md">Contributing Guide</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/GenericMappingTools/gmt/blob/master/CODE_OF_CONDUCT.md">Code of Conduct</a></li>
-<li class="toctree-l1"><a class="reference internal" href="rst-cheatsheet.html">reStructuredText Cheatsheet</a></li>
-<li class="toctree-l1"><a class="reference internal" href="debug.html">Debugging GMT</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api.html">GMT C API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="postscriptlight.html">PostScriptLight C API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="devdocs.html">Developer Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devdocs/team.html">Team Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devdocs/rst-cheatsheet.html">reStructuredText Cheatsheet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devdocs/debug.html">Debugging GMT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devdocs/api.html">GMT C API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devdocs/postscriptlight.html">PostScriptLight C API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devdocs/devdocs.html">GMT Enhancement Proposals</a></li>
 </ul>
 
             
@@ -238,7 +239,7 @@
 <p>Grid table data using adjustable tension continuous curvature splines</p>
 <div class="section" id="synopsis">
 <h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a></h2>
-<p><strong>gmt surface</strong> [ <em>table</em> ] <a class="reference internal" href="#g"><span><strong>-G</strong></span></a></strong><em>outputfile.nc</em>
+<p><strong>gmt surface</strong> [ <em>table</em> ] <a class="reference internal" href="#g"><span><strong>-G</strong></span></a></strong><em>outgrid</em>
 <a class="reference internal" href="#i"><span><strong>-I</strong></span></a></strong><em>increment</em>
 <a class="reference internal" href="#r"><span><strong>-R</strong></span></a></strong><em>region</em>
 [ <a class="reference internal" href="#a"><span><strong>-A</strong></span></a></strong><em>aspect_ratio</em>|<strong>m</strong> ]
@@ -250,8 +251,9 @@
 [ <a class="reference internal" href="#n"><span><strong>-N</strong></span></a></strong><em>max_iterations</em> ]
 [ <a class="reference internal" href="#q"><span><strong>-Q</strong></span></a></strong> ]
 [ <a class="reference internal" href="#s"><span><strong>-S</strong></span></a></strong><em>search_radius</em>[<strong>m</strong>|<strong>s</strong>] ]
-[ <a class="reference internal" href="#t"><span><strong>-T</strong></span></a></strong>[<strong>i</strong>|<strong>b</strong>]<em>tension_factor</em> ]
+[ <a class="reference internal" href="#t"><span><strong>-T</strong></span></a></strong>[<strong>b</strong>|<strong>i</strong>]<em>tension_factor</em> ]
 [ <a class="reference internal" href="#v"><span><strong>-V</strong></span></a></strong>[<em>level</em>] ]
+[ <a class="reference internal" href="#w"><span><strong>-W</strong></span></a></strong>[<em>logfile</em>] ]
 [ <a class="reference internal" href="#z"><span><strong>-Z</strong></span></a></strong><em>over-relaxation_factor</em> ]
 [ <strong>-a</strong><a class="reference internal" href="gmt.html#aspatial-full"><span class="std std-ref">flags</span></a> ]
 [ <strong>-bi</strong><a class="reference internal" href="gmt.html#bi-full"><span class="std std-ref">binary</span></a> ]
@@ -299,14 +301,36 @@ table file(s) holding a number of data columns. If no tables are given
 then we read from standard input.  </p>
 </dd>
 </dl>
-<dl class="simple" id="g">
-<dt><strong>-G</strong><em>outputfile.nc</em></dt><dd><p>Output file name. Output is a binary 2-D <em>.nc</em> file. Note that the
-smallest grid dimension must be at least 4.</p>
-</dd>
-</dl>
+<span class="target" id="g"></span><p><strong>-G</strong><em>outgrid</em>[=<em>ID</em>][<strong>+d</strong><em>divisor</em>][<strong>+n</strong><em>invalid</em>]
+[<strong>+o</strong><em>offset</em>|<strong>a</strong>][<strong>+s</strong><em>scale</em>|<strong>a</strong>]
+[:<em>driver</em>[<em>dataType</em>][<strong>+c</strong><em>options</em>]]</p>
+<blockquote>
+<div><p>Give the name of the output grid file. Note that the
+smallest grid dimension must be at least 4. Optionally, append =<em>ID</em> for writing a specific file format
+(<a class="reference internal" href="gmt.html#grd-inout-full"><span class="std std-ref">See full description</span></a>). The following modifiers are
+supported:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><strong>+d</strong> - Divide data values by given <em>divisor</em> [Default is 1].</p></li>
+<li><p><strong>+n</strong> - Replace data values matching <em>invalid</em> with a NaN.</p></li>
+<li><p><strong>+o</strong> - Offset data values by the given <em>offset</em>, or append <strong>a</strong> for
+automatic range offset to preserve precision for integer grids
+[Default is 0].</p></li>
+<li><p><strong>+s</strong> - Scale data values by the given <em>scale</em>, or append <strong>a</strong> for
+automatic scaling to preserve precision for integer grids [Default
+is 1].</p></li>
+</ul>
+</div></blockquote>
+<p>Note: Any offset is added before any scaling. <strong>+sa</strong> also sets <strong>+oa</strong>
+(unless overridden). To write specific formats via GDAL, use = <em>gd</em>
+and supply <em>driver</em> (and optionally <em>dataType</em>) and/or one or more
+concatenated GDAL <strong>-co</strong> options using <strong>+c</strong>. See
+the <a class="reference internal" href="cookbook/features.html#write-grids-images"><span class="std std-ref">“Writing grids and images” cookbook section</span></a>
+for more details.</p>
+</div></blockquote>
 <dl class="simple" id="i">
 <dt><strong>-I</strong><em>xinc</em>[<strong>+e</strong>|<strong>n</strong>][/<em>yinc</em>[<strong>+e</strong>|<strong>n</strong>]]</dt><dd><p><em>x_inc</em> [and optionally <em>y_inc</em>] is the grid spacing. <strong>Geographical
-(degrees) coordinates</strong>: Optionally, append a increment unit. Choose among
+(degrees) coordinates</strong>: Optionally, append an increment unit. Choose among
 <strong>m</strong> to indicate arc minutes or <strong>s</strong> to indicate arc seconds. If one
 of the units <strong>e</strong>, <strong>f</strong>, <strong>k</strong>, <strong>M</strong>, <strong>n</strong> or <strong>u</strong> is appended
 instead, the increment is assumed to be given in meter, foot, km, Mile,
@@ -417,7 +441,7 @@ regional stages. [Default = 0.0 and no search is made.]</p>
 </dd>
 </dl>
 <dl class="simple" id="t">
-<dt><strong>-T</strong>[<strong>i</strong>|<strong>b</strong>]<em>tension_factor</em></dt><dd><p>Tension factor[s]. These must be between 0 and 1. Tension may be
+<dt><strong>-T</strong>[<strong>b</strong>|<strong>i</strong>]<em>tension_factor</em></dt><dd><p>Tension factor[s]. These must be between 0 and 1. Tension may be
 used in the interior solution (above equation, where it suppresses
 spurious oscillations) and in the boundary conditions (where it
 tends to flatten the solution approaching the edges). Using zero for
@@ -434,6 +458,10 @@ solution.]</p>
 <strong>-V</strong> will report only after each regional grid is converged. <a class="reference internal" href="gmt.html#v-full"><span class="std std-ref">(See full description)</span></a> <a class="reference internal" href="cookbook/options.html#verbose-feedback-the-v-option"><span class="std std-ref">(See cookbook information)</span></a>.</p>
 </dd>
 </dl>
+<dl class="simple" id="w">
+<dt><strong>-W</strong>[<em>logfile</em>]</dt><dd><p>Write convergence information to <em>logfile</em> [Default is <em>surface_log.txt</em>].</p>
+</dd>
+</dl>
 <dl class="simple" id="z">
 <dt><strong>-Z</strong><em>over-relaxation_factor</em></dt><dd><p>Over-relaxation factor. This parameter is used to accelerate the
 convergence; it is a number between 1 and 2. A value of 1 iterates
@@ -446,11 +474,11 @@ idea to monitor each iteration with the <strong>-Vi</strong> option. [Default =
 </dd>
 </dl>
 <dl class="simple">
-<dt><strong>-a</strong>[[<em>col</em>=]<em>name</em>][,<em>…</em>] <a class="reference internal" href="gmt.html#aspatial-full"><span class="std std-ref">(more …)</span></a></dt><dd><p>Set aspatial column associations <em>col</em>=<em>name</em>.</p>
+<dt><strong>-a</strong>[[<em>col</em>=]<em>name</em>[,<em>…</em>]] <a class="reference internal" href="gmt.html#aspatial-full"><span class="std std-ref">(more …)</span></a></dt><dd><p>Set aspatial column associations <em>col</em>=<em>name</em>.</p>
 </dd>
 </dl>
 <dl class="simple">
-<dt><strong>-bi</strong>[<em>ncols</em>][<strong>t</strong>] <a class="reference internal" href="gmt.html#bi-full"><span class="std std-ref">(more …)</span></a></dt><dd><p>Select native binary format for primary input. [Default is 3 input columns].</p>
+<dt><strong>-bi</strong><em>record</em>[<strong>+b</strong>|<strong>l</strong>] <a class="reference internal" href="gmt.html#bi-full"><span class="std std-ref">(more …)</span></a></dt><dd><p>Select native binary format for primary table input. [Default is 3 input columns].</p>
 </dd>
 </dl>
 <dl class="simple">
@@ -470,11 +498,11 @@ idea to monitor each iteration with the <strong>-Vi</strong> option. [Default =
 </dd>
 </dl>
 <dl class="simple">
-<dt><strong>-i</strong><em>cols</em>[<strong>+l</strong>][<strong>+d</strong><em>divide</em>][<strong>+s</strong><em>scale</em>][<strong>+o</strong><em>offset</em>][,<em>…</em>][,<strong>t</strong>[<em>word</em>]] <a class="reference internal" href="gmt.html#icols-full"><span class="std std-ref">(more …)</span></a></dt><dd><p>Select input columns and transformations (0 is first column, <strong>t</strong> is trailing text, append <em>word</em> to read one word only).</p>
+<dt><strong>-i</strong><em>cols</em>[<strong>+l</strong>][<strong>+d</strong><em>divisor</em>][<strong>+s</strong><em>scale</em>|<strong>d</strong>|<strong>k</strong>][<strong>+o</strong><em>offset</em>][,<em>…</em>][,<strong>t</strong>[<em>word</em>]] <a class="reference internal" href="gmt.html#icols-full"><span class="std std-ref">(more …)</span></a></dt><dd><p>Select input columns and transformations (0 is first column, <strong>t</strong> is trailing text, append <em>word</em> to read one word only).</p>
 </dd>
 </dl>
 <dl class="simple">
-<dt><strong>-qi</strong>[~]<em>rows</em>[<strong>+c</strong><em>col</em>][<strong>+a</strong>|<strong>f</strong>|<strong>s</strong>] <a class="reference internal" href="gmt.html#qi-full"><span class="std std-ref">(more …)</span></a></dt><dd><p>Select input rows or data range(s) [default is all rows].</p>
+<dt><strong>-qi</strong>[~]<em>rows</em>|<em>limits</em>[<strong>+c</strong><em>col</em>][<strong>+a</strong>|<strong>f</strong>|<strong>s</strong>] <a class="reference internal" href="gmt.html#qi-full"><span class="std std-ref">(more …)</span></a></dt><dd><p>Select input rows or data limit(s) [default is all rows].</p>
 </dd>
 </dl>
 <dl class="simple">
@@ -629,7 +657,7 @@ splines in tension, <em>Geophysics</em>, 55, 293-305.</p>
     <p>
         &#169; Copyright 2021, The GMT Team..
       <span class="lastupdated">
-        Last updated on Jun 06, 2021.
+        Last updated on Sep 30, 2021.
       </span>
 
     </p>

@@ -37,15 +37,17 @@ boundary conditions (see **-n**).
 Required Arguments
 ------------------
 
-*ingrid*
-    2-D grid file from which to compute directional derivative. (See :ref:`Grid File Formats
-    <grd_inout_full>`).
+.. |Add_ingrid| replace:: 2-D grid file from which to compute directional derivative.
+.. include:: explain_grd_inout.rst_
+    :start-after: ingrid-syntax-begins
+    :end-before: ingrid-syntax-ends
 
 .. _-G:
 
-**-G**\ *outgrid*
-    Name of the output grid file for the directional derivative. (See :ref:`Grid File Formats
-    <grd_inout_full>`).
+.. |Add_outgrid| replace:: Give the name of the output grid file for the directional derivative.
+.. include:: /explain_grd_inout.rst_
+    :start-after: outgrid-syntax-begins
+    :end-before: outgrid-syntax-ends
 
 Optional Arguments
 ------------------

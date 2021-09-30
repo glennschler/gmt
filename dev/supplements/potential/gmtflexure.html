@@ -134,15 +134,16 @@
 <li class="toctree-l1"><a class="reference internal" href="../../std-opts-classic.html">Common Options (Classic Mode)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../modules-classic.html">Modules (Classic Mode)</a></li>
 </ul>
-<p class="caption"><span class="caption-text">Developer Resources</span></p>
+<p class="caption"><span class="caption-text">Development</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/GenericMappingTools/gmt/blob/master/CONTRIBUTING.md">Contributing Guide</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/GenericMappingTools/gmt/blob/master/CODE_OF_CONDUCT.md">Code of Conduct</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../rst-cheatsheet.html">reStructuredText Cheatsheet</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../debug.html">Debugging GMT</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../api.html">GMT C API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../postscriptlight.html">PostScriptLight C API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../devdocs.html">Developer Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../devdocs/team.html">Team Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../devdocs/rst-cheatsheet.html">reStructuredText Cheatsheet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../devdocs/debug.html">Debugging GMT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../devdocs/api.html">GMT C API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../devdocs/postscriptlight.html">PostScriptLight C API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../devdocs/devdocs.html">GMT Enhancement Proposals</a></li>
 </ul>
 
             
@@ -237,15 +238,21 @@
 <p>Compute flexural deformation of 2-D loads, forces, and bending moments</p>
 <div class="section" id="synopsis">
 <h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a></h2>
-<p><strong>gmt flexure</strong> <a class="reference internal" href="#d"><span><strong>-D</strong></span></a></strong><em>rm</em>/<em>rl</em>[/<em>ri</em>]/<em>rw</em> <strong>-E</strong><em>Te</em>|<em>D</em>|<em>file</em>
+<p><strong>gmt flexure</strong> <a class="reference internal" href="#d"><span><strong>-D</strong></span></a></strong><em>rm</em>/<em>rl</em>[/<em>ri</em>]/<em>rw</em>
+<a class="reference internal" href="#e"><span><strong>-E</strong></span></a></strong><em>Te</em>[<strong>k</strong>]|<em>D</em>|<em>file</em>
+<a class="reference internal" href="#q"><span><strong>-Q</strong></span></a></strong><em>args</em>
 [ <a class="reference internal" href="#a"><span><strong>-A</strong></span></a></strong>[<strong>l</strong>|<strong>r</strong>]<em>bc</em>[/<em>args</em>] ]
-[ <a class="reference internal" href="#c"><span><strong>-C</strong></span></a></strong><strong>p</strong><em>Poisson</em> ] [ <a class="reference internal" href="#c"><span><strong>-C</strong></span></a></strong><strong>y</strong><em>Young</em> ]
-[ <a class="reference internal" href="#f"><span><strong>-F</strong></span></a></strong><em>force</em> ] [ <a class="reference internal" href="#l"><span><strong>-L</strong></span></a></strong> ]
-[ <a class="reference internal" href="#q"><span><strong>-Q</strong></span></a></strong><em>args</em>] [ <a class="reference internal" href="#s"><span><strong>-S</strong></span></a></strong> ] [ <a class="reference internal" href="#t"><span><strong>-T</strong></span></a></strong><em>wfile</em>]
+[ <a class="reference internal" href="#c"><span><strong>-C</strong></span></a></strong><strong>p</strong>|<strong>y</strong><em>value</em> ]
+[ <a class="reference internal" href="#f"><span><strong>-F</strong></span></a></strong><em>force</em> ]
+[ <a class="reference internal" href="#l"><span><strong>-L</strong></span></a></strong> ]
+[ <a class="reference internal" href="#m"><span><strong>-M</strong></span></a></strong>[<strong>x</strong>][<strong>z</strong>] ]
+[ <a class="reference internal" href="#s"><span><strong>-S</strong></span></a></strong> ]
+[ <a class="reference internal" href="#t"><span><strong>-T</strong></span></a></strong><em>wfile</em>]
 [ <a class="reference internal" href="#v"><span><strong>-V</strong></span></a></strong>[<em>level</em>] ]
-[ <a class="reference internal" href="#w"><span><strong>-W</strong></span></a></strong><em>wd</em>]
-[ <a class="reference internal" href="#z"><span><strong>-Z</strong></span></a></strong><em>zm</em>]
+[ <a class="reference internal" href="#w"><span><strong>-W</strong></span></a></strong><em>wd</em>[<strong>k</strong>]]
+[ <a class="reference internal" href="#z"><span><strong>-Z</strong></span></a></strong><em>zm</em>[<strong>k</strong>]]
 [ <strong>-bi</strong><a class="reference internal" href="../../gmt.html#bi-full"><span class="std std-ref">binary</span></a> ]
+[ <strong>-bo</strong><a class="reference internal" href="../../gmt.html#bo-full"><span class="std std-ref">binary</span></a> ]
 [ <strong>-d</strong><a class="reference internal" href="../../gmt.html#d-full"><span class="std std-ref">nodata</span></a> ]
 [ <strong>-e</strong><a class="reference internal" href="../../gmt.html#e-full"><span class="std std-ref">regexp</span></a> ]
 [ <strong>-h</strong><a class="reference internal" href="../../gmt.html#h-full"><span class="std std-ref">headers</span></a> ]
@@ -271,12 +278,25 @@ then it defaults to <em>rl</em>.</p>
 </dd>
 </dl>
 <dl class="simple" id="e">
-<dt><strong>-E</strong><em>Te</em>|<em>D</em>|<em>file</em></dt><dd><p>Sets the elastic plate thickness (in meter); append <strong>k</strong> for km.
+<dt><strong>-E</strong><em>Te</em>[<strong>k</strong>]|<em>D</em>|<em>file</em></dt><dd><p>Sets the elastic plate thickness (in meter); append <strong>k</strong> for km.
 If the elastic thickness exceeds 1e10 it will be interpreted as
-a flexural rigidity <strong>D</strong> instead (by default <strong>D</strong> is computed from <em>Te</em>, Young’s
+a flexural rigidity <em>D</em> instead (by default <em>D</em> is computed from <em>Te</em>, Young’s
 modulus, and Poisson’s ratio; see <strong>-C</strong> to change these values).
 Alternatively, supply a <em>file</em> with variable plate thicknesses or rigidities.
 The file must be co-registered with any file given via <strong>-Q</strong>.</p>
+</dd>
+</dl>
+<dl class="simple" id="q">
+<dt><strong>-Qn</strong>|<strong>q</strong>|<strong>t</strong>[<em>args</em>]</dt><dd><p>Sets the vertical load specification. Choose among these three options:
+<strong>-Qn</strong> means there is no input load file and that any deformation is
+simply driven by the boundary conditions set via <strong>-A</strong>.  If no rigidity or
+elastic thickness file is given via <strong>-E</strong> then you must also append arguments
+to create the locations used for the calculations; for details on array creation,
+see <a class="reference internal" href="#generate-1d-array">Generate 1D Array</a>.
+<strong>-Qq</strong>[<em>loadfile</em>] is a file (or stdin if not given) with (x,load in Pa)
+for all equidistant data locations.  Finally, <strong>-Qt</strong>[<em>topofile</em>] is a file
+(or stdin if not given) with (x,load in m or km, positive up); see <strong>-M</strong> for
+topography unit used [m].</p>
 </dd>
 </dl>
 </div>
@@ -294,30 +314,22 @@ moment and vertical shear force [0/0].  Use SI units for any optional arguments.
 </dd>
 </dl>
 <dl class="simple" id="c">
-<dt><strong>-Cp</strong><em>Poisson</em></dt><dd><p>Change the current value of Poisson’s ratio [0.25].</p>
-</dd>
-<dt><strong>-Cy</strong><em>Young</em></dt><dd><p>Change the current value of Young’s modulus [7.0e10 N/m^2].</p>
+<dt><strong>-C</strong><strong>p</strong>|<strong>y</strong><em>value</em></dt><dd><p>Append <strong>p</strong> or <strong>y</strong> to change the current value of Poisson’s ratio [0.25]
+or Young’s modulus [7.0e10 N/m^2], respectively.</p>
 </dd>
 </dl>
 <dl class="simple" id="f">
-<dt><strong>-F</strong><em>force</em></dt><dd><p>Set a constant horizontal in-plane force, in Pa m [0]</p>
+<dt><strong>-F</strong><em>force</em></dt><dd><p>Set a constant horizontal in-plane force, in Pa m [0].</p>
 </dd>
 </dl>
 <dl class="simple" id="l">
 <dt><strong>-L</strong></dt><dd><p>Use a variable restoring force that depends on sign of the flexure [constant].</p>
 </dd>
 </dl>
-<dl class="simple" id="q">
-<dt><strong>-Qn</strong>|<strong>q</strong>|<strong>t</strong>[<em>args</em>]</dt><dd><p>Sets the vertical load specification. Choose among these three options:
-<strong>-Qn</strong> means there is no input load file and that any deformation is
-simply driven by the boundary conditions set via <strong>-A</strong>.  If no rigidity or
-elastic thickness file is given via <strong>-E</strong> then you must also append arguments
-to create the locations used for the calculations; for details on array creation,
-see <a class="reference internal" href="#generate-1d-array">Generate 1D Array</a>.
-<strong>-Qq</strong>[<em>loadfile</em>] is a file (or stdin if not given) with (x,load in Pa)
-for all equidistant data locations.  Finally, <strong>-Qt</strong>[<em>topofile</em>] is a file
-(or stdin if not given) with (x,load in m or km, positive up); see <strong>-M</strong> for
-topography unit used [m].</p>
+<dl class="simple" id="m">
+<dt><strong>-M</strong>[<strong>x</strong>][<strong>z</strong>]</dt><dd><p>Optionally append one or both of <strong>x</strong> and <strong>z</strong>: Use <strong>x</strong> to indicated that all
+x-distances are in km [meters] and <strong>z</strong> to
+indicate that all z-deflections are in km [meters].</p>
 </dd>
 </dl>
 <dl class="simple" id="s">
@@ -334,18 +346,22 @@ third output column [none].</p>
 </dd>
 </dl>
 <dl class="simple" id="w">
-<dt><strong>-W</strong><em>wd</em></dt><dd><p>Specify water depth in m; append k for km.  Must be positive [0].
+<dt><strong>-W</strong><em>wd</em>[<strong>k</strong>]</dt><dd><p>Specify water depth in m; append <strong>k</strong> for km.  Must be positive [0].
 Any subaerial topography will be scaled via the densities set in <strong>-D</strong>
 to compensate for the larger density contrast with air.</p>
 </dd>
 </dl>
 <dl class="simple" id="z">
-<dt><strong>-Z</strong><em>zm</em></dt><dd><p>Specify reference depth to flexed surface in m; append k for km.  Must be positive [0].
+<dt><strong>-Z</strong><em>zm</em>[<strong>k</strong>]</dt><dd><p>Specify reference depth to flexed surface in m; append <strong>k</strong> for km.  Must be positive [0].
 We add this value to the flexed surface before output.</p>
 </dd>
 </dl>
 <dl class="simple">
-<dt><strong>-bi</strong>[<em>ncols</em>][<strong>t</strong>] <a class="reference internal" href="../../gmt.html#bi-full"><span class="std std-ref">(more …)</span></a></dt><dd><p>Select native binary format for primary input.  </p>
+<dt><strong>-bi</strong><em>record</em>[<strong>+b</strong>|<strong>l</strong>] <a class="reference internal" href="../../gmt.html#bi-full"><span class="std std-ref">(more …)</span></a></dt><dd><p>Select native binary format for primary table input.  </p>
+</dd>
+</dl>
+<dl class="simple">
+<dt><strong>-bo</strong><em>record</em>[<strong>+b</strong>|<strong>l</strong>] <a class="reference internal" href="../../gmt.html#bo-full"><span class="std std-ref">(more …)</span></a></dt><dd><p>Select native binary format for table output.  </p>
 </dd>
 </dl>
 <dl class="simple">
@@ -361,7 +377,7 @@ We add this value to the flexed surface before output.</p>
 </dd>
 </dl>
 <dl class="simple">
-<dt><strong>-i</strong><em>cols</em>[<strong>+l</strong>][<strong>+d</strong><em>divide</em>][<strong>+s</strong><em>scale</em>][<strong>+o</strong><em>offset</em>][,<em>…</em>][,<strong>t</strong>[<em>word</em>]] <a class="reference internal" href="../../gmt.html#icols-full"><span class="std std-ref">(more …)</span></a></dt><dd><p>Select input columns and transformations (0 is first column, <strong>t</strong> is trailing text, append <em>word</em> to read one word only).</p>
+<dt><strong>-i</strong><em>cols</em>[<strong>+l</strong>][<strong>+d</strong><em>divisor</em>][<strong>+s</strong><em>scale</em>|<strong>d</strong>|<strong>k</strong>][<strong>+o</strong><em>offset</em>][,<em>…</em>][,<strong>t</strong>[<em>word</em>]] <a class="reference internal" href="../../gmt.html#icols-full"><span class="std std-ref">(more …)</span></a></dt><dd><p>Select input columns and transformations (0 is first column, <strong>t</strong> is trailing text, append <em>word</em> to read one word only).</p>
 </dd>
 </dl>
 <dl class="simple">
@@ -443,7 +459,7 @@ instead.  To have exactly 5 equidistant values from 3.44 and 7.82, run:</p>
 <span class="m">7</span>.82
 </pre></div>
 </div>
-<p>Alternatively, give a <em>file</em> with output coordinates in the first column,
+<p>Alternatively, let <em>inc</em> be a <em>file</em> with output coordinates in the first column,
 or provide a comma-separated <em>list</em> of specific coordinates, such as the first 6
 Fibonacci numbers:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gmt math -o0 -T0,1,1,2,3,5 <span class="nv">T</span> <span class="o">=</span>
@@ -455,8 +471,10 @@ Fibonacci numbers:</p>
 <span class="m">5</span>
 </pre></div>
 </div>
+<p><strong>Note</strong>: Should you need to ensure that the coordinates are unique and sorted (in case the
+<em>file</em> or <em>list</em> are not sorted or have duplicates) then supply the <strong>+u</strong> modifier.</p>
 <p>If you only want a <em>single</em> value
-then you must append a comma to distinguish the list from the setting of <em>inc</em>.</p>
+then you must append a comma to distinguish the list from the setting of an increment.</p>
 <p>If the module allows you to set up an absolute time series, append a valid time unit from the list
 <strong>y</strong>ear, m<strong>o</strong>nth, <strong>d</strong>ay, <strong>h</strong>our, <strong>m</strong>inute, and <strong>s</strong>econd
 to the given increment; add <strong>+t</strong> to ensure time column (or use <strong>-f</strong>). <strong>Note</strong>: The internal time
@@ -507,6 +525,8 @@ for a 10 km thick plate with typical densities, try</p>
 </div>
 <div class="section" id="references">
 <h2>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>
+<p>Bodine, J. H., 1980, <em>Numerical computation of plate flexure in marine geophysics</em>,
+Tech. Rep. CU-1-80, Columbia University.</p>
 </div>
 <div class="section" id="see-also">
 <h2>See Also<a class="headerlink" href="#see-also" title="Permalink to this headline">¶</a></h2>
@@ -531,7 +551,7 @@ for a 10 km thick plate with typical densities, try</p>
     <p>
         &#169; Copyright 2021, The GMT Team..
       <span class="lastupdated">
-        Last updated on Jun 06, 2021.
+        Last updated on Sep 30, 2021.
       </span>
 
     </p>

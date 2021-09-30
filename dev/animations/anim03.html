@@ -134,15 +134,16 @@
 <li class="toctree-l1"><a class="reference internal" href="../std-opts-classic.html">Common Options (Classic Mode)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../modules-classic.html">Modules (Classic Mode)</a></li>
 </ul>
-<p class="caption"><span class="caption-text">Developer Resources</span></p>
+<p class="caption"><span class="caption-text">Development</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/GenericMappingTools/gmt/blob/master/CONTRIBUTING.md">Contributing Guide</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/GenericMappingTools/gmt/blob/master/CODE_OF_CONDUCT.md">Code of Conduct</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../rst-cheatsheet.html">reStructuredText Cheatsheet</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../debug.html">Debugging GMT</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api.html">GMT C API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../postscriptlight.html">PostScriptLight C API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../devdocs.html">Developer Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../devdocs/team.html">Team Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../devdocs/rst-cheatsheet.html">reStructuredText Cheatsheet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../devdocs/debug.html">Debugging GMT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../devdocs/api.html">GMT C API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../devdocs/postscriptlight.html">PostScriptLight C API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../devdocs/devdocs.html">GMT Enhancement Proposals</a></li>
 </ul>
 
             
@@ -238,45 +239,50 @@
 angle around the full 360. We use
 <a class="reference internal" href="../grdview.html"><span class="doc">grdview</span></a> to generate a shaded-relief
 image sequence. No additional
-information is plotted on the image. As before we produce an animated
-GIF image.</p>
+information is plotted on the image. As before we produce a MP4 movie.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env bash</span>
 <span class="c1">#               GMT ANIMATION 03</span>
 <span class="c1">#</span>
-<span class="c1"># Purpose:      Make web page with simple animated GIF of Iceland topo</span>
-<span class="c1"># GMT modules:  grdclip, grdgradient, makecpt, grdview, movie</span>
+<span class="c1"># Purpose:      Make simple animated MP4 of Iceland topo from different viewpoints</span>
+<span class="c1"># GMT modules:  basemap, grdclip, grdcut, grdgradient, makecpt, math, grdview, movie</span>
 <span class="c1"># Unix progs:   echo, cat</span>
-<span class="c1"># Note:         Run with any argument to build movie; otherwise 1st frame is plotted only.</span>
+<span class="c1"># Note:         Run with any argument to build movie; otherwise 27th frame is plotted only.</span>
+<span class="c1">#</span>
+<span class="c1"># The finished movie is available in our YouTube channel as well:</span>
+<span class="c1"># https://youtu.be/zCo0fuMkvMY</span>
+<span class="c1"># The movie took just 2 minutes to render on a 24-core MacPro 2013.</span>
 
-<span class="k">if</span> <span class="o">[</span> <span class="nv">$#</span> -eq <span class="m">0</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>	<span class="c1"># Just make master PostScript frame 27 (az = 135)</span>
-	<span class="nv">opt</span><span class="o">=</span><span class="s2">&quot;-M27,ps -Fnone&quot;</span>
-<span class="k">else</span>	<span class="c1"># Make animated GIF, infinitely looping</span>
-	<span class="nv">opt</span><span class="o">=</span><span class="s2">&quot;-A+l&quot;</span>
+<span class="k">if</span> <span class="o">[</span> <span class="nv">$#</span> -eq <span class="m">0</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>	<span class="c1"># Just make master PostScript frame 27 (az = 206)</span>
+	<span class="nv">opt</span><span class="o">=</span><span class="s2">&quot;-M27,ps&quot;</span>
+<span class="k">else</span>	<span class="c1"># Make MP4</span>
+	<span class="nv">opt</span><span class="o">=</span><span class="s2">&quot;-Fmp4&quot;</span>
 <span class="k">fi</span>
 <span class="c1"># 1. Create files needed in the loop</span>
 cat <span class="s">&lt;&lt; &#39;EOF&#39; &gt; pre.sh</span>
 <span class="s">gmt begin</span>
-<span class="s">	gmt math -T0/355/5 -o1 T = angles.txt</span>
-<span class="s">	gmt makecpt -Crelief -T-2000/2000/20 -H &gt; iceland.cpt</span>
-<span class="s">	gmt grdclip @earth_relief_02m -R-26/-12/63/67 -Sb0/-1 -Gabove.nc</span>
+<span class="s">	gmt math -T180/540/1 T 30 SUB = angles.txt</span>
+<span class="s">	gmt makecpt -Coleron -T-2000/2000/20 -H &gt; iceland.cpt</span>
+<span class="s">	gmt grdcut @earth_relief_15s -R-26/-12/63/67 -Giceland.nc</span>
+<span class="s">	gmt grdclip iceland.nc -Gabove.nc -Sb0/NAN -Sr0/NAN</span>
+<span class="s">	gmt grdclip iceland.nc -Gbelow.nc -Sa0/NAN</span>
 <span class="s">gmt end</span>
 <span class="s">EOF</span>
 <span class="c1"># 2. Set up the main frame script</span>
 cat <span class="s">&lt;&lt; &#39;EOF&#39; &gt; main.sh</span>
 <span class="s">gmt begin</span>
-<span class="s">	gmt grdview above.nc -R-26/-12/63/67 -JM2.5i -Ciceland.cpt -Qi100 -Bafg \</span>
-<span class="s">		-X0.5i -Y0.5i -p${MOVIE_COL0}/35+w20W/65N+v1.5i/0.75i</span>
+<span class="s">	gmt grdgradient iceland.nc -Nt1 -Gintens.nc -A-${MOVIE_COL1}</span>
+<span class="s">	gmt grdview below.nc -Rbelow.nc -Ciceland.cpt -Qc${MOVIE_DPU} -Iintens.nc -JM19c  -p-${MOVIE_COL0}/35+v4.5c/1.7c -X7.6c -Y5c</span>
+<span class="s">	gmt grdview above.nc -Rabove.nc -Ciceland.cpt -Qc${MOVIE_DPU} -Iintens.nc -JZ0.4c -p </span>
+<span class="s">	gmt basemap -Bf -Tdn0.06/0.8+w1.75c+f+l,,,N -p</span>
 <span class="s">gmt end</span>
 <span class="s">EOF</span>
 <span class="c1"># 3. Run the movie</span>
-gmt movie main.sh -C4ix2.5ix100 -Nanim03 -Tangles.txt -Sbpre.sh -D10 -Pb -Zs <span class="nv">$opt</span>
+gmt movie main.sh -Chd -Nanim03 -Tangles.txt -Sbpre.sh -Vi -Pb -Zs <span class="nv">$opt</span>
 </pre></div>
 </div>
-<div class="figure align-center" id="id1">
-<a class="reference internal image-reference" href="../_images/anim03.gif"><img alt="../_images/anim03.gif" src="../_images/anim03.gif" style="width: 400px;" /></a>
-<p class="caption"><span class="caption-text">Orbiting a static map.</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
-</div>
-</div>
+<div class="youtube_wrapper" style="padding-bottom: 56.250000%; padding-top: 30px; position: relative; width: 100%">
+<iframe allowfullscreen="true" src="https://www.youtube.com/embed/zCo0fuMkvMY?autoplay=1" style="border: 0; height: 100%; left: 0; position: absolute; top: 0; width: 100%">
+</iframe></div></div>
 
 
            </div>
@@ -294,7 +300,7 @@ gmt movie main.sh -C4ix2.5ix100 -Nanim03 -Tangles.txt -Sbpre.sh -D10 -Pb -Zs <sp
     <p>
         &#169; Copyright 2021, The GMT Team..
       <span class="lastupdated">
-        Last updated on Jun 06, 2021.
+        Last updated on Sep 30, 2021.
       </span>
 
     </p>

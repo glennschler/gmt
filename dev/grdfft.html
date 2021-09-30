@@ -134,15 +134,16 @@
 <li class="toctree-l1"><a class="reference internal" href="std-opts-classic.html">Common Options (Classic Mode)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="modules-classic.html">Modules (Classic Mode)</a></li>
 </ul>
-<p class="caption"><span class="caption-text">Developer Resources</span></p>
+<p class="caption"><span class="caption-text">Development</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/GenericMappingTools/gmt/blob/master/CONTRIBUTING.md">Contributing Guide</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/GenericMappingTools/gmt/blob/master/CODE_OF_CONDUCT.md">Code of Conduct</a></li>
-<li class="toctree-l1"><a class="reference internal" href="rst-cheatsheet.html">reStructuredText Cheatsheet</a></li>
-<li class="toctree-l1"><a class="reference internal" href="debug.html">Debugging GMT</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api.html">GMT C API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="postscriptlight.html">PostScriptLight C API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="devdocs.html">Developer Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devdocs/team.html">Team Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devdocs/rst-cheatsheet.html">reStructuredText Cheatsheet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devdocs/debug.html">Debugging GMT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devdocs/api.html">GMT C API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devdocs/postscriptlight.html">PostScriptLight C API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devdocs/devdocs.html">GMT Enhancement Proposals</a></li>
 </ul>
 
             
@@ -238,7 +239,7 @@
 <div class="section" id="synopsis">
 <h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a></h2>
 <p><strong>gmt grdfft</strong> <em>ingrid</em> [ <em>ingrid2</em> ]
-[ <a class="reference internal" href="#g"><span><strong>-G</strong></span></a></strong><em>outfile</em>|<em>table</em> ]
+<a class="reference internal" href="#g"><span><strong>-G</strong></span></a></strong><em>outfile</em>|<em>table</em>
 [ <a class="reference internal" href="#a"><span><strong>-A</strong></span></a></strong><em>azimuth</em> ]
 [ <a class="reference internal" href="#c"><span><strong>-C</strong></span></a></strong><em>zlevel</em> ]
 [ <a class="reference internal" href="#d"><span><strong>-D</strong></span></a></strong>[<em>scale</em>|<strong>g</strong>] ]
@@ -247,7 +248,7 @@
 [ <a class="reference internal" href="#i"><span><strong>-I</strong></span></a></strong>[<em>scale</em>|<strong>g</strong>] ]
 [ <a class="reference internal" href="#n"><span><strong>-N</strong></span></a></strong><em>params</em> ]
 [ <a class="reference internal" href="#q"><span><strong>-Q</strong></span></a></strong>]
-[ <a class="reference internal" href="#s"><span><strong>-S</strong></span></a></strong><em>scale</em> ]
+[ <a class="reference internal" href="#s"><span><strong>-S</strong></span></a></strong><em>scale</em>|<strong>d</strong> ]
 [ <a class="reference internal" href="#v"><span><strong>-V</strong></span></a></strong>[<em>level</em>] ]
 [ <strong>-f</strong><a class="reference internal" href="gmt.html#f-full"><span class="std std-ref">flags</span></a> ]
 [ <strong>--PAR</strong>=<em>value</em> ]</p>
@@ -266,10 +267,27 @@ to meters using <a class="reference internal" href="grdedit.html"><span class="d
 </div>
 <div class="section" id="required-arguments">
 <h2>Required Arguments<a class="headerlink" href="#required-arguments" title="Permalink to this headline">¶</a></h2>
+<p><em>ingrid</em>[=<em>ID</em>|?<em>varname</em>][<strong>+b</strong><em>band</em>][<strong>+d</strong><em>divisor</em>][<strong>+n</strong><em>invalid</em>]
+[<strong>+o</strong><em>offset</em>][<strong>+s</strong><em>scale</em>]</p>
+<blockquote>
+<div><p>2-D binary grid file to be operated on. For
+cross-spectral operations, also give the second grid file <em>ingrid2</em>. Optionally, append =<em>ID</em> for reading a specific file
+format [Default is =<em>nf</em>] or ?<em>varname</em> for a specific netCDF variable
+[Default is the first 2-D grid found by GMT]
+(<a class="reference internal" href="gmt.html#grd-inout-full"><span class="std std-ref">See full description</span></a>). The following modifiers are
+supported:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><strong>+b</strong> - Select a <em>band</em> (for images only) [Default is 0].</p></li>
+<li><p><strong>+d</strong> - Divide data values by the given <em>divisor</em> [Default is 1].</p></li>
+<li><p><strong>+n</strong> - Replace data values matching <em>invalid</em> with NaN.</p></li>
+<li><p><strong>+o</strong> - Offset data values by the given <em>offset</em> [Default is 0].</p></li>
+<li><p><strong>+s</strong> - Scale data values by the given <em>scale</em> [Default is 1].</p></li>
+</ul>
+</div></blockquote>
+<p>Note: Any offset is added after any scaling.</p>
+</div></blockquote>
 <dl class="simple">
-<dt><em>ingrid</em></dt><dd><p>2-D binary grid file to be operated on (see <a class="reference internal" href="gmt.html#grd-inout-full"><span class="std std-ref">Grid File Formats</span></a>).
-For cross-spectral operations, also give the second grid file <em>ingrid2</em>.</p>
-</dd>
 <dt><strong>-G</strong><em>outfile</em></dt><dd><p>Specify the name of the output grid file (see <a class="reference internal" href="gmt.html#grd-inout-full"><span class="std std-ref">Grid File Formats</span></a>) or the 1-D spectrum table (see <strong>-E</strong>).</p>
 </dd>
 </dl>
@@ -419,8 +437,9 @@ only.</p>
 </dd>
 </dl>
 <dl class="simple" id="s">
-<dt><strong>-S</strong><em>scale</em></dt><dd><p>Multiply each element by <em>scale</em> in the space domain (after the
-frequency domain operations). [Default is 1.0].</p>
+<dt><strong>-S</strong><em>scale</em>|<strong>d</strong></dt><dd><p>Multiply each element by <em>scale</em> in the space domain (after the
+frequency domain operations). [Default is 1.0].  Alternatively,
+append <strong>d</strong> to convert deflection of vertical to micro-radians.</p>
 </dd>
 </dl>
 <dl class="simple" id="v">
@@ -546,7 +565,7 @@ components of the raw spectrum of the data in topo.nc, try:</p>
     <p>
         &#169; Copyright 2021, The GMT Team..
       <span class="lastupdated">
-        Last updated on Jun 06, 2021.
+        Last updated on Sep 30, 2021.
       </span>
 
     </p>

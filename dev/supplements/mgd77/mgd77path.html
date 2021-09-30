@@ -134,15 +134,16 @@
 <li class="toctree-l1"><a class="reference internal" href="../../std-opts-classic.html">Common Options (Classic Mode)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../modules-classic.html">Modules (Classic Mode)</a></li>
 </ul>
-<p class="caption"><span class="caption-text">Developer Resources</span></p>
+<p class="caption"><span class="caption-text">Development</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/GenericMappingTools/gmt/blob/master/CONTRIBUTING.md">Contributing Guide</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/GenericMappingTools/gmt/blob/master/CODE_OF_CONDUCT.md">Code of Conduct</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../rst-cheatsheet.html">reStructuredText Cheatsheet</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../debug.html">Debugging GMT</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../api.html">GMT C API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../postscriptlight.html">PostScriptLight C API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../devdocs.html">Developer Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../devdocs/team.html">Team Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../devdocs/rst-cheatsheet.html">reStructuredText Cheatsheet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../devdocs/debug.html">Debugging GMT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../devdocs/api.html">GMT C API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../devdocs/postscriptlight.html">PostScriptLight C API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../devdocs/devdocs.html">GMT Enhancement Proposals</a></li>
 </ul>
 
             
@@ -238,7 +239,7 @@
 <div class="section" id="synopsis">
 <h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a></h2>
 <p><strong>gmt mgd77path</strong> <em>GEODAS-ids</em> [ <a class="reference internal" href="#a"><span><strong>-A</strong></span></a></strong>[<strong>c</strong>] ] [ <a class="reference internal" href="#d"><span><strong>-D</strong></span></a></strong> ]
-[ <a class="reference internal" href="#i"><span><strong>-I</strong></span></a></strong><em>ignore</em> ]
+[ <a class="reference internal" href="#i"><span><strong>-I</strong></span></a></strong><strong>a|c|m|t</strong> ]
 [ <a class="reference internal" href="#v"><span><strong>-V</strong></span></a></strong>[<em>level</em>] ]
 [ <strong>--PAR</strong>=<em>value</em> ]</p>
 <p><strong>Note:</strong> No space is allowed between the option flag and the associated arguments.</p>
@@ -285,7 +286,7 @@ used in the search.</p>
 </dd>
 </dl>
 <dl class="simple" id="i">
-<dt><strong>-I</strong><em>ignore</em></dt><dd><p>Ignore certain data file formats from consideration. Append
+<dt><strong>-I</strong><strong>a|c|m|t</strong></dt><dd><p>Ignore certain data file formats from consideration. Append
 <strong>a|c|m|t</strong> to ignore MGD77 ASCII, MGD77+ netCDF, MGD77T ASCII, or plain
 tab-separated ASCII table files, respectively. The option may be
 repeated to ignore more than one format. [Default ignores none].</p>
@@ -359,7 +360,7 @@ are MGD77+ version in netCDF, run</p>
     <p>
         &#169; Copyright 2021, The GMT Team..
       <span class="lastupdated">
-        Last updated on Jun 06, 2021.
+        Last updated on Sep 30, 2021.
       </span>
 
     </p>

@@ -135,15 +135,16 @@
 <li class="toctree-l1"><a class="reference internal" href="../../std-opts-classic.html">Common Options (Classic Mode)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../modules-classic.html">Modules (Classic Mode)</a></li>
 </ul>
-<p class="caption"><span class="caption-text">Developer Resources</span></p>
+<p class="caption"><span class="caption-text">Development</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/GenericMappingTools/gmt/blob/master/CONTRIBUTING.md">Contributing Guide</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/GenericMappingTools/gmt/blob/master/CODE_OF_CONDUCT.md">Code of Conduct</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../rst-cheatsheet.html">reStructuredText Cheatsheet</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../debug.html">Debugging GMT</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../api.html">GMT C API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../postscriptlight.html">PostScriptLight C API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../devdocs.html">Developer Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../devdocs/team.html">Team Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../devdocs/rst-cheatsheet.html">reStructuredText Cheatsheet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../devdocs/debug.html">Debugging GMT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../devdocs/api.html">GMT C API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../devdocs/postscriptlight.html">PostScriptLight C API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../devdocs/devdocs.html">GMT Enhancement Proposals</a></li>
 </ul>
 
             
@@ -239,6 +240,7 @@
 <div class="section" id="synopsis">
 <h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a></h2>
 <p><strong>gmt grdseamount</strong> [ <em>table</em> ]
+<a class="reference internal" href="#g"><span><strong>-G</strong></span></a></strong><em>outgrid</em>
 <a class="reference internal" href="#i"><span><strong>-I</strong></span></a></strong><em>increment</em>
 <a class="reference internal" href="#r"><span><strong>-R</strong></span></a></strong><em>region</em>
 [ <a class="reference internal" href="#a"><span><strong>-A</strong></span></a></strong>[<em>out</em>/<em>in</em>] ]
@@ -246,7 +248,6 @@
 [ <a class="reference internal" href="#d"><span><strong>-D</strong></span></a></strong><em>unit</em> ]
 [ <a class="reference internal" href="#e"><span><strong>-E</strong></span></a></strong> ]
 [ <a class="reference internal" href="#f"><span><strong>-F</strong></span></a></strong>[<em>flattening</em>] ]
-[ <a class="reference internal" href="#g"><span><strong>-G</strong></span></a></strong><em>grdfile</em> ]
 [ <a class="reference internal" href="#l"><span><strong>-L</strong></span></a></strong>[<em>cut</em>] ]
 [ <a class="reference internal" href="#m"><span><strong>-M</strong></span></a></strong>[<em>list</em>] ]
 [ <a class="reference internal" href="#n"><span><strong>-N</strong></span></a></strong><em>norm</em> ]
@@ -280,17 +281,46 @@ In this case you may choose to write out a cumulative shape or just the incremen
 by each time step (see <strong>-Q</strong>).  Finally, for mixing shapes you can use the trailing text to set
 the shape by using <strong>-C</strong> without an argument.</p>
 </div>
-<div class="section" id="required-arguments">
-<h2>Required Arguments<a class="headerlink" href="#required-arguments" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="required-arguments-if-l-not-given">
+<h2>Required Arguments (if <strong>-L</strong> not given)<a class="headerlink" href="#required-arguments-if-l-not-given" title="Permalink to this headline">¶</a></h2>
 <dl class="simple">
 <dt><em>table</em></dt><dd><p>One or more ASCII (or binary, see <strong>-bi</strong>[<em>ncols</em>][<em>type</em>]) data
 table file(s) holding a number of data columns. If no tables are given
 then we read from standard input.  </p>
 </dd>
 </dl>
+<span class="target" id="g"></span><p><strong>-G</strong><em>outgrid</em>[=<em>ID</em>][<strong>+d</strong><em>divisor</em>][<strong>+n</strong><em>invalid</em>]
+[<strong>+o</strong><em>offset</em>|<strong>a</strong>][<strong>+s</strong><em>scale</em>|<strong>a</strong>]
+[:<em>driver</em>[<em>dataType</em>][<strong>+c</strong><em>options</em>]]</p>
+<blockquote>
+<div><p>Give the name of the output grid file. If <a class="reference internal" href="#t"><span><strong>-T</strong></span></a></strong> is set then <em>outgrid</em> must be a filename
+template that contains a floating point format (C syntax).  If the filename template also contains
+either %s (for unit name) or %c (for unit letter) then we use the corresponding time (in units specified in <a class="reference internal" href="#t"><span><strong>-T</strong></span></a></strong>)
+to generate the individual file names, otherwise we use time in years with no unit. Optionally, append =<em>ID</em> for writing a specific file format
+(<a class="reference internal" href="../../gmt.html#grd-inout-full"><span class="std std-ref">See full description</span></a>). The following modifiers are
+supported:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><strong>+d</strong> - Divide data values by given <em>divisor</em> [Default is 1].</p></li>
+<li><p><strong>+n</strong> - Replace data values matching <em>invalid</em> with a NaN.</p></li>
+<li><p><strong>+o</strong> - Offset data values by the given <em>offset</em>, or append <strong>a</strong> for
+automatic range offset to preserve precision for integer grids
+[Default is 0].</p></li>
+<li><p><strong>+s</strong> - Scale data values by the given <em>scale</em>, or append <strong>a</strong> for
+automatic scaling to preserve precision for integer grids [Default
+is 1].</p></li>
+</ul>
+</div></blockquote>
+<p>Note: Any offset is added before any scaling. <strong>+sa</strong> also sets <strong>+oa</strong>
+(unless overridden). To write specific formats via GDAL, use = <em>gd</em>
+and supply <em>driver</em> (and optionally <em>dataType</em>) and/or one or more
+concatenated GDAL <strong>-co</strong> options using <strong>+c</strong>. See
+the <a class="reference internal" href="../../cookbook/features.html#write-grids-images"><span class="std std-ref">“Writing grids and images” cookbook section</span></a>
+for more details.</p>
+</div></blockquote>
 <dl class="simple" id="i">
 <dt><strong>-I</strong><em>xinc</em>[<strong>+e</strong>|<strong>n</strong>][/<em>yinc</em>[<strong>+e</strong>|<strong>n</strong>]]</dt><dd><p><em>x_inc</em> [and optionally <em>y_inc</em>] is the grid spacing. <strong>Geographical
-(degrees) coordinates</strong>: Optionally, append a increment unit. Choose among
+(degrees) coordinates</strong>: Optionally, append an increment unit. Choose among
 <strong>m</strong> to indicate arc minutes or <strong>s</strong> to indicate arc seconds. If one
 of the units <strong>e</strong>, <strong>f</strong>, <strong>k</strong>, <strong>M</strong>, <strong>n</strong> or <strong>u</strong> is appended
 instead, the increment is assumed to be given in meter, foot, km, Mile,
@@ -365,15 +395,6 @@ lon, lat. Circular only requires the radius <span class="math notranslate nohigh
 to find it in last input column [no truncation].  Ignored if used with <strong>-Cd</strong>.</p>
 </dd>
 </dl>
-<dl class="simple" id="g">
-<dt><strong>-G</strong><em>grdfile</em></dt><dd><p>Specify the name of the output grid file (see <a class="reference internal" href="../../gmt.html#grd-inout-full"><span class="std std-ref">Grid File Formats</span></a>).
-If <strong>-T</strong> is set then <em>grdfile</em> must be a filename template that contains
-a floating point format (C syntax).  If the filename template also contains
-either %s (for unit name) or %c (for unit letter) then we use the corresponding time
-(in units specified in <strong>-T</strong>) to generate the individual file names, otherwise
-we use time in years with no unit.</p>
-</dd>
-</dl>
 <dl class="simple" id="l">
 <dt><strong>-L</strong>[<em>cut</em>]</dt><dd><p>List area, volume, and mean height for each seamount; No grid is created.
 Optionally, append the noise-floor cutoff level below which we ignore area and volume [0].</p>
@@ -433,7 +454,7 @@ will be written for all time-steps even if there are no loads or no changes.</p>
 </dd>
 </dl>
 <dl class="simple">
-<dt><strong>-bi</strong>[<em>ncols</em>][<strong>t</strong>] <a class="reference internal" href="../../gmt.html#bi-full"><span class="std std-ref">(more …)</span></a></dt><dd><p>Select native binary format for primary input. [Default is 4 input columns].</p>
+<dt><strong>-bi</strong><em>record</em>[<strong>+b</strong>|<strong>l</strong>] <a class="reference internal" href="../../gmt.html#bi-full"><span class="std std-ref">(more …)</span></a></dt><dd><p>Select native binary format for primary table input. [Default is 4 input columns].</p>
 </dd>
 </dl>
 <dl class="simple">
@@ -448,7 +469,7 @@ km via a “Flat Earth” approximation using the current ellipsoid parameters.<
 </dd>
 </dl>
 <dl class="simple">
-<dt><strong>-i</strong><em>cols</em>[<strong>+l</strong>][<strong>+d</strong><em>divide</em>][<strong>+s</strong><em>scale</em>][<strong>+o</strong><em>offset</em>][,<em>…</em>][,<strong>t</strong>[<em>word</em>]] <a class="reference internal" href="../../gmt.html#icols-full"><span class="std std-ref">(more …)</span></a></dt><dd><p>Select input columns and transformations (0 is first column, <strong>t</strong> is trailing text, append <em>word</em> to read one word only).</p>
+<dt><strong>-i</strong><em>cols</em>[<strong>+l</strong>][<strong>+d</strong><em>divisor</em>][<strong>+s</strong><em>scale</em>|<strong>d</strong>|<strong>k</strong>][<strong>+o</strong><em>offset</em>][,<em>…</em>][,<strong>t</strong>[<em>word</em>]] <a class="reference internal" href="../../gmt.html#icols-full"><span class="std std-ref">(more …)</span></a></dt><dd><p>Select input columns and transformations (0 is first column, <strong>t</strong> is trailing text, append <em>word</em> to read one word only).</p>
 </dd>
 </dl>
 <dl class="simple">
@@ -522,7 +543,7 @@ gmt grdseamount -Rk-1024/1022/-1122/924 -I2000 -Gsmt_%3.1f_%s.nc t.txt -T3M/1.9M
     <p>
         &#169; Copyright 2021, The GMT Team..
       <span class="lastupdated">
-        Last updated on Jun 06, 2021.
+        Last updated on Sep 30, 2021.
       </span>
 
     </p>

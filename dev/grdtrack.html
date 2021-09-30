@@ -134,15 +134,16 @@
 <li class="toctree-l1"><a class="reference internal" href="std-opts-classic.html">Common Options (Classic Mode)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="modules-classic.html">Modules (Classic Mode)</a></li>
 </ul>
-<p class="caption"><span class="caption-text">Developer Resources</span></p>
+<p class="caption"><span class="caption-text">Development</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/GenericMappingTools/gmt/blob/master/CONTRIBUTING.md">Contributing Guide</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/GenericMappingTools/gmt/blob/master/CODE_OF_CONDUCT.md">Code of Conduct</a></li>
-<li class="toctree-l1"><a class="reference internal" href="rst-cheatsheet.html">reStructuredText Cheatsheet</a></li>
-<li class="toctree-l1"><a class="reference internal" href="debug.html">Debugging GMT</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api.html">GMT C API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="postscriptlight.html">PostScriptLight C API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="devdocs.html">Developer Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devdocs/team.html">Team Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devdocs/rst-cheatsheet.html">reStructuredText Cheatsheet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devdocs/debug.html">Debugging GMT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devdocs/api.html">GMT C API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devdocs/postscriptlight.html">PostScriptLight C API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devdocs/devdocs.html">GMT Enhancement Proposals</a></li>
 </ul>
 
             
@@ -238,8 +239,8 @@
 <div class="section" id="synopsis">
 <h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a></h2>
 <p><strong>gmt grdtrack</strong> [ <em>table</em> ] <a class="reference internal" href="#g"><span><strong>-G</strong></span></a></strong><em>grd1</em> <a class="reference internal" href="#g"><span><strong>-G</strong></span></a></strong><em>grd2</em> …
-[ <a class="reference internal" href="#a"><span><strong>-A</strong></span></a></strong><strong>f</strong>|<strong>p</strong>|<strong>m</strong>|<strong>r</strong>|<strong>R</strong>[<strong>+l</strong>] ]
-[ <a class="reference internal" href="#c"><span><strong>-C</strong></span></a></strong><em>length</em>/<em>ds</em>[<em>/spacing</em>][<strong>+a</strong>|<strong>+v</strong>][<strong>l</strong>|<strong>r</strong>] ]
+[ <a class="reference internal" href="#a"><span><strong>-A</strong></span></a></strong>[<strong>f</strong>|<strong>p</strong>|<strong>m</strong>|<strong>r</strong>|<strong>R</strong>][<strong>+l</strong>] ]
+[ <a class="reference internal" href="#c"><span><strong>-C</strong></span></a></strong><em>length</em>/<em>ds</em>[<em>/spacing</em>][<strong>+a</strong>|<strong>v</strong>][<strong>d</strong><em>deviation</em>][<strong>l</strong>|<strong>r</strong>] ]
 [ <a class="reference internal" href="#d"><span><strong>-D</strong></span></a></strong><em>dfile</em> ]
 [ <a class="reference internal" href="#e"><span><strong>-E</strong></span></a></strong><em>line</em> ]
 [ <a class="reference internal" href="#f"><span><strong>-F</strong></span></a></strong>[<strong>+b</strong>][<strong>+n</strong>][<strong>+r</strong>][<strong>+z</strong><em>z0</em>] ]
@@ -249,6 +250,7 @@
 [ <a class="reference internal" href="#t"><span><strong>-T</strong></span></a></strong>[<em>radius</em>][<strong>+e</strong>|<strong>p</strong>]]
 [ <a class="reference internal" href="#v"><span><strong>-V</strong></span></a></strong>[<em>level</em>] ]
 [ <a class="reference internal" href="#z"><span><strong>-Z</strong></span></a></strong> ]
+[ <strong>-a</strong><a class="reference internal" href="gmt.html#aspatial-full"><span class="std std-ref">flags</span></a> ]
 [ <strong>-b</strong><a class="reference internal" href="gmt.html#bi-full"><span class="std std-ref">binary</span></a> ]
 [ <strong>-d</strong><a class="reference internal" href="gmt.html#d-full"><span class="std std-ref">nodata</span></a> ]
 [ <strong>-e</strong><a class="reference internal" href="gmt.html#e-full"><span class="std std-ref">regexp</span></a> ]
@@ -285,9 +287,9 @@ edge is zero) unless the grid is automatically recognized as periodic.)</p>
 <div class="section" id="required-arguments">
 <h2>Required Arguments<a class="headerlink" href="#required-arguments" title="Permalink to this headline">¶</a></h2>
 <dl class="simple">
-<dt><em>table</em></dt><dd><p>This is an ASCII (or binary, see <strong>-bi</strong>)
-file where the first 2 columns hold the (x,y) positions where the
-user wants to sample the 2-D data set.</p>
+<dt><em>table</em></dt><dd><p>This is an ASCII (or binary, see <strong>-bi</strong>) file where the first 2 columns
+hold the (x,y) positions where the user wants to sample the 2-D data set.
+If no tables are given then we read from standard input, unless <a class="reference internal" href="#e"><span><strong>-E</strong></span></a></strong> is set.</p>
 </dd>
 </dl>
 <dl class="simple" id="g">
@@ -311,7 +313,7 @@ The grids are sampled and results are output in the order given.
 <div class="section" id="optional-arguments">
 <h2>Optional Arguments<a class="headerlink" href="#optional-arguments" title="Permalink to this headline">¶</a></h2>
 <dl class="simple" id="a">
-<dt><strong>-Af</strong>|<strong>p</strong>|<strong>m</strong>|<strong>r</strong>|<strong>R</strong>[<strong>+l</strong>]</dt><dd><p>For track resampling (if <strong>-C</strong> or <strong>-E</strong> are set) we can select how this is to
+<dt><strong>-A</strong>[<strong>f</strong>|<strong>p</strong>|<strong>m</strong>|<strong>r</strong>|<strong>R</strong>][<strong>+l</strong>]</dt><dd><p>For track resampling (if <strong>-C</strong> or <strong>-E</strong> are set) we can select how this is to
 be performed. Append <strong>f</strong> to keep original points, but add
 intermediate points if needed [Default], <strong>m</strong> as <strong>f</strong>, but first
 follow meridian (along y) then parallel (along x), <strong>p</strong> as <strong>f</strong>,
@@ -324,7 +326,7 @@ given spacing to fit the track length exactly. Finally, append
 </dd>
 </dl>
 <dl class="simple" id="c">
-<dt><strong>-C</strong><em>length</em>/<em>ds</em>[<em>/spacing</em>][<strong>+a</strong>|<strong>+v</strong>][<strong>l</strong>|<strong>r</strong>]</dt><dd><p>Use input line segments to create an equidistant and (optionally)
+<dt><strong>-C</strong><em>length</em>/<em>ds</em>[<em>/spacing</em>][<strong>+a</strong>|<strong>v</strong>][<strong>d</strong><em>deviation</em>][<strong>l</strong>|<strong>r</strong>]</dt><dd><p>Use input line segments to create an equidistant and (optionally)
 equally-spaced set of crossing profiles along which we sample the
 grid(s) [Default simply samples the grid(s) at the input locations].
 Specify two length scales that control how the sampling is done:
@@ -343,7 +345,11 @@ to <em>length</em>; it sets the unit used for <em>ds</em> [and <em>spacing</em>]
 <a class="reference internal" href="#units">Units</a> below). The default unit for geographic grids is meter while
 Cartesian grids implies the user unit.  The output columns will be
 <em>lon</em>, <em>lat</em>, <em>dist</em>, <em>azimuth</em>, <em>z1</em>, <em>z2</em>, …, <em>zn</em> (The <em>zi</em> are
-the sampled values for each of the <em>n</em> grids)</p>
+the sampled values for each of the <em>n</em> grids). Finally, use <strong>+d</strong> to
+change the profiles from being orthogonal to the line by the given
+<em>deviation</em> [0]. Looking in the direction of the line, a positive <em>deviation</em>
+will rotate the crosslines clockwise and a negative one will rotate them
+counter-clockwise.</p>
 </dd>
 </dl>
 <dl class="simple" id="d">
@@ -464,16 +470,17 @@ To instead replace the input point with the coordinates of the nearest node, app
 column becomes 0 instead of 2.  If specifying specific columns
 in <strong>-s</strong> then start numbering the z-columns from 0 instead of 2.</p>
 </dd>
-<dt><strong>-:</strong></dt><dd><p>Toggles between (longitude,latitude) and (latitude,longitude)
-input/output. [Default is (longitude,latitude)].</p>
+</dl>
+<dl class="simple">
+<dt><strong>-a</strong>[[<em>col</em>=]<em>name</em>[,<em>…</em>]] <a class="reference internal" href="gmt.html#aspatial-full"><span class="std std-ref">(more …)</span></a></dt><dd><p>Set aspatial column associations <em>col</em>=<em>name</em>.</p>
 </dd>
 </dl>
 <dl class="simple">
-<dt><strong>-bi</strong>[<em>ncols</em>][<strong>t</strong>] <a class="reference internal" href="gmt.html#bi-full"><span class="std std-ref">(more …)</span></a></dt><dd><p>Select native binary format for primary input. [Default is 2 input columns].</p>
+<dt><strong>-bi</strong><em>record</em>[<strong>+b</strong>|<strong>l</strong>] <a class="reference internal" href="gmt.html#bi-full"><span class="std std-ref">(more …)</span></a></dt><dd><p>Select native binary format for primary table input. [Default is 2 input columns].</p>
 </dd>
 </dl>
 <dl class="simple">
-<dt><strong>-bo</strong>[<em>ncols</em>][<em>type</em>] <a class="reference internal" href="gmt.html#bo-full"><span class="std std-ref">(more …)</span></a></dt><dd><p>Select native binary output. [Default is one more than input].</p>
+<dt><strong>-bo</strong><em>record</em>[<strong>+b</strong>|<strong>l</strong>] <a class="reference internal" href="gmt.html#bo-full"><span class="std std-ref">(more …)</span></a></dt><dd><p>Select native binary format for table output. [Default is one more than input].</p>
 </dd>
 </dl>
 <dl class="simple">
@@ -489,7 +496,7 @@ input/output. [Default is (longitude,latitude)].</p>
 </dd>
 </dl>
 <dl class="simple">
-<dt><strong>-g</strong>[<strong>a</strong>]<strong>x</strong>|<strong>y</strong>|<strong>d</strong>|<strong>X</strong>|<strong>Y</strong>|<strong>D</strong>|[<em>col</em>]<strong>z</strong><em>gap</em>[<strong>+n</strong>|<strong>p</strong>]  <a class="reference internal" href="gmt.html#g-full"><span class="std std-ref">(more …)</span></a></dt><dd><p>Determine data gaps and line breaks.  </p>
+<dt><strong>-g</strong><strong>x</strong>|<strong>y</strong>|<strong>z</strong>|<strong>d</strong>|<strong>X</strong>|<strong>Y</strong>|<strong>D</strong><em>gap</em>[<strong>u</strong>][<strong>+a</strong>][<strong>+c</strong><em>col</em>][<strong>+n</strong>|<strong>p</strong>]  <a class="reference internal" href="gmt.html#g-full"><span class="std std-ref">(more …)</span></a></dt><dd><p>Determine data gaps and line breaks.  </p>
 </dd>
 </dl>
 <dl class="simple">
@@ -497,7 +504,7 @@ input/output. [Default is (longitude,latitude)].</p>
 </dd>
 </dl>
 <dl class="simple">
-<dt><strong>-i</strong><em>cols</em>[<strong>+l</strong>][<strong>+d</strong><em>divide</em>][<strong>+s</strong><em>scale</em>][<strong>+o</strong><em>offset</em>][,<em>…</em>][,<strong>t</strong>[<em>word</em>]] <a class="reference internal" href="gmt.html#icols-full"><span class="std std-ref">(more …)</span></a></dt><dd><p>Select input columns and transformations (0 is first column, <strong>t</strong> is trailing text, append <em>word</em> to read one word only).</p>
+<dt><strong>-i</strong><em>cols</em>[<strong>+l</strong>][<strong>+d</strong><em>divisor</em>][<strong>+s</strong><em>scale</em>|<strong>d</strong>|<strong>k</strong>][<strong>+o</strong><em>offset</em>][,<em>…</em>][,<strong>t</strong>[<em>word</em>]] <a class="reference internal" href="gmt.html#icols-full"><span class="std std-ref">(more …)</span></a></dt><dd><p>Select input columns and transformations (0 is first column, <strong>t</strong> is trailing text, append <em>word</em> to read one word only).</p>
 </dd>
 </dl>
 <dl class="simple">
@@ -513,15 +520,18 @@ input/output. [Default is (longitude,latitude)].</p>
 </dd>
 </dl>
 <dl class="simple">
-<dt><strong>-q</strong>[<strong>i</strong>|<strong>o</strong>][~]<em>rows</em>[<strong>+c</strong><em>col</em>][<strong>+a</strong>|<strong>f</strong>|<strong>s</strong>] <a class="reference internal" href="gmt.html#q-full"><span class="std std-ref">(more …)</span></a></dt><dd><p>Select input or output rows or data range(s) [all].</p>
+<dt><strong>-q</strong>[<strong>i</strong>|<strong>o</strong>][~]<em>rows</em>|<em>limits</em>[<strong>+c</strong><em>col</em>][<strong>+a</strong>|<strong>f</strong>|<strong>s</strong>] <a class="reference internal" href="gmt.html#q-full"><span class="std std-ref">(more …)</span></a></dt><dd><p>Select input or output rows or data limit(s) [all].</p>
 </dd>
 </dl>
 <dl class="simple">
-<dt><strong>-s</strong>[<em>cols</em>][<strong>+a</strong>][<strong>+r</strong>] <a class="reference internal" href="gmt.html#s-full"><span class="std std-ref">(more …)</span></a></dt><dd><p>Set handling of NaN records.</p>
+<dt><strong>-s</strong>[<em>cols</em>][<strong>+a</strong>][<strong>+r</strong>] <a class="reference internal" href="gmt.html#s-full"><span class="std std-ref">(more …)</span></a></dt><dd><p>Set handling of NaN records for output.</p>
 </dd>
 </dl>
 <dl class="simple">
 <dt><strong>-wy</strong>|<strong>a</strong>|<strong>w</strong>|<strong>d</strong>|<strong>h</strong>|<strong>m</strong>|<strong>s</strong>|<strong>c</strong><em>period</em>[/<em>phase</em>][<strong>+c</strong><em>col</em>] <a class="reference internal" href="gmt.html#w-full"><span class="std std-ref">(more …)</span></a></dt><dd><p>Convert an input coordinate to a cyclical coordinate.</p>
+</dd>
+<dt><strong>-:</strong></dt><dd><p>Toggles between (longitude,latitude) and (latitude,longitude)
+input/output. [Default is (longitude,latitude)].</p>
 </dd>
 </dl>
 <dl class="simple">
@@ -654,7 +664,7 @@ try:</p>
     <p>
         &#169; Copyright 2021, The GMT Team..
       <span class="lastupdated">
-        Last updated on Jun 06, 2021.
+        Last updated on Sep 30, 2021.
       </span>
 
     </p>

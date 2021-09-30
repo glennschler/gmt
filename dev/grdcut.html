@@ -134,15 +134,16 @@
 <li class="toctree-l1"><a class="reference internal" href="std-opts-classic.html">Common Options (Classic Mode)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="modules-classic.html">Modules (Classic Mode)</a></li>
 </ul>
-<p class="caption"><span class="caption-text">Developer Resources</span></p>
+<p class="caption"><span class="caption-text">Development</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/GenericMappingTools/gmt/blob/master/CONTRIBUTING.md">Contributing Guide</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/GenericMappingTools/gmt/blob/master/CODE_OF_CONDUCT.md">Code of Conduct</a></li>
-<li class="toctree-l1"><a class="reference internal" href="rst-cheatsheet.html">reStructuredText Cheatsheet</a></li>
-<li class="toctree-l1"><a class="reference internal" href="debug.html">Debugging GMT</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api.html">GMT C API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="postscriptlight.html">PostScriptLight C API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="devdocs.html">Developer Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devdocs/team.html">Team Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devdocs/rst-cheatsheet.html">reStructuredText Cheatsheet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devdocs/debug.html">Debugging GMT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devdocs/api.html">GMT C API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devdocs/postscriptlight.html">PostScriptLight C API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devdocs/devdocs.html">GMT Enhancement Proposals</a></li>
 </ul>
 
             
@@ -241,6 +242,7 @@
 <em>ingrid</em>
 <a class="reference internal" href="#g"><span><strong>-G</strong></span></a></strong><em>outgrid</em>
 <a class="reference internal" href="#r"><span><strong>-R</strong></span></a></strong><em>region</em>
+[ <a class="reference internal" href="#d"><span><strong>-D</strong></span></a></strong>[<strong>+t</strong>] ]
 [ <a class="reference internal" href="#f"><span><strong>-F</strong></span></a></strong><em>polygonfile</em>[<strong>+c</strong>][<strong>+i</strong>] ]
 [ <a class="reference internal" href="#j"><span><strong>-J</strong></span></a></strong><em>parameters</em> ]
 [ <a class="reference internal" href="#n"><span><strong>-N</strong></span></a></strong>[<em>nodata</em>] ]
@@ -260,23 +262,74 @@ If in doubt, run <a class="reference internal" href="grdinfo.html"><span class="
 indirectly via a range check on the node values or via distances from a
 given point. Finally, you can use <strong>-J</strong> for oblique projections to determine
 the corresponding rectangular <strong>-R</strong> setting that will give a grid that fully
-covers the oblique domain.
+covers the oblique domain.  <strong>Note</strong>: If input grid is actually an image, then
+only options <strong>-R</strong> and <strong>-G</strong> are supported, i.e., you can cut out a sub-region only.
 Complementary to <strong>grdcut</strong> there is <a class="reference internal" href="grdpaste.html"><span class="doc">grdpaste</span></a>, which
 will join together two grid files along a common edge.</p>
 </div>
 <div class="section" id="required-arguments">
 <h2>Required Arguments<a class="headerlink" href="#required-arguments" title="Permalink to this headline">¶</a></h2>
-<dl class="simple">
-<dt><em>ingrid</em></dt><dd><p>This is the input grid file (see <a class="reference internal" href="gmt.html#grd-inout-full"><span class="std std-ref">Grid File Formats</span></a>).</p>
-</dd>
-</dl>
-<dl class="simple" id="g">
-<dt><strong>-G</strong><em>outgrid</em></dt><dd><p>This is the output grid file.</p>
+<p><em>ingrid</em>[=<em>ID</em>|?<em>varname</em>][<strong>+b</strong><em>band</em>][<strong>+d</strong><em>divisor</em>][<strong>+n</strong><em>invalid</em>]
+[<strong>+o</strong><em>offset</em>][<strong>+s</strong><em>scale</em>]</p>
+<blockquote>
+<div><p>Input grid file. Optionally, append =<em>ID</em> for reading a specific file
+format [Default is =<em>nf</em>] or ?<em>varname</em> for a specific netCDF variable
+[Default is the first 2-D grid found by GMT]
+(<a class="reference internal" href="gmt.html#grd-inout-full"><span class="std std-ref">See full description</span></a>). The following modifiers are
+supported:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><strong>+b</strong> - Select a <em>band</em> (for images only) [Default is 0].</p></li>
+<li><p><strong>+d</strong> - Divide data values by the given <em>divisor</em> [Default is 1].</p></li>
+<li><p><strong>+n</strong> - Replace data values matching <em>invalid</em> with NaN.</p></li>
+<li><p><strong>+o</strong> - Offset data values by the given <em>offset</em> [Default is 0].</p></li>
+<li><p><strong>+s</strong> - Scale data values by the given <em>scale</em> [Default is 1].</p></li>
+</ul>
+</div></blockquote>
+<p>Note: Any offset is added after any scaling.</p>
+</div></blockquote>
+<span class="target" id="g"></span><p><strong>-G</strong><em>outgrid</em>[=<em>ID</em>][<strong>+d</strong><em>divisor</em>][<strong>+n</strong><em>invalid</em>]
+[<strong>+o</strong><em>offset</em>|<strong>a</strong>][<strong>+s</strong><em>scale</em>|<strong>a</strong>]
+[:<em>driver</em>[<em>dataType</em>][<strong>+c</strong><em>options</em>]]</p>
+<blockquote>
+<div><p>Give the name of the output grid file. Optionally, append =<em>ID</em> for writing a specific file format
+(<a class="reference internal" href="gmt.html#grd-inout-full"><span class="std std-ref">See full description</span></a>). The following modifiers are
+supported:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><strong>+d</strong> - Divide data values by given <em>divisor</em> [Default is 1].</p></li>
+<li><p><strong>+n</strong> - Replace data values matching <em>invalid</em> with a NaN.</p></li>
+<li><p><strong>+o</strong> - Offset data values by the given <em>offset</em>, or append <strong>a</strong> for
+automatic range offset to preserve precision for integer grids
+[Default is 0].</p></li>
+<li><p><strong>+s</strong> - Scale data values by the given <em>scale</em>, or append <strong>a</strong> for
+automatic scaling to preserve precision for integer grids [Default
+is 1].</p></li>
+</ul>
+</div></blockquote>
+<p>Note: Any offset is added before any scaling. <strong>+sa</strong> also sets <strong>+oa</strong>
+(unless overridden). To write specific formats via GDAL, use = <em>gd</em>
+and supply <em>driver</em> (and optionally <em>dataType</em>) and/or one or more
+concatenated GDAL <strong>-co</strong> options using <strong>+c</strong>. See
+the <a class="reference internal" href="cookbook/features.html#write-grids-images"><span class="std std-ref">“Writing grids and images” cookbook section</span></a>
+for more details.</p>
+</div></blockquote>
+<dl class="simple" id="r">
+<dt><strong>-R</strong><em>xmin</em>/<em>xmax</em>/<em>ymin</em>/<em>ymax</em>[<strong>+r</strong>][<strong>+u</strong><em>unit</em>]</dt><dd><p>Specify the region of interest. This defines the subregion to be cut out. <a class="reference internal" href="gmt.html#r-full"><span class="std std-ref">(See full description)</span></a> <a class="reference internal" href="cookbook/options.html#data-domain-or-map-region-the-r-option"><span class="std std-ref">(See cookbook information)</span></a>.</p>
 </dd>
 </dl>
 </div>
 <div class="section" id="optional-arguments">
 <h2>Optional Arguments<a class="headerlink" href="#optional-arguments" title="Permalink to this headline">¶</a></h2>
+<dl class="simple" id="d">
+<dt><strong>-D</strong>[<strong>+t</strong>]</dt><dd><p>A “dry run”: Simply report the region and increment of what would be the
+extracted grid given the selected options.  No grid is created (<strong>-G</strong> is disallowed)
+and instead we write a single data record with <em>west east south north xinc yinc</em>
+to standard output. The increments will reflect the input grid unless it is a
+remote gridded data set without implied resolution. Append <strong>+t</strong> to instead receive
+the information as the trailing string “-Rwest/east/south/north -Ixinc/yinc”.</p>
+</dd>
+</dl>
 <dl class="simple" id="f">
 <dt><strong>-F</strong><em>polygonfile</em>[<strong>+c</strong>][<strong>+i</strong>]</dt><dd><p>Specify a multisegment closed polygon file.  All grid nodes outside the
 polygon will be set to NaN.  Append <strong>+i</strong> to invert that and set all
@@ -292,10 +345,6 @@ crop the grid region to reflect the bounding box of the polygon.</p>
 <dl class="simple" id="n">
 <dt><strong>-N</strong>[<em>nodata</em>]</dt><dd><p>Allow grid to be extended if new <strong>-R</strong> exceeds existing boundaries.
 Append <em>nodata</em> value to initialize nodes outside current region [Default is NaN].</p>
-</dd>
-</dl>
-<dl class="simple" id="r">
-<dt><strong>-R</strong><em>xmin</em>/<em>xmax</em>/<em>ymin</em>/<em>ymax</em>[<strong>+r</strong>][<strong>+u</strong><em>unit</em>]</dt><dd><p>Specify the region of interest. This defines the subregion to be cut out. <a class="reference internal" href="gmt.html#r-full"><span class="std std-ref">(See full description)</span></a> <a class="reference internal" href="cookbook/options.html#data-domain-or-map-region-the-r-option"><span class="std std-ref">(See cookbook information)</span></a>.</p>
 </dd>
 </dl>
 <dl class="simple" id="s">
@@ -409,6 +458,11 @@ gmt grdcut @earth_relief_10m -FFR.txt+c -GFR_only.grd
 gmt grdimage FR_only.grd -B -pdf map
 </pre></div>
 </div>
+<p>To determine what grid region and resolution (in text format) most suitable for a 24 cm wide map
+that is using an oblique projection to display the remote Earth Relief data grid, try:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gmt grdcut @earth_relief -R270/20/305/25+r -JOc280/25.5/22/69/24c -D+t -V
+</pre></div>
+</div>
 </div>
 <div class="section" id="see-also">
 <h2>See Also<a class="headerlink" href="#see-also" title="Permalink to this headline">¶</a></h2>
@@ -437,7 +491,7 @@ gmt grdimage FR_only.grd -B -pdf map
     <p>
         &#169; Copyright 2021, The GMT Team..
       <span class="lastupdated">
-        Last updated on Jun 06, 2021.
+        Last updated on Sep 30, 2021.
       </span>
 
     </p>

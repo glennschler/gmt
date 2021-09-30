@@ -134,15 +134,16 @@
 <li class="toctree-l1"><a class="reference internal" href="std-opts-classic.html">Common Options (Classic Mode)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="modules-classic.html">Modules (Classic Mode)</a></li>
 </ul>
-<p class="caption"><span class="caption-text">Developer Resources</span></p>
+<p class="caption"><span class="caption-text">Development</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/GenericMappingTools/gmt/blob/master/CONTRIBUTING.md">Contributing Guide</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/GenericMappingTools/gmt/blob/master/CODE_OF_CONDUCT.md">Code of Conduct</a></li>
-<li class="toctree-l1"><a class="reference internal" href="rst-cheatsheet.html">reStructuredText Cheatsheet</a></li>
-<li class="toctree-l1"><a class="reference internal" href="debug.html">Debugging GMT</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api.html">GMT C API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="postscriptlight.html">PostScriptLight C API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="devdocs.html">Developer Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devdocs/team.html">Team Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devdocs/rst-cheatsheet.html">reStructuredText Cheatsheet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devdocs/debug.html">Debugging GMT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devdocs/api.html">GMT C API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devdocs/postscriptlight.html">PostScriptLight C API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devdocs/devdocs.html">GMT Enhancement Proposals</a></li>
 </ul>
 
             
@@ -243,14 +244,14 @@ plotting is done via the <strong>set</strong> directive.  The subplot process is
 <h2>Synopsis (begin mode)<a class="headerlink" href="#synopsis-begin-mode" title="Permalink to this headline">¶</a></h2>
 <p><strong>gmt subplot begin</strong> <em>nrows</em><strong>x</strong><em>ncols</em>
 <a class="reference internal" href="#f"><span><strong>-F</strong></span></a></strong>[<strong>f</strong>|<strong>s</strong>]<em>width</em>/<em>height</em>[<strong>+f</strong><em>wfracs</em>/<em>hfracs</em>][<strong>+af</strong>|<strong>s</strong>][<strong>+c</strong><em>dx/dy</em>][<strong>+g</strong><em>fill</em>][<strong>+p</strong><em>pen</em>][<strong>+w</strong><em>pen</em>]
-[ <a class="reference internal" href="#a"><span><strong>-A</strong></span></a></strong><em>autolabel</em> ]
+[ <a class="reference internal" href="#a"><span><strong>-A</strong></span></a></strong><em>autotag</em> ]
 [ <a class="reference internal" href="#c"><span><strong>-C</strong></span></a></strong>[<em>side</em>]<em>clearance</em> ]
 [ <a class="reference internal" href="#d"><span><strong>-D</strong></span></a></strong> ]
 [ <a class="reference internal" href="#b"><span><strong>-B</strong></span></a></strong>[<strong>p</strong>|<strong>s</strong>]<em>parameters</em> ]
 [ <a class="reference internal" href="#j"><span><strong>-J</strong></span></a></strong><em>parameters</em> ]
 [ <a class="reference internal" href="#m"><span><strong>-M</strong></span></a></strong><em>margins</em> ]
 [ <a class="reference internal" href="#r"><span><strong>-R</strong></span></a></strong><em>region</em> ]
-[ <a class="reference internal" href="#s"><span><strong>-S</strong></span></a></strong><em>layout</em> ]
+[ <a class="reference internal" href="#s"><span><strong>-S</strong></span></a></strong><strong>c</strong>|<strong>r</strong>[<em>layout</em>][<em>mods</em>] ]
 [ <a class="reference internal" href="#t"><span><strong>-T</strong></span></a></strong><em>title</em> ]
 [ <a class="reference internal" href="#v"><span><strong>-V</strong></span></a></strong>[<em>level</em>] ]
 [ <a class="reference internal" href="#x"><span><strong>-X</strong></span></a></strong>[<strong>a</strong>|<strong>c</strong>|<strong>f</strong>|<strong>r</strong>][<em>xshift</em>] ]
@@ -306,7 +307,7 @@ Append <strong>+as</strong> to instead determine the scaling from the geometric 
 <div class="section" id="optional-arguments-begin-mode">
 <h2>Optional Arguments (begin mode)<a class="headerlink" href="#optional-arguments-begin-mode" title="Permalink to this headline">¶</a></h2>
 <dl class="simple" id="a">
-<dt><strong>-A</strong>[<em>autolabel</em>][<strong>+c</strong><em>dx</em>[/<em>dy</em>]][<strong>+g</strong><em>fill</em>][<strong>+j</strong>|<strong>J</strong><em>refpoint</em>][<strong>+o</strong><em>dx</em>[/<em>dy</em>]][<strong>+p</strong><em>pen</em>][<strong>+r</strong>|<strong>R</strong>][<strong>+v</strong>]</dt><dd><p>Specify automatic tagging of each subplot.  Append either a number or letter [a].
+<dt><strong>-A</strong>[<em>autotag</em>][<strong>+c</strong><em>dx</em>[/<em>dy</em>]][<strong>+g</strong><em>fill</em>][<strong>+j</strong>|<strong>J</strong><em>refpoint</em>][<strong>+o</strong><em>dx</em>[/<em>dy</em>]][<strong>+p</strong><em>pen</em>][<strong>+r</strong>|<strong>R</strong>][<strong>+s</strong>[[<em>dx</em>/<em>dy</em>][/<em>shade</em>]]][<strong>+v</strong>]</dt><dd><p>Specify automatic tagging of each subplot.  Append either a number or letter [a].
 This sets the tag of the first, top-left subplot and others follow sequentially.
 Surround the number or letter by parentheses on any side if these should be typeset
 as part of the tag (<strong>Note</strong>: In UNIX shells you may need to escape these parentheses.)
@@ -321,6 +322,9 @@ by the justification [4p/4p, i.e., 20% of the <a class="reference internal" href
 Append <strong>+p</strong><em>pen</em> to draw the outline of the tag’s text box using selected <em>pen</em> [no outline].
 Append <strong>+r</strong> to typeset your tag numbers using lowercase Roman numerals;
 use <strong>+R</strong> for uppercase Roman numerals [Arabic numerals].
+Append <strong>+s</strong> to draw an offset background shaded rectangle. Here, <em>dx</em>/<em>dy</em> indicates the
+shift relative to the tag box [default is <strong>2p</strong>/<strong>-2p</strong>] and <em>shade</em> sets the
+fill style to use for shading [default is <strong>gray50</strong>].
 Append <strong>+v</strong> to increase tag numbers vertically down columns [horizontally across rows].</p>
 </dd>
 </dl>
@@ -368,17 +372,17 @@ will also become the default for any data region needed by computational modules
 </dd>
 </dl>
 <dl class="simple" id="s">
-<dt><strong>-S</strong><em>layout</em></dt><dd><p>Set subplot layout for shared axes. May be set separately for rows (<strong>-SR</strong>) and columns (<strong>-SC</strong>).
-Considerations for <strong>-SC</strong>: Use when all subplots in a <strong>C</strong>olumn share a common <em>x</em>-range. The first (i.e., <strong>t</strong>op) and the last
+<dt><strong>-S</strong><strong>c</strong>|<strong>r</strong>[<em>layout</em>][<em>mods</em>]</dt><dd><p>Set subplot <em>layout</em> for shared axes. May be set separately for rows (<strong>-Sr</strong>) and columns (<strong>-Sc</strong>).
+Considerations for <strong>-Sc</strong>: Use when all subplots in a <strong>c</strong>olumn share a common <em>x</em>-range. The first (i.e., <strong>t</strong>op) and the last
 (i.e., <strong>b</strong>ottom) rows will have <em>x</em> annotations; append <strong>t</strong> or <strong>b</strong> to select only one of those two rows [both].
 Append <strong>+l</strong> if annotated <em>x</em>-axes should have a label [none]; optionally append the label if it is the same
-for the entire subplot.
+for the entire subplot. Optionally, use <strong>+s</strong> to set a separate (secondary) label.
 Append <strong>+t</strong> to make space for subplot titles for each row; use <strong>+tc</strong> for top row titles only [no subplot titles].
 Labels and titles that depends on which row or column are specified as usual via a subplot’s own <strong>-B</strong> setting.
-Considerations for <strong>-SR</strong>: Use when all subplots in a <strong>R</strong>ow share a common <em>y</em>-range. The first (i.e., <strong>l</strong>eft) and the last
+Considerations for <strong>-Sr</strong>: Use when all subplots in a <strong>r</strong>ow share a common <em>y</em>-range. The first (i.e., <strong>l</strong>eft) and the last
 (i.e., <strong>r</strong>ight) columns will have <em>y</em>-annotations; append <strong>l</strong> or <strong>r</strong> to select only one of those two columns [both].
 Append <strong>+l</strong> if annotated <em>y</em>-axes will have a label [none]; optionally, append the label if it is the same
-for the entire subplot.
+for the entire subplot. Optionally, use <strong>+s</strong> to set a separate (secondary) label.
 Append <strong>+p</strong> to make all annotations axis-parallel [horizontal]; if not used you may have to set <strong>-C</strong> to secure
 extra space for long horizontal annotations.
 Append <strong>+w</strong> to the <strong>-F</strong> argument to draw horizontal and vertical lines
@@ -416,7 +420,7 @@ any module-specific option (but not the GMT common options), then exit.</p>
 </div>
 <div class="section" id="synopsis-set-mode">
 <h2>Synopsis (set mode)<a class="headerlink" href="#synopsis-set-mode" title="Permalink to this headline">¶</a></h2>
-<p><strong>gmt subplot set</strong> [ <em>row,col</em>|<em>index</em> ] [ <strong>-A</strong><em>fixedlabel</em>] [ <strong>-C</strong><em>side</em><em>clearance</em> ] [ <a class="reference internal" href="#v"><span><strong>-V</strong></span></a></strong>[<em>level</em>] ]</p>
+<p><strong>gmt subplot set</strong> [ <em>row,col</em>|<em>index</em> ] [ <strong>-A</strong><em>fixedtag</em>] [ <strong>-C</strong><em>side</em><em>clearance</em> ] [ <a class="reference internal" href="#v"><span><strong>-V</strong></span></a></strong>[<em>level</em>] ]</p>
 <p>Before you start plotting you must first select the active subplot.
 <strong>Note</strong>: If any <strong>-J</strong> option is passed <em>without</em> the scale or width when you first are plotting
 inside the subplot, then the scale of the map is automatically determined by the subplot size and your region.
@@ -434,7 +438,7 @@ GMT maintains information about the current figure and subplot. Also, you may gi
 </dd>
 </dl>
 <dl class="simple" id="subplot-set-a">
-<dt><strong>-A</strong><em>fixedlabel</em></dt><dd><p>Overrides the automatic labeling with the given string.  No modifiers are allowed.
+<dt><strong>-A</strong><em>fixedtag</em></dt><dd><p>Overrides the automatic labeling with the given string.  No modifiers are allowed.
 Placement, justification, etc. are all inherited from how <strong>-A</strong> was specified by the
 initial <strong>subplot begin</strong> command.  <strong>Note</strong>: Overriding means you initiate the tag
 machinery with <strong>-A</strong> when <strong>subplot begin</strong> was called, otherwise the option is ignored.</p>
@@ -442,7 +446,8 @@ machinery with <strong>-A</strong> when <strong>subplot begin</strong> was calle
 </dl>
 <dl class="simple" id="subplot-set-c2">
 <dt><strong>-C</strong>[<em>side</em>]<em>clearance</em></dt><dd><p>Reserve a space of dimension <em>clearance</em> between the margin and the subplot on the specified
-side, using <em>side</em> values from <strong>w</strong>, <strong>e</strong>, <strong>s</strong>, or <strong>n</strong>.  The option is repeatable to set aside space
+side, using <em>side</em> values from <strong>w</strong>, <strong>e</strong>, <strong>s</strong>, or <strong>n</strong>, or <strong>x</strong> for both <strong>w</strong> and <strong>e</strong>
+or <strong>y</strong> for both <strong>s</strong> and <strong>n</strong>.  The option is repeatable to set aside space
 on more than one side.  Such space will be left untouched by the main map plotting but can
 be accessed by modules that plot scales, bars, text, etc.  This setting overrides the common
 clearances set by <strong>-C</strong> during <strong>subplot begin</strong>.</p>
@@ -481,7 +486,7 @@ the current plot location to where it was prior to the subplot.</p>
 <h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
 <p>To make a minimalistic 2x2 basemap layout called panels.pdf, try:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gmt begin panels pdf
-  gmt subplot begin 2x2 -Fs8c -M5p -A -SCb -SRl -R0/80/0/10
+  gmt subplot begin 2x2 -Fs8c -M5p -A -Scb -Srl -R0/80/0/10
     gmt subplot <span class="nb">set</span>
     gmt basemap
     gmt subplot <span class="nb">set</span>
@@ -533,7 +538,7 @@ not yet been implemented.</p></li>
     <p>
         &#169; Copyright 2021, The GMT Team..
       <span class="lastupdated">
-        Last updated on Jun 06, 2021.
+        Last updated on Sep 30, 2021.
       </span>
 
     </p>

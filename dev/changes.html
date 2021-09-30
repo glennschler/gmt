@@ -191,15 +191,16 @@
 <li class="toctree-l1"><a class="reference internal" href="std-opts-classic.html">Common Options (Classic Mode)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="modules-classic.html">Modules (Classic Mode)</a></li>
 </ul>
-<p class="caption"><span class="caption-text">Developer Resources</span></p>
+<p class="caption"><span class="caption-text">Development</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/GenericMappingTools/gmt/blob/master/CONTRIBUTING.md">Contributing Guide</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/GenericMappingTools/gmt/blob/master/CODE_OF_CONDUCT.md">Code of Conduct</a></li>
-<li class="toctree-l1"><a class="reference internal" href="rst-cheatsheet.html">reStructuredText Cheatsheet</a></li>
-<li class="toctree-l1"><a class="reference internal" href="debug.html">Debugging GMT</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api.html">GMT C API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="postscriptlight.html">PostScriptLight C API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="devdocs.html">Developer Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devdocs/team.html">Team Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devdocs/rst-cheatsheet.html">reStructuredText Cheatsheet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devdocs/debug.html">Debugging GMT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devdocs/api.html">GMT C API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devdocs/postscriptlight.html">PostScriptLight C API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devdocs/devdocs.html">GMT Enhancement Proposals</a></li>
 </ul>
 
             
@@ -688,7 +689,7 @@ These CPTs are called plasma, magma, inferno, and viridis.</p></li>
 restored the beautiful biological symbols for whales and dolphins created by
 Pablo Valdés during the GMT4 era. These are now complemented by new custom
 symbols for structural geology designed by José A. Álvarez-Gómez.</p></li>
-<li><p>The <a class="reference internal" href="postscriptlight.html"><span class="doc">PSL</span></a> library no longer needs run-time files to configure the
+<li><p>The <a class="reference internal" href="devdocs/postscriptlight.html"><span class="doc">PSL</span></a> library no longer needs run-time files to configure the
 list of standard fonts and character encodings, reducing the number of configure
 files required.</p></li>
 <li><p>The <a class="reference internal" href="gmt.conf.html"><span class="doc">gmt.conf</span></a> files produced by gmt set will only write parameters that differ
@@ -866,7 +867,7 @@ as well. For specific enhancements, we have:</p>
 <li><p>All GMT-distributed color palette tables (CPTs, now a total of 44) are
 <em>dynamic</em> and many have a <em>hinge</em> and a default <em>range</em>.  What this means
 is that the range of all CPTs have been normalized to 0-1, expect that
-those with a hinge are normalized to -1/+1, with 0 being the normalized
+those with a hinge are normalized to ±1, with 0 being the normalized
 hinge location.  CPTs with a hinge are interpolated separately on either
 side of the hinge, since a hinge typically signifies a dramatic color
 change (e.g., at sea-level) and we do not want that color change to be
@@ -965,7 +966,7 @@ EarthByte, U. of Sydney.</p></li>
 of the GMT/MATLAB toolbox.  A few new API functions have been added since the
 initial release, including GMT_Get_Pixel, GMT_Set_Index, GMT_Open_VirtualFile,
 GMT_Close_VirtualFile, GMT_Read_VirtualFile, GMT_Read_Group, and GMT_Convert_Data;
-see the API <a class="reference internal" href="api.html#api"><span class="std std-ref">GMT C API</span></a> for details.</p>
+see the API <a class="reference internal" href="devdocs/api.html#api"><span class="std std-ref">GMT C API</span></a> for details.</p>
 </div>
 </div>
 <div class="section" id="new-features-in-gmt-5-2">
@@ -1269,7 +1270,7 @@ used by other spotter tools to extend the model duration.</p></li>
 <p>GMT 5 represents a new branch of GMT development that mostly preserves the
 capabilities of the previous versions while adding over 200 new features
 to an already extensive bag of tricks.  Our PostScript library
-<a class="reference internal" href="postscriptlight.html"><span class="doc">PSL</span></a> has seen a complete rewrite as well
+<a class="reference internal" href="devdocs/postscriptlight.html"><span class="doc">PSL</span></a> has seen a complete rewrite as well
 and produce shorter and more compact PostScript. However, the big news
 is aimed for developers who wish to leverage GMT in their own applications.
 We have completely revamped the code base so that high-level
@@ -1279,7 +1280,7 @@ high-level functions named after their corresponding programs (e.g.,
 within the function. While currently callable from C/C++ only (with some
 support for F77), we are making progress on the Matlab interface as well
 and there are plans to start on the Python version. Developers should
-consult the <a class="reference internal" href="api.html#api"><span class="std std-ref">GMT API</span></a> documentation for more details.</p>
+consult the <a class="reference internal" href="devdocs/api.html#api"><span class="std std-ref">GMT API</span></a> documentation for more details.</p>
 <p>We recommend that users of GMT 4 consider learning the new rules and defaults
 since eventually (in some years) GMT 4 will be obsolete.
 To ease the transition to GMT 5 you may run it in compatibility mode,
@@ -1707,7 +1708,7 @@ simply process their PostScript files via <a class="reference internal" href="ps
     <p>
         &#169; Copyright 2021, The GMT Team..
       <span class="lastupdated">
-        Last updated on Jun 06, 2021.
+        Last updated on Sep 30, 2021.
       </span>
 
     </p>

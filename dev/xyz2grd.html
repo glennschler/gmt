@@ -134,15 +134,16 @@
 <li class="toctree-l1"><a class="reference internal" href="std-opts-classic.html">Common Options (Classic Mode)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="modules-classic.html">Modules (Classic Mode)</a></li>
 </ul>
-<p class="caption"><span class="caption-text">Developer Resources</span></p>
+<p class="caption"><span class="caption-text">Development</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/GenericMappingTools/gmt/blob/master/CONTRIBUTING.md">Contributing Guide</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/GenericMappingTools/gmt/blob/master/CODE_OF_CONDUCT.md">Code of Conduct</a></li>
-<li class="toctree-l1"><a class="reference internal" href="rst-cheatsheet.html">reStructuredText Cheatsheet</a></li>
-<li class="toctree-l1"><a class="reference internal" href="debug.html">Debugging GMT</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api.html">GMT C API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="postscriptlight.html">PostScriptLight C API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="devdocs.html">Developer Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devdocs/team.html">Team Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devdocs/rst-cheatsheet.html">reStructuredText Cheatsheet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devdocs/debug.html">Debugging GMT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devdocs/api.html">GMT C API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devdocs/postscriptlight.html">PostScriptLight C API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devdocs/devdocs.html">GMT Enhancement Proposals</a></li>
 </ul>
 
             
@@ -237,7 +238,7 @@
 <p>Convert data table to a grid</p>
 <div class="section" id="synopsis">
 <h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a></h2>
-<p><strong>gmt xyz2grd</strong> [ <em>table</em> ] <a class="reference internal" href="#g"><span><strong>-G</strong></span></a></strong><em>grdfile</em>
+<p><strong>gmt xyz2grd</strong> [ <em>table</em> ] <a class="reference internal" href="#g"><span><strong>-G</strong></span></a></strong><em>outgrid</em>
 <a class="reference internal" href="#i"><span><strong>-I</strong></span></a></strong><em>increment</em>
 <a class="reference internal" href="#r"><span><strong>-R</strong></span></a></strong><em>region</em>
 [ <a class="reference internal" href="#a"><span><strong>-A</strong></span></a></strong>[<strong>d</strong>|<strong>f</strong>|<strong>l</strong>|<strong>m</strong>|<strong>n</strong>|<strong>r</strong>|<strong>S</strong>|<strong>s</strong>|<strong>u</strong>|<strong>z</strong>] ]
@@ -280,14 +281,35 @@ files holding z or (x,y,z) values. The xyz triplets do not have to
 be sorted. One-column z tables must be sorted and the <strong>-Z</strong> must be set.</p>
 </dd>
 </dl>
-<dl class="simple" id="g">
-<dt><strong>-G</strong><em>grdfile</em></dt><dd><p><em>grdfile</em> is the name of the binary output grid file. (See
-<a class="reference internal" href="gmt.html#grd-inout-full"><span class="std std-ref">Grid File Formats</span></a>).</p>
-</dd>
-</dl>
+<span class="target" id="g"></span><p><strong>-G</strong><em>outgrid</em>[=<em>ID</em>][<strong>+d</strong><em>divisor</em>][<strong>+n</strong><em>invalid</em>]
+[<strong>+o</strong><em>offset</em>|<strong>a</strong>][<strong>+s</strong><em>scale</em>|<strong>a</strong>]
+[:<em>driver</em>[<em>dataType</em>][<strong>+c</strong><em>options</em>]]</p>
+<blockquote>
+<div><p>Give the name of the output grid file. Optionally, append =<em>ID</em> for writing a specific file format
+(<a class="reference internal" href="gmt.html#grd-inout-full"><span class="std std-ref">See full description</span></a>). The following modifiers are
+supported:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><strong>+d</strong> - Divide data values by given <em>divisor</em> [Default is 1].</p></li>
+<li><p><strong>+n</strong> - Replace data values matching <em>invalid</em> with a NaN.</p></li>
+<li><p><strong>+o</strong> - Offset data values by the given <em>offset</em>, or append <strong>a</strong> for
+automatic range offset to preserve precision for integer grids
+[Default is 0].</p></li>
+<li><p><strong>+s</strong> - Scale data values by the given <em>scale</em>, or append <strong>a</strong> for
+automatic scaling to preserve precision for integer grids [Default
+is 1].</p></li>
+</ul>
+</div></blockquote>
+<p>Note: Any offset is added before any scaling. <strong>+sa</strong> also sets <strong>+oa</strong>
+(unless overridden). To write specific formats via GDAL, use = <em>gd</em>
+and supply <em>driver</em> (and optionally <em>dataType</em>) and/or one or more
+concatenated GDAL <strong>-co</strong> options using <strong>+c</strong>. See
+the <a class="reference internal" href="cookbook/features.html#write-grids-images"><span class="std std-ref">“Writing grids and images” cookbook section</span></a>
+for more details.</p>
+</div></blockquote>
 <dl class="simple" id="i">
 <dt><strong>-I</strong><em>xinc</em>[<strong>+e</strong>|<strong>n</strong>][/<em>yinc</em>[<strong>+e</strong>|<strong>n</strong>]]</dt><dd><p><em>x_inc</em> [and optionally <em>y_inc</em>] is the grid spacing. <strong>Geographical
-(degrees) coordinates</strong>: Optionally, append a increment unit. Choose among
+(degrees) coordinates</strong>: Optionally, append an increment unit. Choose among
 <strong>m</strong> to indicate arc minutes or <strong>s</strong> to indicate arc seconds. If one
 of the units <strong>e</strong>, <strong>f</strong>, <strong>k</strong>, <strong>M</strong>, <strong>n</strong> or <strong>u</strong> is appended
 instead, the increment is assumed to be given in meter, foot, km, Mile,
@@ -382,18 +404,20 @@ ymax, append <strong>y</strong>. Append <strong>s</strong><em>n</em> to skip the
 of bytes (probably a header). If the byte-order or the words needs
 to be swapped, append <strong>w</strong>. Select one of several data types (all
 binary except <strong>a</strong>):</p>
-<p><strong>A</strong> ASCII representation of one or more floating point values per record</p>
-<p><strong>a</strong> ASCII representation of a single item per record</p>
-<p><strong>c</strong> int8_t, signed 1-byte character</p>
-<p><strong>u</strong> uint8_t, unsigned 1-byte character</p>
-<p><strong>h</strong> int16_t, signed 2-byte integer</p>
-<p><strong>H</strong> uint16_t, unsigned 2-byte integer</p>
-<p><strong>i</strong> int32_t, signed 4-byte integer</p>
-<p><strong>I</strong> uint32_t, unsigned 4-byte integer</p>
-<p><strong>l</strong> int64_t, long (8-byte) integer</p>
-<p><strong>L</strong> uint64_t, unsigned long (8-byte) integer</p>
-<p><strong>f</strong> 4-byte floating point single precision</p>
-<p><strong>d</strong> 8-byte floating point double precision</p>
+<ul class="simple">
+<li><p><strong>A</strong> ASCII representation of one or more floating point values per record</p></li>
+<li><p><strong>a</strong> ASCII representation of a single item per record</p></li>
+<li><p><strong>c</strong> int8_t, signed 1-byte character</p></li>
+<li><p><strong>u</strong> uint8_t, unsigned 1-byte character</p></li>
+<li><p><strong>h</strong> int16_t, signed 2-byte integer</p></li>
+<li><p><strong>H</strong> uint16_t, unsigned 2-byte integer</p></li>
+<li><p><strong>i</strong> int32_t, signed 4-byte integer</p></li>
+<li><p><strong>I</strong> uint32_t, unsigned 4-byte integer</p></li>
+<li><p><strong>l</strong> int64_t, long (8-byte) integer</p></li>
+<li><p><strong>L</strong> uint64_t, unsigned long (8-byte) integer</p></li>
+<li><p><strong>f</strong> 4-byte floating point single precision</p></li>
+<li><p><strong>d</strong> 8-byte floating point double precision</p></li>
+</ul>
 <p>Default format is scanline orientation of ASCII numbers: <strong>-ZTLa</strong>.
 The difference between <strong>A</strong> and <strong>a</strong> is that the latter can decode both
 <em>date</em><strong>T</strong><em>clock</em> and <em>ddd:mm:ss[.xx]</em> formats but expects each
@@ -403,7 +427,7 @@ Translate incoming <em>z</em>-values via the <strong>-i</strong>0 option and nee
 </dd>
 </dl>
 <dl class="simple">
-<dt><strong>-bi</strong>[<em>ncols</em>][<strong>t</strong>] <a class="reference internal" href="gmt.html#bi-full"><span class="std std-ref">(more …)</span></a></dt><dd><p>Select native binary format for primary input. [Default is 3 input columns]. This option only applies
+<dt><strong>-bi</strong><em>record</em>[<strong>+b</strong>|<strong>l</strong>] <a class="reference internal" href="gmt.html#bi-full"><span class="std std-ref">(more …)</span></a></dt><dd><p>Select native binary format for primary table input. [Default is 3 input columns]. This option only applies
 to xyz input files; see <strong>-Z</strong> for z tables.</p>
 </dd>
 </dl>
@@ -425,11 +449,11 @@ to xyz input files; see <strong>-Z</strong> for z tables.</p>
 </dd>
 </dl>
 <dl class="simple">
-<dt><strong>-i</strong><em>cols</em>[<strong>+l</strong>][<strong>+d</strong><em>divide</em>][<strong>+s</strong><em>scale</em>][<strong>+o</strong><em>offset</em>][,<em>…</em>][,<strong>t</strong>[<em>word</em>]] <a class="reference internal" href="gmt.html#icols-full"><span class="std std-ref">(more …)</span></a></dt><dd><p>Select input columns and transformations (0 is first column, <strong>t</strong> is trailing text, append <em>word</em> to read one word only).</p>
+<dt><strong>-i</strong><em>cols</em>[<strong>+l</strong>][<strong>+d</strong><em>divisor</em>][<strong>+s</strong><em>scale</em>|<strong>d</strong>|<strong>k</strong>][<strong>+o</strong><em>offset</em>][,<em>…</em>][,<strong>t</strong>[<em>word</em>]] <a class="reference internal" href="gmt.html#icols-full"><span class="std std-ref">(more …)</span></a></dt><dd><p>Select input columns and transformations (0 is first column, <strong>t</strong> is trailing text, append <em>word</em> to read one word only).</p>
 </dd>
 </dl>
 <dl class="simple">
-<dt><strong>-qi</strong>[~]<em>rows</em>[<strong>+c</strong><em>col</em>][<strong>+a</strong>|<strong>f</strong>|<strong>s</strong>] <a class="reference internal" href="gmt.html#qi-full"><span class="std std-ref">(more …)</span></a></dt><dd><p>Select input rows or data range(s) [default is all rows].</p>
+<dt><strong>-qi</strong>[~]<em>rows</em>|<em>limits</em>[<strong>+c</strong><em>col</em>][<strong>+a</strong>|<strong>f</strong>|<strong>s</strong>] <a class="reference internal" href="gmt.html#qi-full"><span class="std std-ref">(more …)</span></a></dt><dd><p>Select input rows or data limit(s) [default is all rows].</p>
 </dd>
 </dl>
 <dl class="simple">
@@ -564,7 +588,7 @@ that is assigned to each node in a cartesian data set, use</p>
     <p>
         &#169; Copyright 2021, The GMT Team..
       <span class="lastupdated">
-        Last updated on Jun 06, 2021.
+        Last updated on Sep 30, 2021.
       </span>
 
     </p>

@@ -134,15 +134,16 @@
 <li class="toctree-l1"><a class="reference internal" href="std-opts-classic.html">Common Options (Classic Mode)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="modules-classic.html">Modules (Classic Mode)</a></li>
 </ul>
-<p class="caption"><span class="caption-text">Developer Resources</span></p>
+<p class="caption"><span class="caption-text">Development</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/GenericMappingTools/gmt/blob/master/CONTRIBUTING.md">Contributing Guide</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/GenericMappingTools/gmt/blob/master/CODE_OF_CONDUCT.md">Code of Conduct</a></li>
-<li class="toctree-l1"><a class="reference internal" href="rst-cheatsheet.html">reStructuredText Cheatsheet</a></li>
-<li class="toctree-l1"><a class="reference internal" href="debug.html">Debugging GMT</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api.html">GMT C API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="postscriptlight.html">PostScriptLight C API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="devdocs.html">Developer Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devdocs/team.html">Team Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devdocs/rst-cheatsheet.html">reStructuredText Cheatsheet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devdocs/debug.html">Debugging GMT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devdocs/api.html">GMT C API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devdocs/postscriptlight.html">PostScriptLight C API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devdocs/devdocs.html">GMT Enhancement Proposals</a></li>
 </ul>
 
             
@@ -238,7 +239,7 @@
 <div class="section" id="synopsis">
 <h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a></h2>
 <p><strong>gmt dimfilter</strong> <em>ingrid</em>
-<a class="reference internal" href="#d"><span><strong>-D</strong></span></a></strong><em>distance_flag</em>
+<a class="reference internal" href="#d"><span><strong>-D</strong></span></a></strong><em>0-4</em>
 <a class="reference internal" href="#f"><span><strong>-F</strong></span></a></strong><strong>x</strong><em>width</em>[<em>modifier</em>]
 <a class="reference internal" href="#g"><span><strong>-G</strong></span></a></strong><em>outgrid</em>
 <a class="reference internal" href="#n"><span><strong>-N</strong></span></a></strong><strong>x</strong><em>sectors</em>[<em>modifier</em>]
@@ -249,6 +250,7 @@
 [ <a class="reference internal" href="#t"><span><strong>-T</strong></span></a></strong> ]
 [ <a class="reference internal" href="#v"><span><strong>-V</strong></span></a></strong>[<em>level</em>] ]
 [ <strong>-f</strong><a class="reference internal" href="gmt.html#f-full"><span class="std std-ref">flags</span></a> ]
+[ <strong>-h</strong><a class="reference internal" href="gmt.html#h-full"><span class="std std-ref">headers</span></a> ]
 [ <strong>--PAR</strong>=<em>value</em> ]</p>
 <p><strong>Note:</strong> No space is allowed between the option flag and the associated arguments.</p>
 </div>
@@ -273,60 +275,106 @@ DiM-filtered data is generally recommended.</p>
 </div>
 <div class="section" id="required-arguments">
 <h2>Required Arguments<a class="headerlink" href="#required-arguments" title="Permalink to this headline">¶</a></h2>
-<dl class="simple">
-<dt><em>ingrid</em></dt><dd><p>The input grid to be filtered (see <a class="reference internal" href="gmt.html#grd-inout-full"><span class="std std-ref">Grid File Formats</span></a>).</p>
-</dd>
-</dl>
+<p><em>ingrid</em>[=<em>ID</em>|?<em>varname</em>][<strong>+b</strong><em>band</em>][<strong>+d</strong><em>divisor</em>][<strong>+n</strong><em>invalid</em>]
+[<strong>+o</strong><em>offset</em>][<strong>+s</strong><em>scale</em>]</p>
+<blockquote>
+<div><p>The input grid to be filtered. Optionally, append =<em>ID</em> for reading a specific file
+format [Default is =<em>nf</em>] or ?<em>varname</em> for a specific netCDF variable
+[Default is the first 2-D grid found by GMT]
+(<a class="reference internal" href="gmt.html#grd-inout-full"><span class="std std-ref">See full description</span></a>). The following modifiers are
+supported:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><strong>+b</strong> - Select a <em>band</em> (for images only) [Default is 0].</p></li>
+<li><p><strong>+d</strong> - Divide data values by the given <em>divisor</em> [Default is 1].</p></li>
+<li><p><strong>+n</strong> - Replace data values matching <em>invalid</em> with NaN.</p></li>
+<li><p><strong>+o</strong> - Offset data values by the given <em>offset</em> [Default is 0].</p></li>
+<li><p><strong>+s</strong> - Scale data values by the given <em>scale</em> [Default is 1].</p></li>
+</ul>
+</div></blockquote>
+<p>Note: Any offset is added after any scaling.</p>
+</div></blockquote>
 <dl id="d">
-<dt><strong>-D</strong><em>distance_flag</em></dt><dd><p>Distance <em>flag</em> tells how grid (x,y) relates to filter <em>width</em>, as follows:</p>
-<p><em>flag</em> = 0: grid (x,y) same units as <em>width</em>, Cartesian distances.
-<em>flag</em> = 1: grid (x,y) in degrees, <em>width</em> in kilometers, Cartesian distances.
-<em>flag</em> = 2: grid (x,y) in degrees, <em>width</em> in km, dx scaled by
-cos(middle y), Cartesian distances.</p>
+<dt><strong>-D</strong><em>flag</em></dt><dd><p>Distance <em>flag</em> (0-4) determines how grid (x,y) relates to filter <em>width</em>, as follows:</p>
+<ul class="simple">
+<li><p><em>flag</em> = 0: grid (x,y) in same units as <em>width</em>, Cartesian distances.</p></li>
+<li><p><em>flag</em> = 1: grid (x,y) in degrees, <em>width</em> in kilometers, Cartesian distances.</p></li>
+<li><p><em>flag</em> = 2: grid (x,y) in degrees, <em>width</em> in km, dx scaled by
+cos(middle y), Cartesian distances.</p></li>
+</ul>
 <p>The above options are fastest because they allow weight matrix to be
-computed only once. The next three options are slower because they
+computed only once. The next two options are slower because they
 recompute weights for each latitude.</p>
-<p><em>flag</em> = 3: grid (x,y) in degrees, <em>width</em> in km, dx scaled by
-cosine(y), Cartesian distance calculation.</p>
-<p><em>flag</em> = 4: grid (x,y) in degrees, <em>width</em> in km, Spherical distance
-calculation.</p>
+<ul class="simple">
+<li><p><em>flag</em> = 3: grid (x,y) in degrees, <em>width</em> in km, dx scaled by
+cosine(y), Cartesian distance calculation.</p></li>
+<li><p><em>flag</em> = 4: grid (x,y) in degrees, <em>width</em> in km, Spherical distance
+calculation.</p></li>
+</ul>
 </dd>
 </dl>
 <dl id="f">
-<dt><strong>-F</strong><strong>x</strong><em>width</em>[<em>modifier</em>]</dt><dd><p>Sets the primary filter type. Choose among convolution and
+<dt><strong>-F</strong><strong>x</strong><em>width</em>[<strong>+l</strong>|<strong>u</strong>]</dt><dd><p>Sets the primary filter type. Choose among convolution and
 non-convolution filters. Append the filter code <strong>x</strong> followed by the full
 diameter <em>width</em>. Available convolution filters are:</p>
-<p>(<strong>b</strong>) Boxcar: All weights are equal.</p>
-<p>(<strong>c</strong>) Cosine Arch: Weights follow a cosine arch curve.</p>
-<p>(<strong>g</strong>) Gaussian: Weights are given by the Gaussian function.</p>
+<ul class="simple">
+<li><p>(<strong>b</strong>) Boxcar: All weights are equal.</p></li>
+<li><p>(<strong>c</strong>) Cosine Arch: Weights follow a cosine arch curve.</p></li>
+<li><p>(<strong>g</strong>) Gaussian: Weights are given by the Gaussian function.</p></li>
+</ul>
 <p>Non-convolution filters are:</p>
-<p>(<strong>m</strong>) Median: Returns median value.</p>
-<p>(<strong>p</strong>) Maximum likelihood probability (a mode estimator): Return
-modal value. If more than one mode is found we return their average
-value. Append <strong>+l</strong> or <strong>+h</strong> to the filter width if you rather want to
-return the smallest or largest of each sector’s modal values.</p>
+<ul class="simple">
+<li><p>(<strong>m</strong>) Median: Returns median value.</p></li>
+<li><p>(<strong>p</strong>) Maximum likelihood probability (a mode estimator): Return modal
+value. If more than one mode is found we return their average value.
+Append <strong>+l</strong> or <strong>+h</strong> to the filter width if you rather want to return
+the smallest or largest of each sector’s modal values.</p></li>
+</ul>
 </dd>
 </dl>
-<dl id="n">
-<dt><strong>-N</strong><strong>x</strong><em>sectors</em>[<em>modifier</em>]</dt><dd><p>Sets the secondary filter type <strong>x</strong> and the number of bow-tie sectors.
+<dl class="simple" id="n">
+<dt><strong>-N</strong><strong>x</strong><em>sectors</em>[<strong>+l</strong>|<strong>u</strong>]</dt><dd><p>Sets the secondary filter type <strong>x</strong> and the number of bow-tie sectors.
 <em>sectors</em> must be integer and larger than 0. When <em>sectors</em> is
 set to 1, the secondary filter is not effective. Available secondary
 filters <strong>x</strong> are:</p>
-<p>(<strong>l</strong>) Lower: Return the minimum of all filtered values.</p>
-<p>(<strong>u</strong>) Upper: Return the maximum of all filtered values.</p>
-<p>(<strong>a</strong>) Average: Return the mean of all filtered values.</p>
-<p>(<strong>m</strong>) Median: Return the median of all filtered values.</p>
-<p>(<strong>p</strong>) Mode: Return the mode of all filtered values:
-If more than one mode is found we return their average
-value. Append <strong>+l</strong> or <strong>+h</strong> to the sectors if you rather want to
-return the smallest or largest of the modal values.</p>
+<ul class="simple">
+<li><p>(<strong>l</strong>) Lower: Return the minimum of all filtered values.</p></li>
+<li><p>(<strong>u</strong>) Upper: Return the maximum of all filtered values.</p></li>
+<li><p>(<strong>a</strong>) Average: Return the mean of all filtered values.</p></li>
+<li><p>(<strong>m</strong>) Median: Return the median of all filtered values.</p></li>
+<li><p>(<strong>p</strong>) Mode: Return the mode of all filtered values: If more than one
+mode is found we return their average value. Append <strong>+l</strong> or <strong>+h</strong> to
+the sectors if you rather want to return the smallest or largest of the
+modal values.</p></li>
+</ul>
 </dd>
 </dl>
-<dl class="simple" id="g">
-<dt><strong>-G</strong><em>outgrid</em></dt><dd><p><em>outgrid</em> is the name of the binary output grid file. (See
-<a class="reference internal" href="gmt.html#grd-inout-full"><span class="std std-ref">Grid File Formats</span></a>).</p>
-</dd>
-</dl>
+<span class="target" id="g"></span><p><strong>-G</strong><em>outgrid</em>[=<em>ID</em>][<strong>+d</strong><em>divisor</em>][<strong>+n</strong><em>invalid</em>]
+[<strong>+o</strong><em>offset</em>|<strong>a</strong>][<strong>+s</strong><em>scale</em>|<strong>a</strong>]
+[:<em>driver</em>[<em>dataType</em>][<strong>+c</strong><em>options</em>]]</p>
+<blockquote>
+<div><p>Give the name of the output grid file. Optionally, append =<em>ID</em> for writing a specific file format
+(<a class="reference internal" href="gmt.html#grd-inout-full"><span class="std std-ref">See full description</span></a>). The following modifiers are
+supported:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><strong>+d</strong> - Divide data values by given <em>divisor</em> [Default is 1].</p></li>
+<li><p><strong>+n</strong> - Replace data values matching <em>invalid</em> with a NaN.</p></li>
+<li><p><strong>+o</strong> - Offset data values by the given <em>offset</em>, or append <strong>a</strong> for
+automatic range offset to preserve precision for integer grids
+[Default is 0].</p></li>
+<li><p><strong>+s</strong> - Scale data values by the given <em>scale</em>, or append <strong>a</strong> for
+automatic scaling to preserve precision for integer grids [Default
+is 1].</p></li>
+</ul>
+</div></blockquote>
+<p>Note: Any offset is added before any scaling. <strong>+sa</strong> also sets <strong>+oa</strong>
+(unless overridden). To write specific formats via GDAL, use = <em>gd</em>
+and supply <em>driver</em> (and optionally <em>dataType</em>) and/or one or more
+concatenated GDAL <strong>-co</strong> options using <strong>+c</strong>. See
+the <a class="reference internal" href="cookbook/features.html#write-grids-images"><span class="std std-ref">“Writing grids and images” cookbook section</span></a>
+for more details.</p>
+</div></blockquote>
 </div>
 <div class="section" id="optional-arguments">
 <h2>Optional Arguments<a class="headerlink" href="#optional-arguments" title="Permalink to this headline">¶</a></h2>
@@ -369,6 +417,10 @@ conduct the error analysis.</p>
 </dl>
 <dl class="simple">
 <dt><strong>-f</strong>[<strong>i</strong>|<strong>o</strong>]<em>colinfo</em> <a class="reference internal" href="gmt.html#f-full"><span class="std std-ref">(more …)</span></a></dt><dd><p>Specify data types of input and/or output columns.  </p>
+</dd>
+</dl>
+<dl class="simple">
+<dt><strong>-h</strong>[<strong>i</strong>|<strong>o</strong>][<em>n</em>][<strong>+c</strong>][<strong>+d</strong>][<strong>+m</strong><em>segheader</em>][<strong>+r</strong><em>remark</em>][<strong>+t</strong><em>title</em>] <a class="reference internal" href="gmt.html#h-full"><span class="std std-ref">(more …)</span></a></dt><dd><p>Skip or produce header record(s).  </p>
 </dd>
 </dl>
 <dl class="simple">
@@ -491,7 +543,7 @@ Geosyst.</em>, <strong>9</strong>, Q03005, doi:10.1029/2007GC001850.</p>
     <p>
         &#169; Copyright 2021, The GMT Team..
       <span class="lastupdated">
-        Last updated on Jun 06, 2021.
+        Last updated on Sep 30, 2021.
       </span>
 
     </p>

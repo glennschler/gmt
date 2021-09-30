@@ -227,15 +227,16 @@
 <li class="toctree-l1"><a class="reference internal" href="../std-opts-classic.html">Common Options (Classic Mode)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../modules-classic.html">Modules (Classic Mode)</a></li>
 </ul>
-<p class="caption"><span class="caption-text">Developer Resources</span></p>
+<p class="caption"><span class="caption-text">Development</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/GenericMappingTools/gmt/blob/master/CONTRIBUTING.md">Contributing Guide</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/GenericMappingTools/gmt/blob/master/CODE_OF_CONDUCT.md">Code of Conduct</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../rst-cheatsheet.html">reStructuredText Cheatsheet</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../debug.html">Debugging GMT</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api.html">GMT C API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../postscriptlight.html">PostScriptLight C API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../devdocs.html">Developer Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../devdocs/team.html">Team Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../devdocs/rst-cheatsheet.html">reStructuredText Cheatsheet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../devdocs/debug.html">Debugging GMT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../devdocs/api.html">GMT C API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../devdocs/postscriptlight.html">PostScriptLight C API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../devdocs/devdocs.html">GMT Enhancement Proposals</a></li>
 </ul>
 
             
@@ -816,6 +817,9 @@ position of different quadrants for perspective and polar plots and select the
 equivalent of <strong>WrStZ</strong>. The default for the Gnomonic and general perspective
 projections is <strong>WESNZ</strong>. The default for non-perspective, non-Gnomonic, and
 non-polar plots using <strong>MAP_FRAME_AXES</strong>=<strong>auto</strong> is <strong>WrStZ</strong>.</p>
+<p>For <strong>MAP_LABEL_OFFSET, **auto</strong> will scale the offset based on figure size if
+<strong>MAP_LABEL_MODE</strong> is set to <strong>annot</strong>, but will default to <strong>32p</strong> if
+<strong>MAP_LABEL_MODE</strong> is set to <strong>axis</strong>.</p>
 </div>
 <div class="section" id="changing-gmt-defaults">
 <h3><span class="section-number">3.3.3. </span>Changing GMT defaults<a class="headerlink" href="#changing-gmt-defaults" title="Permalink to this headline">¶</a></h3>
@@ -1031,13 +1035,15 @@ iterative solutions, and the like. Since these messages are written to
 may optionally choose among six models of <em>verbosity</em>; each mode adds
 more messages with an increasing level of details. The modes are</p>
 <blockquote>
-<div><p><strong>q</strong> Complete silence, not even fatal error messages.</p>
-<p><strong>e</strong> Errors messages only.</p>
-<p><strong>w</strong> Warnings [Default].</p>
-<p><strong>t</strong> Timings (for time-intensive algorithms only).</p>
-<p><strong>i</strong> Informational messages.</p>
-<p><strong>c</strong> Compatibility warnings about deprecated usage (if compiled for compatibility).</p>
-<p><strong>d</strong> Debugging messages (mostly of interest to developers).</p>
+<div><ul class="simple">
+<li><p><strong>q</strong> - Quiet, not even fatal error messages are produced.</p></li>
+<li><p><strong>e</strong> - Error messages only.</p></li>
+<li><p><strong>w</strong> - Warnings (same as running without <strong>-V</strong>)</p></li>
+<li><p><strong>t</strong> - Timings (report runtimes for time-intensive algorithms).</p></li>
+<li><p><strong>i</strong> - Informational messages (same as <strong>-V</strong> only).</p></li>
+<li><p><strong>c</strong> - Compatibility warnings (if compiled with backward-compatibility).</p></li>
+<li><p><strong>d</strong> - Debugging messages (mostly of interest to developers).</p></li>
+</ul>
 </div></blockquote>
 <p>The verbosity is cumulative, i.e., mode <strong>w</strong> means all messages of mode
 <strong>e</strong> as well will be reported.</p>
@@ -1127,9 +1133,9 @@ binary metafile plot systems since such files cannot easily be modified
 after they have been created. GMT programs also write many comments to
 the plot file which make it easier for users to orient themselves should
 they need to edit the file (e.g., % Start of x-axis) <a class="footnote-reference brackets" href="#id18" id="id7">16</a>. All
-GMT programs create PostScript code by calling the <a class="reference internal" href="../postscriptlight.html"><span class="doc">PSL</span></a> plot
+GMT programs create PostScript code by calling the <a class="reference internal" href="../devdocs/postscriptlight.html"><span class="doc">PSL</span></a> plot
 library (The user may call these functions from his/her own C or FORTRAN
-plot programs. See the manual pages for <a class="reference internal" href="../postscriptlight.html"><span class="doc">PSL</span></a> syntax). Although
+plot programs. See the manual pages for <a class="reference internal" href="../devdocs/postscriptlight.html"><span class="doc">PSL</span></a> syntax). Although
 GMT programs can create very individualized plot code, there will
 always be cases not covered by these programs. Some knowledge of
 PostScript will enable the user to add such features directly into the
@@ -2284,8 +2290,8 @@ gmt end show
 <h3><span class="section-number">3.20.7. </span>Automatic CPTs<a class="headerlink" href="#automatic-cpts" title="Permalink to this headline">¶</a></h3>
 <p>A few modules (<a class="reference internal" href="../grdimage.html"><span class="doc">grdimage</span></a>, <a class="reference internal" href="../grdview.html"><span class="doc">grdview</span></a>) that expects a CPT option will
 provide a default CPT if none is provided.  By default, the default CPT is the
-“turbo” color table, but this is overridden if the user uses the &#64;eart_relief
-(we select “geo”) or &#64;srtm_relief (we select “srtm”) data sets.  After selection,
+<em>turbo</em> color table, but this is overridden if the user uses the &#64;earth_relief
+(we select <em>geo</em>) or &#64;srtm_relief (we select <em>srtm</em>) data sets.  After selection,
 these CPTs are read and scaled to match the range of the grid values. You may append
 <strong>+i</strong><em>dz</em> to the CPT to have the exact range rounded to nearest multiple of <em>dz</em>.
 This is helpful if you plan to place a colorbar and prefer start and stop <em>z</em>-values
@@ -3292,15 +3298,15 @@ conventions for netCDF grids. Thus, products created under those
 conventions (provided the grid is 2-, 3-, 4-, or 5-dimensional) can be
 read directly by GMT and the netCDF grids written by GMT can be read
 by other programs that conform to those conventions. Three such programs are
-<a class="reference external" href="http://meteora.ucsd.edu/~pierce/ncview_home_page.html">ncview</a>, <a class="reference external" href="http://www.giss.nasa.gov/tools/panoply/">Panoply</a>, and <a class="reference external" href="https://www.pmel.noaa.gov/epic/java/ncBrowse/">ncBrowse</a> ; others can be found on the
+<a class="reference external" href="https://cirrus.ucsd.edu/~pierce/software/ncview/index.html">ncview</a>, <a class="reference external" href="http://www.giss.nasa.gov/tools/panoply/">Panoply</a>, and <a class="reference external" href="https://www.pmel.noaa.gov/epic/java/ncBrowse/">ncBrowse</a> ; others can be found on the
 <a class="reference external" href="http://www.unidata.ucar.edu/software/netcdf/software.html">netCDF website</a>.
 Note that although many additional programs can read netCDF files, some are unable
-to read netcdf 4 files (if data compression has been applied).</p>
+to read netCDF 4 files (if data compression has been applied).</p>
 <p>In addition, users with some C-programming experience may add their own
 read/write functions and link them with the GMT library to extend the
 number of predefined formats. Technical information on this topic can be
-found in the source file <code class="docutils literal notranslate"><span class="pre">gmt_customio.c</span></code>. Users who are considering this approach
-should contact the GMT team.</p>
+found in the source file <code class="docutils literal notranslate"><span class="pre">gmt_customio.c</span></code>. Users who are considering this
+approach should contact the GMT team for guidance.</p>
 <table class="docutils align-default" id="tbl-grdformats">
 <colgroup>
 <col style="width: 14%" />
@@ -3405,16 +3411,17 @@ integer file may use a unique value to signify an empty node or NaN, and
 the data may need translation and scaling prior to use. Therefore, all
 GMT programs that read or write grid files will decode the given
 filename as follows:</p>
-<p>name[=<em>ID</em>][<strong>+s</strong><em>scale</em>][<strong>+o</strong><em>offset</em>][<strong>+n</strong><em>invalid</em>]</p>
+<p>name[=<em>ID</em>][<strong>+d</strong><em>divisor</em>][<strong>+n</strong><em>invalid</em>][<strong>+o</strong><em>offset</em>][<strong>+s</strong><em>scale</em>]</p>
 <p>where anything in brackets is optional. If you are reading a grid then
-no options are needed: just continue to pass the name of the grid file.
-However, if you write another format you must append the =<em>ID</em> string,
-where <em>ID</em> is the format code listed above. In addition, should you want
-to (1) multiply the data by a scale factor, and (2) add a constant
-offset you must append the <strong>+s</strong><em>scale</em> and <strong>+o</strong><em>offset</em> modifiers. Finally, if you
-need to indicate that a certain data value should be interpreted as a
-NaN (not-a-number) you must append <strong>+n</strong><em>invalid</em> modifier to file name.
-You may the scale as <em>a</em> for auto-adjusting the scale and/or offset of
+no <em>ID</em> is needed: just continue to pass the name of the grid file.
+However, if you write another format than the default netCDF you must append
+the =<em>ID</em> string, where <em>ID</em> is the format code listed above. In addition,
+should you want to (1) multiply the data by a <em>scale</em> factor (or alternatively
+divide the data by a <em>divisor</em>), and (2) add a constant offset you must append
+the <strong>+s</strong><em>scale</em> (or <strong>+d</strong><em>divisor</em>) and <strong>+o</strong><em>offset</em> modifiers.
+Finally, if you need to indicate that a certain data value should be interpreted
+as a NaN (not-a-number) you must append <strong>+n</strong><em>invalid</em> modifier to file name.
+For output, you may specify scale as <em>a</em> for auto-adjusting the scale and/or offset of
 packed integer grids (=<em>ID</em><strong>+s</strong><em>a</em> is a shorthand for
 =<em>ID</em><strong>+s</strong><em>a</em><strong>+o</strong><em>a</em>).</p>
 <p><strong>Note</strong>: Users are allowed to name their grid files anything they want.  However,
@@ -3793,7 +3800,7 @@ Subdatasets:
 append the name of the sub-dataset that we want to extract. Here, a
 simple example using <a class="reference internal" href="../grdinfo.html"><span class="doc">grdinfo</span></a> would be</p>
 <blockquote>
-<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gmt grdinfo A20030012003365.L3m_YR_NSST_9<span class="o">=</span>gd?HDF4_SDS:UNKNOWN:<span class="s2">&quot;A20030012003365.L3m_YR_NSST_9:0&quot;</span>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gmt grdinfo A20030012003365.L3m_YR_NSST_9<span class="o">=</span>gd?HDF4_SDS:UNKNOWN:<span class="s2">&quot;A20030012003365.L3m_YR_NSST_9&quot;</span>:0
 
 HDF4_SDS:UNKNOWN:A20030012003365.L3m_YR_NSST_9:0: Title: Grid imported via GDAL
 HDF4_SDS:UNKNOWN:A20030012003365.L3m_YR_NSST_9:0: Command:
@@ -3814,7 +3821,7 @@ scaling is not applied by GDAL on reading so it cannot be done
 automatically by GMT. One solution is to do the reading and scaling
 via <a class="reference internal" href="../grdmath.html"><span class="doc">grdmath</span></a> first, i.e.,</p>
 <blockquote>
-<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gmt grdmath A20030012003365.L3m_YR_NSST_9<span class="o">=</span>gd?HDF4_SDS:UNKNOWN:<span class="s2">&quot;A20030012003365.L3m_YR_NSST_9:0&quot;</span> <span class="se">\</span>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gmt grdmath A20030012003365.L3m_YR_NSST_9<span class="o">=</span>gd?HDF4_SDS:UNKNOWN:<span class="s2">&quot;A20030012003365.L3m_YR_NSST_9&quot;</span>:0 <span class="se">\</span>
             <span class="m">0</span>.000717185 MUL -2 <span class="nv">ADD</span> <span class="o">=</span> sst.nc
 </pre></div>
 </div>
@@ -3826,7 +3833,7 @@ via <a class="reference internal" href="../grdmath.html"><span class="doc">grdma
 <p>Saving images in the common raster formats is possible but, for the time being, only from <a class="reference internal" href="../grdimage.html"><span class="doc">grdimage</span></a> and even
 that is restricted to raster type information. That is, vector data (for instance, coast lines) or text will not
 be saved. To save an image with <a class="reference internal" href="../grdimage.html"><span class="doc">grdimage</span></a> use the <strong>-A</strong><em>outimg=driver</em> mechanism, where <em>driver</em>
-is the driver code name used by GDAL (e.g. GTiff).</p>
+is the driver code name used by GDAL (e.g. GTiff) (run <cite>gdal_translate --formats</cite> for the full list.)</p>
 <p>For all other programs that create grids, it is also possible to save them using GDAL. To do it one need to use
 the =gd appended with the necessary information regarding the driver and the data type to use. Generically,
 =<strong>gd</strong>[<strong>+s</strong><em>scale</em>][<strong>+o</strong><em>offset</em>][<strong>+n</strong><em>nan</em>][:&lt;<em>driver</em>&gt;[/<em>dataType</em>][<strong>+c</strong><em>options</em>]]
@@ -3837,6 +3844,9 @@ number of GDAL <em>-co</em> options. For example, to write a lossless JPG2000 gr
 <strong>+c</strong>QUALITY=100<strong>+c</strong>REVERSIBLE=YES<strong>+c</strong>YCBCR420=NO
 <strong>Note</strong>: You will have to specify a <em>nan</em> value for integer data types unless you wish that all NaN data values
 should be replaced by zero.</p>
+<p>Consider setting <a class="reference internal" href="../gmt.conf.html#term-IO_NC4_DEFLATION_LEVEL"><span class="xref std std-term">IO_NC4_DEFLATION_LEVEL</span></a> to reduce file size and to further increase read/write performance.
+Especially when working with subsets of global grids, masks, and grids with repeating grid values, the improvement is
+usually significant.</p>
 </div>
 </div>
 <div class="section" id="the-nan-data-value">
@@ -3988,7 +3998,7 @@ off; see <a class="reference internal" href="../gmt.conf.html#term-PS_COMMENTS">
     <p>
         &#169; Copyright 2021, The GMT Team..
       <span class="lastupdated">
-        Last updated on Jun 06, 2021.
+        Last updated on Sep 30, 2021.
       </span>
 
     </p>
